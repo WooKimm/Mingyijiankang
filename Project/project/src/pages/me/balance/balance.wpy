@@ -1,0 +1,79 @@
+<style lang="less">
+.balance-content{
+    width: 750rpx;
+    height: 325rpx;
+    padding: 45rpx 30rpx 75rpx 30rpx;
+    background: #ffffff;
+    border-top: 1rpx solid #f2f2f2;
+    box-sizing: border-box;
+}
+
+.balance-title{
+    color: #999999;
+    font-size: 28rpx;
+    line-height: 40rpx;
+}
+
+.balance-count{
+    font-size: 50rpx;
+    line-height: 70rpx;
+    font-weight: 700;
+    margin-left: 10rpx;
+    margin-top: 95rpx;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="放心优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <view class="balance-content">
+            <view class="balance-title">优选储值余额</view>
+            <view class="balance-count" style="color:{{color.red}}">￥{{balance}}</view>
+        </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+import NavBar from '@/components/navBar'
+import api from '@/api/api'
+
+  export default class Balance extends wepy.page {
+    components = {
+        navBar: NavBar
+    }
+
+    data = {
+        balance: 32.9,
+        isIphoneX: false,
+        color: {}
+    }
+
+    methods = {
+        
+    }
+
+    events = {
+        
+    }
+
+    async onLoad() {
+        var self = this;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        var jwt = wx.getStorageSync('jwt');
+        if (jwt.data.access_token != null) {
+            let myBalance = await api.getMyBalance({
+                query: {
+                    access_token: jwt.data.access_token,
+                    account_id: jwt.data.account_id
+                }
+            });
+            
+            console.log(myBalance);
+            self.balance = myBalance.data.balance;
+            self.$apply();
+        }
+        self.$apply();
+    }
+  }
+</script>

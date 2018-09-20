@@ -1,0 +1,159 @@
+<style lang="less">
+.container {
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.page-body {
+    height: 100%;
+    padding-bottom: 240rpx;
+    box-sizing: border-box;
+}
+
+#myMap {
+    width: 750rpx;
+    height: 100%;
+}
+
+.page-body-button {
+    height: 90rpx;
+    line-height: 90rpx;
+    margin-top: 30rpx;
+}
+</style>
+<template>
+    <view class="container">
+        <navBar navTitle="地图" isChildPage="y"></navBar>
+        <view class="page-body">
+            <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location="true"></map>
+            <view class="btn-area">
+                <button bindtap="getCenterLocation" class="page-body-button" type="primary">获取位置</button>
+                <button bindtap="pointClosest" class="page-body-button" type="primary">显示最近标记点</button>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+
+export default class Map extends wepy.page {
+    components = {
+        navBar: NavBar
+    };
+
+    data = {
+        latitude: 30.5378,
+        longitude: 114.3628,
+        location: {
+            longitude: 0,
+            latitude: 0
+        },
+        shopChoose: {
+            name: '',
+            latitude: 0,
+            longitude: 0
+        },
+        markers: [
+            {
+                id: 1,
+                name: '自强超市1',
+                latitude: 30.5378,
+                longitude: 114.3628,
+                iconPath: '/icons/position.png',
+                label: {
+                    content: '自强超市1',
+                    color: '#f54a4a',
+                    fontSize: 12,
+                    anchorX: 0.001,
+                    anchorY: 0.001,
+                    borderWidth: 1,
+                    borderColor: '#cccccc',
+                    bgColor: '#fafafa',
+                    textAlign: 'center'
+                }
+            },
+            {
+                id: 2,
+                name: '自强超市2',
+                latitude: 30.53,
+                longitude: 114.36,
+                iconPath: '/icons/position.png',
+                label: {
+                    content: '自强超市2',
+                    color: '#f54a4a',
+                    fontSize: 12,
+                    anchorX: 0.001,
+                    anchorY: 0.001,
+                    borderWidth: 1,
+                    borderColor: '#cccccc',
+                    bgColor: '#fafafa',
+                    textAlign: 'center'
+                }
+            }
+        ]
+    };
+
+    computed = {};
+
+    methods = {
+        getCenterLocation() {
+            var self = this;
+            self.mapCtx.getCenterLocation({
+                success: function(res) {
+                    console.log(res.longitude);
+                    console.log(res.latitude);
+                    self.location.longitude = res.longitude;
+                    self.location.latitude = res.latitude;
+                }
+            });
+            // self.mapCtx.moveToLocation();
+        },
+        translateMarker() {
+            this.mapCtx.translateMarker({
+                markerId: 2,
+                autoRotate: true,
+                duration: 1000,
+                destination: {
+                    latitude: 30.54,
+                    longitude: 114.37
+                },
+                animationEnd() {
+                    console.log('animation end');
+                }
+            });
+        },
+        pointClosest() {
+            var self = this;
+            var distance = 0,
+                curDis = 0;
+            var la, lo;
+            var elementChoose;
+            self.markers.forEach(element => {
+                la = element.latitude - self.location.latitude;
+                lo = element.longitude - self.location.longitude;
+                curDis = la * la + lo * lo;
+                if (distance < curDis) {
+                    distance = curDis;
+                    elementChoose = element;
+                }
+            });
+            console.log(elementChoose);
+            self.shopChoose.longitude = elementChoose.longitude;
+            self.shopChoose.latitude = elementChoose.latitude;
+            self.shopChoose.name = elementChoose.name;
+            self.$apply();
+            console.log(self.shopChoose);
+        }
+    };
+
+    events = {};
+
+    onLoad() {
+        var self = this;
+        self.mapCtx = wx.createMapContext('myMap');
+        // self.mapCtx.moveToLocation();
+    }
+}
+</script>

@@ -1,0 +1,284 @@
+<style lang="less">
+page {
+    padding-bottom: 20rpx;
+}
+
+.redPacket-content {
+    width: 750rpx;
+}
+
+.redPacket-use {
+    width: 750rpx;
+    height: 90rpx;
+    padding: 0 30rpx;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.redPacket-use-title {
+    font-size: 28rpx;
+    line-height: 90rpx;
+    display: inline-block;
+}
+
+.redPacket-use-cancel {
+    width: 45rpx;
+    height: 45rpx;
+    margin: 22rpx 0;
+    border-radius: 50%;
+    float: right;
+}
+
+.redPacket-empty{
+    color: #999999;
+    font-size: 26rpx;
+    line-height: 200rpx;
+    text-align: center;
+}
+
+.redPacket-tip {
+    font-size: 24rpx;
+    line-height: 30rpx;
+    padding-left: 20rpx;
+    margin: 15rpx 0;
+}
+
+.redPacket-item {
+    width: 690rpx;
+    height: 190rpx;
+    margin: 0 30rpx 20rpx 30rpx;
+    position: relative;
+}
+
+.redPacket-bg {
+    width: 690rpx;
+    height: 190rpx;
+    position: absolute;
+    z-index: -1;
+}
+
+.redPacket-item-count {
+    width: 215rpx;
+    height: 190rpx;
+    font-size: 30rpx;
+    line-height: 70rpx;
+    text-align: center;
+    padding: 60rpx 0;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    text {
+        font-size: 70rpx;
+    }
+}
+
+.redPacket-item-content {
+    width: 370rpx;
+    height: 190rpx;
+    color: #999999;
+    font-size: 22rpx;
+    line-height: 30rpx;
+    padding: 50rpx 0 50rpx 50rpx;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.redPacket-item-use {
+    width: 105rpx;
+    height: 190rpx;
+    color: #ffffff;
+    font-size: 26rpx;
+    line-height: 105rpx;
+    letter-spacing: 2rpx;
+    text-align: center;
+    writing-mode: vertical-rl;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.redPacket-overdue .redPacket-item-count,
+.redPacket-overdue .redPacket-item-content {
+    color: #cccccc;
+}
+
+.redPacket-more {
+    color: #999999;
+    font-size: 22rpx;
+    line-height: 60rpx;
+    text-align: center;
+    margin-bottom: 20rpx;
+}
+
+.redPacket-recommend {
+    padding: 35rpx 20rpx 0 20rpx;
+    background: #ffffff;
+}
+
+.redPacket-recommend-title {
+    font-size: 32rpx;
+    line-height: 45rpx;
+    padding-left: 10rpx;
+    margin-bottom: 35rpx;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="放心优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <view class="redPacket-content">
+            <view wx:if="{{type == 1}}" class="redPacket-use">
+                <view class="redPacket-use-title">不使用红包</view>
+                <image src="/icons/select-{{use == false?'yes':'no'}}.png" class="redPacket-use-cancel" @tap="cancelUse" />
+            </view>
+            <block wx:if="{{redPacket.length == 0}}">
+                <view wx:if="{{coupon.length == 0}}" class="redPacket-empty">当前暂无红包</view>
+            </block>
+            <block wx:else>
+                <view wx:if="{{tipCount > 0}}" class="redPacket-tip">您有
+                    <text style="color:{{color.red}}">{{tipCount}}</text>个红包已过期</view>
+                <repeat for="{{redPacket}}" key="id">
+                    <view class="redPacket-item {{item.overdue ? 'redPacket-overdue' : ''}}">
+                        <image src="{{item.overdue ? '/icons/redPacket-overdue.png' : '/icons/redPacket-bg.png'}}" class="redPacket-bg" />
+                        <view class="redPacket-item-count" style="color:{{color.red}}">￥
+                            <text>{{item.count}}</text>
+                        </view>
+                        <view class="redPacket-item-content">
+                            <view class="redPacket-item-name">{{item.name}}</view>
+                            <view class="redPacket-item-satisfy">满{{item.satisfy}}可用</view>
+                            <view class="redPacket-item-date">有效期：{{item.date}}</view>
+                        </view>
+                        <view class="redPacket-item-use" @tap="redPacketChoose({{item.overdue}}, {{item.id}}, {{item.count}})">立即使用</view>
+                    </view>
+                </repeat>
+                <view class="redPacket-more">没有更多了</view>
+            </block>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+import api from '@/api/api';
+
+export default class RedPacket extends wepy.page {
+    components = {
+        navBar: NavBar
+    };
+
+    data = {
+        type: 0,
+        use: false,
+        tipCount: 0,
+        redPacket: [],
+        isIphoneX: false,
+        color: {}
+    };
+
+    methods = {
+        redPacketChoose(overdue, id, count, events) {
+            if (overdue) return;
+
+            wx.setStorage({
+                key: 'redPacket',
+                data: {
+                    id: id,
+                    count: count
+                }
+            });
+
+            wx.navigateBack({
+                delta: 1
+            });
+        },
+
+        cancelUse() {
+            if (this.use) {
+                this.use = false;
+                this.$apply();
+
+                wx.setStorage({
+                    key: 'redPacket',
+                    data: {
+                        id: '',
+                        count: 0
+                    }
+                });
+
+                wx.navigateBack({
+                    delta: 1
+                });
+            }
+        }
+    };
+
+    events = {};
+
+    filterRedPacket() {
+        var self = this;
+        let nowTime = new Date().getTime();
+        let overTimeStr = '';
+        var overTime;
+
+        self.redPacket.forEach((item, index) => {
+            if (item.overdue) {
+                overTimeStr = item.date;
+                overTime = new Date(overTimeStr).getTime();
+                console.log(overTime);
+                let time = (nowTime - overTime) / 1000;
+                console.log(time);
+                let day = parseInt(time / (60 * 60 * 24));
+                if (day >= 7) {
+                    self.redPacket.splice(index, 1);
+                } else {
+                    self.tipCount++;
+                }
+            }
+        });
+
+        self.redPacket.forEach(element => {
+            element.count = parseInt(element.count);
+        });
+
+        self.$apply();
+    }
+
+    whetherUse() {
+        var redPacket = wx.getStorageSync('redPacket');
+        if (redPacket.id != '') {
+            this.use = true;
+            this.$apply();
+        }
+    }
+
+    async onLoad(options) {
+        var self = this;
+        self.type = options.type;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        var jwt = wx.getStorageSync('jwt');
+        try {
+            if (jwt.data.access_token != null) {
+                let redPackets = await api.getUserRedPacket({
+                    query: {
+                        access_token: jwt.data.access_token,
+                        account_id: jwt.data.account_id
+                    }
+                });
+                console.log(redPackets);
+                self.redPacket = redPackets.data;
+                self.$apply();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        self.filterRedPacket();
+        if (self.type == 1) {
+            self.whetherUse();
+        }
+
+        self.$apply();
+    }
+}
+</script>

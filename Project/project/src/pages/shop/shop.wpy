@@ -1,0 +1,226 @@
+<style lang="less">
+.shop-content {
+    width: 750rpx;
+}
+
+.shop-area {
+    width: 750rpx;
+    height: 85rpx;
+    background: #ffffff;
+    border-top: 1rpx solid #f2f2f2;
+    border-bottom: 1rpx solid #f2f2f2;
+    white-space: nowrap;
+}
+
+.shop-area-item {
+    width: 150rpx;
+    height: 80rpx;
+    font-size: 28rpx;
+    line-height: 75rpx;
+    text-align: center;
+    display: inline-block;
+    border-bottom: 5rpx solid #ffffff;
+    box-sizing: border-box;
+}
+
+.shop-list {
+    width: 750rpx;
+}
+
+.shop-item {
+    width: 750rpx;
+    height: 161rpx;
+    padding: 20rpx 30rpx;
+    border-bottom: 1rpx solid #f2f2f2;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.shop-item-img {
+    width: 120rpx;
+    height: 120rpx;
+    margin-right: 30rpx;
+    background: #fdedeb;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.shop-item-content {
+    width: 400rpx;
+    height: 120rpx;
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+}
+
+.shop-item-name {
+    width: 300rpx;
+    font-size: 28rpx;
+    line-height: 40rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.shop-item-address {
+    width: 400rpx;
+    color: #999999;
+    font-size: 26rpx;
+    line-height: 30rpx;
+    margin-top: 20rpx;
+}
+
+.shop-item-distance {
+    font-size: 24rpx;
+    line-height: 40rpx;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.shop-item-choose {
+    width: 100rpx;
+    height: 60rpx;
+    font-size: 26rpx;
+    line-height: 58rpx;
+    text-align: center;
+    margin: 30rpx 0 30rpx 40rpx;
+    border: 1rpx solid #cccccc;
+    border-radius: 10rpx;
+    box-sizing: border-box;
+    vertical-align: top;
+    display: inline-block;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="选择门店" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <view class="shop-content">
+            <scroll-view scroll-x class="shop-area">
+                <repeat for="{{area}}" key="index">
+                    <view class="shop-area-item" style="{{item == areaChoose ? 'color:' + color.red + ';border-bottom:5rpx solid ' + color.red + ';' : ''}}" @tap="chooseArea({{item}})">{{item}}</view>
+                </repeat>
+            </scroll-view>
+            <view class="shop-list">
+                <repeat for="{{shop}}" key="id">
+                    <view wx:if="{{item.area == areaChoose}}" class="shop-item">
+                        <image src="" class="shop-item-img" />
+                        <view class="shop-item-content">
+                            <view class="shop-item-name">{{item.name}}</view>
+                            <view class="shop-item-address">{{item.address}}</view>
+                            <view class="shop-item-distance" style="color:{{color.red}};">{{item.distance}}</view>
+                        </view>
+                        <view class="shop-item-choose" @tap="chooseShop({{index}})">选择</view>
+                    </view>
+                </repeat>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+import api from '@/api/api';
+
+export default class Shop extends wepy.page {
+    components = {
+        navBar: NavBar
+    };
+
+    data = {
+        areaChoose: '',
+        shopChoose: {},
+        area: [],
+        shop: [],
+        isIphoneX: false,
+        color: {}
+    };
+
+    methods = {
+        chooseArea(area, e) {
+            this.areaChoose = area;
+            this.$apply();
+        },
+
+        chooseShop(index, e) {
+            var self = this;
+            wx.setStorageSync('shopChoose', self.shop[index]);
+            wx.navigateBack({
+                delta: 1
+            });
+        }
+    };
+
+    events = {};
+
+    async onLoad() {
+        var self = this;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        var latitude = 0.0;
+        var longitude = 0.0;
+        wx.getLocation({
+            type: 'wgs84',
+            success: function(res) {
+                console.log(res);
+                latitude = res.latitude;
+                longitude = res.longitude;
+                self.$apply();
+                console.log('position: ' + latitude + ' , ' + longitude);
+            }
+        });
+
+        let shops = await api.getShops({
+            query: {
+                currentX: latitude,
+                currentY: longitude
+            }
+        });
+        console.log(shops);
+        self.shop = shops.data;
+        self.area.push(self.shop[0].area);
+        var i = 1;
+        var j = 0;
+        for (var i = 1; i < self.shop.length; i++) {
+            j = 0;
+            for (var j = 0; j < self.area.length; j++) {
+                if (self.shop[i].area == self.area[j]) {
+                    break;
+                }
+            }
+            if (j == self.area.length) {
+                self.area.push(self.shop[i].area);
+            }
+        }
+        self.shopChoose = wx.getStorageSync('shopChoose');
+        if (self.shopChoose) {
+            self.areaChoose = self.shopChoose.area;
+        } else {
+            self.areaChoose = self.shop[0].area;
+        }
+        self.$apply();
+
+        var dis = 0;
+        self.shop.forEach(element => {
+            if (element.distance < 1000) {
+                element.distance += 'm';
+            } else if (element.distance < 10000) {
+                dis = element.distance / 10;
+                dis = parseInt(dis, 10);
+                dis = dis / 100;
+                dis++;
+                element.distance = dis + 'km';
+            } else if (element.distance < 100000) {
+                dis = element.distance / 1000;
+                dis = parseInt(dis, 10);
+                dis++;
+                element.distance = '<' + dis + 'km';
+            } else {
+                element.distance = '>100km';
+            }
+            self.$apply();
+        });
+    }
+}
+</script>

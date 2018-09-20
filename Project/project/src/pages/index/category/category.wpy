@@ -1,0 +1,396 @@
+<style lang="less">
+.container {
+    height: 100vh;
+    padding-bottom: 90rpx;
+}
+
+.category-content {
+    width: 750rpx;
+    height: 100%;
+    background: #ffffff;
+}
+
+.category-header {
+    width: 690rpx;
+    height: 75rpx;
+    margin: 0 30rpx 20rpx 30rpx;
+}
+
+.category-shop {
+    height: 75rpx;
+    display: inline-block;
+}
+
+.category-icon-position {
+    width: 26rpx;
+    height: 39rpx;
+    margin: 18rpx 0;
+    vertical-align: top;
+}
+
+.shop-name {
+    font-size: 28rpx;
+    line-height: 75rpx;
+    margin: 0 20rpx;
+}
+
+.category-icon-down {
+    width: 45rpx;
+    height: 45rpx;
+    margin-top: 18rpx;
+    vertical-align: top;
+}
+
+.category-icon-search {
+    width: 35rpx;
+    height: 35rpx;
+    margin-top: 20rpx;
+    vertical-align: top;
+    float: right;
+}
+
+.category-banner,
+.category-banner-item,
+.category-banner-img {
+    width: 690rpx;
+    height: 280rpx;
+    margin: 0 30rpx;
+    border-radius: 20rpx;
+}
+
+.category-banner {
+    margin-bottom: 45rpx;
+    background: #fdedeb;
+}
+
+.category-type {
+    width: 690rpx;
+    margin: 0 30rpx 80rpx 30rpx;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+}
+
+.category-type-item {
+    width: 100rpx;
+    height: 155rpx;
+    text-align: center;
+    display: inline-block;
+}
+
+.category-type-icon {
+    width: 100rpx;
+    height: 100rpx;
+}
+
+.category-type-text {
+    font-size: 24rpx;
+    line-height: 25rpx;
+    text-align: center;
+    margin-top: 20rpx;
+    display: block;
+}
+
+.product-title {
+    font-size: 32rpx;
+    line-height: 40rpx;
+    margin: 10rpx 0;
+    text-align: center;
+}
+
+.category-product-type {
+    font-size: 32rpx;
+    line-height: 30rpx;
+    margin-top: 40rpx;
+    margin-bottom: 10rpx;
+    text-align: center;
+}
+
+.category-product-type:last-child {
+    display: none;
+}
+
+.product-item-price {
+    font-size: 30rpx;
+    line-height: 30rpx;
+    position: absolute;
+    left: 0;
+    bottom: 20rpx;
+    text {
+        color: #999999;
+        font-size: 22rpx;
+        line-height: 20rpx;
+        text-decoration: line-through;
+        vertical-align: bottom;
+        display: inline-block;
+    }
+}
+
+.category-empty {
+    color: #999999;
+    font-size: 30rpx;
+    line-height: 200rpx;
+    text-align: center;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="放心优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <scroll-view scroll-y scroll-into-view="{{curType}}" scroll-with-animation="true" class="category-content">
+            <view class="category-header">
+                <view class="category-shop">
+                    <image src="/icons/position.png" class="category-icon-position" />
+                    <text class="shop-name">{{shopChoose}}</text>
+                    <image src="/icons/down.png" class="category-icon-down" />
+                </view>
+                <image src="/icons/search.png" class="category-icon-search" />
+            </view>
+            <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#ffffff" autoplay="true" interval="5000" duration="1000" circular="true" class="category-banner">
+                <repeat for="{{banner}}" key="index">
+                    <swiper-item class="category-banner-item">
+                        <image src="{{item.imgUrl}}" mode="aspectFill" class="category-banner-img" @tap="navToProduct({{item.productID}})" />
+                    </swiper-item>
+                </repeat>
+            </swiper>
+            <view wx:if="{{type.length > 0}}" class="category-type" style="justify-content: {{type.length > 4 ? 'space-between' : 'space-around'}};">
+                <repeat for="{{type}}" key="index">
+                    <view class="category-type-item" @tap="scrollToType({{item.scrollID}})">
+                        <image src="{{item.imgUrl}}" class="category-type-icon" />
+                        <view class="category-type-text">{{item.name}}</view>
+                    </view>
+                </repeat>
+            </view>
+            <view class="category-product">
+                <view class="product-title">{{category}}</view>
+                <repeat for="{{type}}" key="id" item="type">
+                    <view class="category-product=block">
+                        <view class="category-product-type" id="{{type.scrollID}}">{{type.name}}</view>
+                        <repeat for="{{product}}" key="id">
+                            <product wx:if="{{item.type == type.id}}" :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="category-product-item">
+                                <view slot="price" class="product-item-price" style="color:{{color.red}}">¥{{item.price}}
+                                    <text wx:if="{{item.oriPrice >= 0}}">¥{{item.oriPrice}}</text>
+                                </view>
+                                <image slot="cart" src="/icons/cart-recommend.png" class="product-icon-cart" @tap.stop="chooseSpec({{item.id}})" />
+                            </product>
+                        </repeat>
+                    </view>
+                </repeat>
+            </view>
+            <view wx:if="{{product.length == 0}}" class="category-empty">暂无商品</view>
+        </scroll-view>
+        <view wx:if="{{isChoosing}}" class="product-select" @tap="selectClose()">
+            <view class="product-select-container" style="bottom: 92rpx;" @tap.stop="selectContent()">
+                <view class="product-select-close" @tap="selectClose()">×</view>
+                <view class="product-select-content">
+                    <image mode="aspectFill" src="{{curProduct.imgUrl}}" class="product-select-img" />
+                    <view class="product-select-info">
+                        <view class="product-select-name">{{curProduct.name}}</view>
+                        <view class="product-select-price" style="color:{{color.red}}">￥{{curProduct.spec[specChoose].price}}</view>
+                        <view class="product-select-remain">库存：{{curProduct.remain}}</view>
+                    </view>
+                    <view class="product-select-spec">
+                        <view class="product-spec-title">规格：</view>
+                        <view class="product-spec-content">
+                            <repeat for="{{curProduct.spec}}" key="index">
+                                <view class="product-spec-item" style="{{index == specChoose? 'color:' + color.red + ';border: 2rpx solid ' + color.red + ';' : ''}}" @tap="specChoose({{index}})">{{item.name}}</view>
+                            </repeat>
+                        </view>
+                    </view>
+                    <view class="product-select-count">
+                        <text>数量：</text>
+                        <view class="product-count-choose">
+                            <view class="product-count-reduce" style="{{count > 1 ? 'color:' + color.red + ';' : ''}}" @tap="countMinus">-</view>
+                            <view class="product-count-current" style="color:{{color.red}};">{{count}}</view>
+                            <view class="product-count-add" style="{{count < curProduct.remain ? 'color:' + color.red + ';' : ''}}" @tap="countPlus">+</view>
+                        </view>
+                    </view>
+                    <view hover-class="navigator-hover" class="product-select-buy" style="background:{{color.red}}" @tap.stop="addToCart">加入购物车</view>
+                </view>
+            </view>
+        </view>
+        <tabbar curTab="0" :selectedColor.sync="color.red"></tabbar>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+import Tabbar from '@/components/tabbar';
+import Product from '@/components/productBlock';
+import api from '@/api/api';
+
+export default class Category extends wepy.page {
+    config = {};
+    components = {
+        navBar: NavBar,
+        tabbar: Tabbar,
+        product: Product
+    };
+
+    data = {
+        curType: '',
+        shopChoose: '春树馆街小区',
+        category: '',
+        categoryID: '',
+        banner: [
+            {
+                imgUrl: '',
+                productID: ''
+            },
+            {
+                imgUrl: '',
+                productID: ''
+            },
+            {
+                imgUrl: '',
+                productID: ''
+            },
+            {
+                imgUrl: '',
+                productID: ''
+            }
+        ],
+        type: [],
+        product: [],
+        isChoosing: false,
+        curProduct: {},
+        specChoose: 0,
+        count: 1,
+        isIphoneX: false,
+        color: {}
+    };
+
+    computed = {};
+
+    methods = {
+        scrollToType(type, e) {
+            this.curType = '';
+            this.curType = type;
+            this.$apply();
+        },
+
+        navToProduct(product, event) {
+            wx.navigateTo({
+                url: '/pages/product/product?id=' + product
+            });
+        },
+
+        chooseSpec(id) {
+            var self = this;
+            self.product.forEach(element => {
+                if (element.id == id) {
+                    self.curProduct = element;
+                }
+            });
+            self.specChoose = 0;
+            self.count = 1;
+            self.isChoosing = true;
+            self.$apply();
+            console.log(self.curProduct);
+        },
+
+        specChoose(spec, e) {
+            this.specChoose = spec;
+            this.$apply();
+        },
+
+        selectClose() {
+            this.isChoosing = false;
+            this.$apply();
+        },
+
+        selectContent() {
+            return;
+        },
+
+        countMinus() {
+            if (this.count > 1) {
+                this.count--;
+                this.$apply();
+            }
+        },
+
+        countPlus() {
+            if (this.count < this.curProduct.remain) {
+                this.count++;
+                this.$apply();
+            }
+        },
+
+        addToCart() {
+            var self = this;
+            var shoppingCart = wx.getStorageSync('shoppingCart');
+            var hasCur = false;
+            if (shoppingCart.length > 0) {
+                shoppingCart.forEach(element => {
+                    if (element.id == self.id) {
+                        hasCur = true;
+                        element.count += self.count;
+                        return;
+                    }
+                });
+            } else {
+                shoppingCart = [];
+            }
+
+            if (hasCur == false) {
+                shoppingCart.push({
+                    id: self.curProduct.id,
+                    name: self.curProduct.name,
+                    image: self.curProduct.imgUrl,
+                    spec: self.curProduct.spec[self.specChoose].name,
+                    price: self.curProduct.spec[self.specChoose].price,
+                    oriPrice: self.curProduct.oriPrice,
+                    count: self.count
+                });
+            }
+
+            wx.setStorageSync('shoppingCart', shoppingCart);
+            wx.showToast({
+                title: '添加成功',
+                icon: 'success',
+                duration: 1000
+            });
+
+            console.log(shoppingCart);
+            this.isChoosing = false;
+            this.$apply();
+        }
+    };
+
+    onShareAppMessage() {
+        return {
+            title: '放心优选',
+            path: '/pages/index/index'
+        };
+    }
+
+    async onLoad(options) {
+        var self = this;
+        self.category = options.name;
+        self.categoryID = options.id;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        let res = await api.getCategoryProduct({
+            query: {
+                shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1',
+                categoryId: self.categoryID
+            }
+        });
+        console.log(res);
+        let categoryBannners = await api.getCategoryBanners({
+            query: {
+                shopId: '95c5106b900e47caab71ad7b049d9697',
+                typeId: '6c9c617d84da4454afca1c06bba07eec'
+            }
+        })
+        console.log(categoryBannners)
+        self.type = res.data.type;
+        self.type.forEach((item, index) => {
+            item.scrollID = 'type' + index;
+        });
+        self.product = res.data.product;
+        self.$apply();
+    }
+}
+</script>

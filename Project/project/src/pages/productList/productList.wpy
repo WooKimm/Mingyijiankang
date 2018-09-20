@@ -1,0 +1,102 @@
+<style lang="less">
+.productList-content {
+    width: 750rpx;
+    margin-top: 20rpx;
+}
+
+.productList-item {
+    width: 750rpx;
+    height: 190rpx;
+    padding: 20rpx 30rpx;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.productList-item-img {
+    width: 150rpx;
+    height: 150rpx;
+    margin-right: 20rpx;
+    border-radius: 10rpx;
+    background: #fdedeb;
+}
+
+.productList-item-content {
+    width: 435rpx;
+    height: 150rpx;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.productList-item-name {
+    width: 435rpx;
+    height: 30rpx;
+    font-size: 28rpx;
+    line-height: 30rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.productList-item-price {
+    width: 435rpx;
+    height: 35rpx;
+    font-size: 26rpx;
+    line-height: 35rpx;
+    margin-top: 85rpx;
+}
+
+.productList-item-count {
+    width: 85rpx;
+    height: 150rpx;
+    color: #989898;
+    font-size: 28rpx;
+    line-height: 30rpx;
+    text-align: right;
+    vertical-align: top;
+    display: inline-block;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="商品列表" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <view class="productList-content">
+            <repeat for="{{product}}" key="id">
+                <view class="productList-item">
+                    <image mode="aspectFill" src="{{item.image}}" class="productList-item-img" />
+                    <view class="productList-item-content">
+                        <view class="productList-item-name">{{item.name}}</view>
+                        <view class="productList-item-price">￥{{item.price}}</view>
+                    </view>
+                    <view class="productList-item-count">x{{item.count}}</view>
+                </view>
+            </repeat>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+
+export default class ProductList extends wepy.page {
+    components = {
+        navBar: NavBar
+    };
+
+    data = {
+        product: [],
+        isIphoneX: false
+    };
+
+    methods = {};
+
+    events = {};
+
+    onLoad(options) {
+        this.type = options.type;
+        this.product = wx.getStorageSync('orderProduct');
+        this.isIphoneX = this.$parent.globalData.isIphoneX;
+        this.$apply();
+    }
+}
+</script>

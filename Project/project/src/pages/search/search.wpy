@@ -1,0 +1,539 @@
+<style lang="less">
+page {
+    background: #ffffff;
+}
+
+.search-bar {
+    width: 690rpx;
+    height: 70rpx;
+    margin: 0 30rpx;
+    padding: 5rpx 0;
+}
+
+.search-bar-content {
+    width: 620rpx;
+    height: 60rpx;
+    padding-left: 55rpx;
+    padding-right: 30rpx;
+    border-radius: 30rpx;
+    background: #f2f2f2;
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+}
+
+.search-bar-icon {
+    width: 26rpx;
+    height: 26rpx;
+    position: absolute;
+    left: 20rpx;
+    top: 17rpx;
+}
+
+.search-bar-input {
+    width: 535rpx;
+    height: 60rpx;
+    font-size: 24rpx;
+    line-height: 60rpx;
+}
+
+.search-bar-cancel {
+    font-size: 26rpx;
+    line-height: 60rpx;
+    float: right;
+}
+
+.search-hot {
+    width: 750rpx;
+    padding: 0 30rpx;
+    padding-top: 35rpx;
+    padding-bottom: 50rpx;
+    border-bottom: 1rpx solid #f2f2f2;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.search-hot-title,
+.search-history-title {
+    color: #999999;
+    font-size: 26rpx;
+    line-height: 30rpx;
+    margin-bottom: 15rpx;
+}
+
+.search-hot-change {
+    font-size: 26rpx;
+    line-height: 30rpx;
+    position: absolute;
+    right: 30rpx;
+    top: 35rpx;
+}
+
+.search-hot-item,
+.search-history-item {
+    height: 40rpx;
+    font-size: 24rpx;
+    line-height: 40rpx;
+    margin-top: 10rpx;
+    margin-left: 10rpx;
+    padding: 0 30rpx;
+    border-radius: 20rpx;
+    background: #f2f2f2;
+    display: inline-block;
+}
+
+.search-history {
+    width: 750rpx;
+    padding: 0 30rpx;
+    padding-top: 40rpx;
+    padding-bottom: 50rpx;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.search-history-clear {
+    width: 25rpx;
+    height: 30rpx;
+    position: absolute;
+    right: 30rpx;
+    top: 40rpx;
+}
+
+.search-history-keyword {
+    min-height: 120rpx;
+}
+
+.search-recommend-title {
+    width: 750rpx;
+    font-size: 32rpx;
+    line-height: 35rpx;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+}
+
+.recommend-item {
+    padding: 40rpx 30rpx 40rpx 40rpx;
+}
+
+.recommend-item:not(:last-child) {
+    border-bottom: 1rpx solid #f2f2f2;
+}
+
+.recommend-item-img {
+    width: 220rpx;
+    height: 220rpx;
+    margin-right: 30rpx;
+    border: 1rpx solid #f5ebe4;
+    border-radius: 10rpx;
+    background: #fdedeb;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.recommend-item-content {
+    width: 430rpx;
+    height: 220rpx;
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+}
+
+.recommend-item-name {
+    width: 430rpx;
+    font-size: 30rpx;
+    line-height: 45rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.recommend-item-desc {
+    width: 430rpx;
+    color: #999999;
+    font-size: 24rpx;
+    line-height: 45rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.recommend-item-price {
+    font-size: 30rpx;
+    line-height: 65rpx;
+    margin-top: 75rpx;
+    text {
+        color: #999999;
+        font-size: 22rpx;
+        line-height: 40rpx;
+        text-decoration: line-through;
+    }
+}
+
+.search-icon-cart {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 20rpx;
+    right: 0;
+}
+
+.search-match-item {
+    width: 750rpx;
+    height: 90rpx;
+    font-size: 26rpx;
+    line-height: 90rpx;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #f2f2f2;
+}
+
+.search-result-item {
+    padding: 40rpx 0 40rpx 10rpx;
+}
+
+.search-result:not(:last-child) {
+    border-bottom: 1rpx solid #f2f2f2;
+}
+
+.search-result-img {
+    width: 220rpx;
+    height: 220rpx;
+    margin-right: 30rpx;
+    border: 1rpx solid #f5ebe4;
+    border-radius: 10rpx;
+    background: #fdedeb;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.search-result-content {
+    width: 430rpx;
+    height: 220rpx;
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+}
+
+.search-result-name {
+    width: 430rpx;
+    font-size: 30rpx;
+    line-height: 45rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-result-desc {
+    width: 430rpx;
+    color: #999999;
+    font-size: 24rpx;
+    line-height: 45rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-result-price {
+    font-size: 32rpx;
+    line-height: 40rpx;
+    margin-top: 85rpx;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="放心优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <view class="search-bar">
+            <view class="search-bar-content">
+                <image src="/icons/search.png" class="search-bar-icon" />
+                <input type="text" value="{{searchValue}}" placeholder="请输入商品名称" class="search-bar-input" confirm-type="search" bindinput="searchInput" bindconfirm="searchResult" />
+            </view>
+            <text class="search-bar-cancel" @tap="searchCancel">取消</text>
+        </view>
+        <view wx:if="{{searchValue == ''}}" class="search-initial">
+            <view class="search-hot">
+                <view class="search-hot-title">热门搜索</view>
+                <view class="search-hot-change" style="color:{{color.red}}">换一批</view>
+                <repeat for="{{hot}}" key="index">
+                    <view class="search-hot-item" @tap="chooseSearch({{item}})">{{item}}</view>
+                </repeat>
+            </view>
+            <view class="search-history">
+                <view class="search-history-title">历史搜索</view>
+                <image src="/icons/delete.png" class="search-history-clear" @tap="clearHistory()" />
+                <view class="search-history-keyword">
+                    <repeat for="{{history}}" key="index">
+                        <view class="search-history-item" @tap="chooseSearch({{item}})">{{item}}</view>
+                    </repeat>
+                </view>
+            </view>
+            <view class="search-recommend">
+                <view class="search-recommend-title">推荐商品</view>
+                <view class="search-recommend-product">
+                    <repeat for="{{recommend}}" key="id">
+                        <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
+                            <view slot="price" class="recommend-item-price" style="color:{{color.red}}">¥{{item.price}}
+                                <text wx:if="{{item.oriPrice > 0}}">¥{{item.oriPrice}}</text>
+                            </view>
+                            <image slot="cart" src="/icons/cart-recommend.png" class="product-icon-cart" @tap.stop="chooseSpec(0, {{index}})" />
+                        </product>
+                    </repeat>
+                </view>
+            </view>
+        </view>
+        <view wx:elif="{{showResult == false}}" class="search-match">
+            <repeat for="{{match}}" key="index">
+                <view class="search-match-item" @tap="chooseSearch({{item}})">{{item}}</view>
+            </repeat>
+        </view>
+        <view wx:else class="search-result">
+            <repeat for="{{result}}" key="id">
+                <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
+                    <view slot="price" class="search-result-price" style="color:{{color.red}}">¥{{item.price}}</view>
+                    <image slot="cart" src="/icons/cart-recommend.png" class="product-icon-cart" @tap.stop="chooseSpec(1, {{index}})" />
+                </product>
+            </repeat>
+        </view>
+        <view wx:if="{{isChoosing}}" class="product-select" @tap="selectClose()">
+            <view class="product-select-container" @tap.stop="selectContent()">
+                <view class="product-select-close" @tap="selectClose()">×</view>
+                <view class="product-select-content">
+                    <image mode="aspectFill" src="{{curProduct.imgUrl}}" class="product-select-img" />
+                    <view class="product-select-info">
+                        <view class="product-select-name">{{curProduct.name}}</view>
+                        <view class="product-select-price" style="color:{{color.red}}">￥{{curProduct.spec[specChoose].price}}</view>
+                        <view class="product-select-remain">库存：{{curProduct.remain}}</view>
+                    </view>
+                    <view class="product-select-spec">
+                        <view class="product-spec-title">规格：</view>
+                        <view class="product-spec-content">
+                            <repeat for="{{curProduct.spec}}" key="index">
+                                <view class="product-spec-item" style="{{index == specChoose? 'color:' + color.red + ';border: 2rpx solid ' + color.red + ';' : ''}}" @tap="specChoose({{index}})">{{item.name}}</view>
+                            </repeat>
+                        </view>
+                    </view>
+                    <view class="product-select-count">
+                        <text>数量：</text>
+                        <view class="product-count-choose">
+                            <view class="product-count-reduce" style="{{count > 1 ? 'color:' + color.red + ';' : ''}}" @tap="countMinus">-</view>
+                            <view class="product-count-current" style="color:{{color.red}};">{{count}}</view>
+                            <view class="product-count-add" style="{{count < curProduct.remain ? 'color:' + color.red + ';' : ''}}" @tap="countPlus">+</view>
+                        </view>
+                    </view>
+                    <view hover-class="navigator-hover" class="product-select-buy" style="background:{{color.red}}" @tap.stop="addToCart">加入购物车</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+import Product from '@/components/productBlock';
+import api from '@/api/api';
+export default class Search extends wepy.page {
+    components = {
+        navBar: NavBar,
+        product: Product
+    };
+
+    data = {
+        searchValue: '',
+        showResult: false,
+        hot: [],
+        history: [],
+        recommend: [],
+        match: [],
+        result: [],
+        isChoosing: false,
+        curProduct: {},
+        specChoose: 0,
+        count: 1,
+        isIphoneX: false,
+        color: {}
+    };
+
+    methods = {
+        chooseSearch(keyword) {
+            this.doSearch(keyword);
+        },
+
+        searchCancel(e) {
+            var self = this;
+            self.showResult = false;
+            self.searchValue = '';
+            self.$apply();
+        },
+
+        searchInput(e) {
+            var self = this;
+            self.showResult = false;
+            self.searchValue = e.detail.value;
+            if (self.searchValue != '') {
+                self.doMatch(self.searchValue);
+            }
+            self.$apply();
+        },
+
+        searchResult(e) {
+            this.doSearch(e.detail.value);
+        },
+
+        clearHistory() {
+            this.history = [];
+            wx.setStorage({
+                key: 'history',
+                data: history
+            });
+            this.$apply();
+        },
+
+        chooseSpec(type, index) {
+            var self = this;
+            if (type == 0) {
+                self.curProduct = self.recommend[index];
+            } else if (type == 1) {
+                self.curProduct = self.result[index];
+            }
+            self.specChoose = 0;
+            self.count = 1;
+            self.isChoosing = true;
+            self.$apply();
+            console.log(self.curProduct);
+        },
+
+        specChoose(spec, e) {
+            this.specChoose = spec;
+            this.$apply();
+        },
+
+        selectClose() {
+            this.isChoosing = false;
+            this.$apply();
+        },
+
+        selectContent() {
+            return;
+        },
+
+        countMinus() {
+            if (this.count > 1) {
+                this.count--;
+                this.$apply();
+            }
+        },
+
+        countPlus() {
+            if (this.count < this.curProduct.remain) {
+                this.count++;
+                this.$apply();
+            }
+        },
+
+        addToCart() {
+            var self = this;
+            var shoppingCart = wx.getStorageSync('shoppingCart');
+            var hasCur = false;
+            if (shoppingCart.length > 0) {
+                shoppingCart.forEach(element => {
+                    if (element.id == self.curProduct.id) {
+                        hasCur = true;
+                        element.count += self.count;
+                        return;
+                    }
+                });
+            } else {
+                shoppingCart = [];
+            }
+
+            if (hasCur == false) {
+                shoppingCart.push({
+                    id: self.curProduct.id,
+                    name: self.curProduct.name,
+                    image: self.curProduct.imgUrl,
+                    spec: self.curProduct.spec[self.specChoose].name,
+                    price: self.curProduct.spec[self.specChoose].price,
+                    oriPrice: self.curProduct.oriPrice,
+                    count: self.count
+                });
+            }
+
+            wx.setStorageSync('shoppingCart', shoppingCart);
+            wx.showToast({
+                title: '添加成功',
+                icon: 'success',
+                duration: 1000
+            });
+
+            console.log(shoppingCart);
+            this.isChoosing = false;
+            this.$apply();
+        }
+    };
+
+    async doMatch(keyword) {
+        var self = this;
+        let res = await api.getSearchResult({
+            query: {
+                searchValue: self.searchValue,
+                searchType: 1
+            }
+        });
+        var data = res.data;
+        if (data.length > 0) {
+            self.match = [];
+            data.forEach(element => {
+                self.match.push(element.name);
+            });
+        }
+        self.$apply();
+    }
+
+    async doSearch(keyword) {
+        var self = this;
+        self.searchValue = keyword;
+        self.showResult = true;
+        self.history.push(keyword);
+        wx.setStorage({
+            key: 'history',
+            data: self.history
+        });
+        let searchResult = await api.getSearchResult({
+            query: {
+                searchValue: keyword
+            }
+        });
+        console.log(searchResult);
+        self.result = searchResult.data;
+        self.$apply();
+    }
+
+    events = {};
+
+    async onLoad() {
+        var self = this;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        let recommendProducts = await api.getRecommendPros({
+            query: {
+                shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1'
+            }
+        });
+        console.log(recommendProducts);
+        self.recommend = recommendProducts.data;
+
+        let hotSearch = await api.getHotSearch();
+        self.hotSearch.forEach(element => {
+            self.hot.push(element.name);
+        });
+
+        var history = wx.getStorageSync('history');
+        if (history) {
+            self.history = history;
+        }
+
+        self.$apply();
+    }
+}
+</script>

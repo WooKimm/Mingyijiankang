@@ -1,0 +1,871 @@
+<style lang="less">
+page {
+    padding-bottom: 90rpx;
+}
+
+.shoppingCart-header {
+    width: 750rpx;
+    height: 5rpx;
+    background: #ffffff;
+    position: absolute;
+    top: 62px;
+}
+
+.shoppingCart-shop {
+    width: 750rpx;
+    height: 80rpx;
+    font-size: 28rpx;
+    line-height: 80rpx;
+    text-align: center;
+    background: #ffffff;
+    .icon-position {
+        width: 20rpx;
+        height: 30rpx;
+        margin: 25rpx 15rpx 25rpx 0;
+        vertical-align: top;
+    }
+}
+
+.shoppingCart-address {
+    width: 750rpx;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.shoppingCart-address-choose {
+    width: 690rpx;
+    height: 110rpx;
+    font-size: 28rpx;
+    line-height: 110rpx;
+    text-align: left;
+    .icon-position {
+        width: 20rpx;
+        height: 30rpx;
+        margin: 40rpx 15rpx 40rpx 0;
+        vertical-align: top;
+    }
+    .icon-in {
+        width: 15rpx;
+        height: 25rpx;
+        margin: 42.5rpx 0;
+        vertical-align: top;
+        float: right;
+    }
+}
+
+.shoppingCart-address-desc {
+    width: 690rpx;
+    height: 150rpx;
+    .icon-in {
+        width: 15rpx;
+        height: 25rpx;
+        margin: 62.5rpx 0;
+        vertical-align: top;
+        float: right;
+    }
+}
+
+.shoppingCart-address-content {
+    width: 675rpx;
+    height: 150rpx;
+    padding: 20rpx 0;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.address-desc {
+    font-size: 28rpx;
+    line-height: 70rpx;
+}
+
+.address-user {
+    color: #999999;
+    font-size: 22rpx;
+    line-height: 40rpx;
+}
+
+.shoppingCart-block {
+    width: 750rpx;
+    margin-bottom: 20rpx;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.shoppingCart-product {
+    padding-left: 30rpx;
+}
+
+.shoppingCart-item {
+    width: 720rpx;
+    height: 90rpx;
+    font-size: 28rpx;
+    line-height: 90rpx;
+    padding-right: 30rpx;
+    box-sizing: border-box;
+    text {
+        height: 90rpx;
+        font-size: 28rpx;
+        line-height: 90rpx;
+        box-sizing: border-box;
+        float: right;
+    }
+}
+
+.shoppingCart-item:not(:last-child) {
+    border-bottom: 1rpx solid #f2f2f2;
+}
+
+.shoppingCart-product-selectAll {
+    height: 90rpx;
+    display: inline-block;
+    text {
+        font-size: 28rpx;
+        line-height: 90rpx;
+        vertical-align: top;
+        display: inline-block;
+    }
+    .shoppingCart-icon-select {
+        margin: 22rpx 15rpx 22rpx 0;
+    }
+}
+
+.shoppingCart-icon-select {
+    width: 45rpx;
+    height: 45rpx;
+    text-align: center;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.shoppingCart-product-tip {
+    max-width: 550rpx;
+    height: 90rpx;
+    font-size: 24rpx;
+    line-height: 90rpx;
+    float: right;
+    text {
+        max-width: 500rpx;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+        float: none;
+    }
+    .icon-in {
+        width: 15rpx;
+        height: 25rpx;
+        margin: 32.5rpx 0 32.5rpx 10rpx;
+        vertical-align: top;
+    }
+}
+
+.shoppingCart-product-list {
+    width: 720rpx;
+    border-bottom: 1rpx solid #f2f2f2;
+}
+
+.shoppingCart-product-item {
+    width: 720rpx;
+    height: 225rpx;
+    padding: 30rpx 30rpx 30rpx 0;
+    box-sizing: border-box;
+    .shoppingCart-icon-select {
+        margin: 60rpx 0;
+        vertical-align: top;
+    }
+}
+
+.product-item-image {
+    width: 165rpx;
+    height: 165rpx;
+    margin: 0 15rpx;
+    border-radius: 10rpx;
+    vertical-align: top;
+}
+
+.product-item-content {
+    width: 450rpx;
+    height: 165rpx;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+}
+
+.product-item-name {
+    width: 450rpx;
+    font-size: 26rpx;
+    line-height: 45rpx;
+    letter-spacing: 2rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-item-price {
+    font-size: 26rpx;
+    line-height: 45rpx;
+    margin-top: 75rpx;
+    text {
+        color: #808080;
+        font-size: 22rpx;
+        line-height: 20rpx;
+        display: inline-block;
+        text-decoration: line-through;
+    }
+}
+
+.product-item-count {
+    position: absolute;
+    right: 0;
+    bottom: 10rpx;
+    text {
+        font-size: 26rpx;
+        line-height: 35rpx;
+        margin: 0 30rpx;
+        vertical-align: top;
+        display: inline-block;
+    }
+}
+
+.count-reduce,
+.count-add {
+    width: 35rpx;
+    height: 35rpx;
+    border-radius: 50%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.shoppingCart-product-subtotal {
+    width: 720rpx;
+    height: 80rpx;
+    font-size: 26rpx;
+    line-height: 80rpx;
+    text-align: right;
+    padding-right: 30rpx;
+    box-sizing: border-box;
+    text {
+        color: #808080;
+    }
+}
+
+.shoppingCart-redPacket {
+    padding-left: 30rpx;
+}
+
+.shoppingCart-redPacket-icon {
+    width: 25rpx;
+    height: 30rpx;
+    margin-right: 10rpx;
+}
+
+.shoppingCart-redPacket .icon-in,
+.shoppingCart-result-deliver .icon-in {
+    width: 15rpx;
+    height: 25rpx;
+    margin: 32.5rpx 0 32.5rpx 10rpx;
+    float: right;
+    vertical-align: top;
+}
+
+.shoppingCart-result {
+    padding-left: 30rpx;
+}
+
+.shoppingCart-deliver-input {
+    width: 550rpx;
+    height: 90rpx;
+    text-align: right;
+    float: right;
+}
+
+.picker-null {
+    color: #bfbfbf;
+}
+
+.shoppingCart-empty {
+    width: 750rpx;
+    height: 400rpx;
+    padding-top: 80rpx;
+    padding-bottom: 105rpx;
+    text-align: center;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.shoppingCart-empty-img {
+    width: 145rpx;
+    height: 160rpx;
+    display: inline-block;
+}
+
+.shoppingCart-empty-text {
+    color: #bfbfbf;
+    font-size: 28rpx;
+    line-height: 30rpx;
+    margin-top: 15rpx;
+}
+
+.shoppingCart-recommend {
+    padding: 35rpx 20rpx 0 20rpx;
+}
+
+.shoppingCart-recommend-title {
+    font-size: 32rpx;
+    line-height: 45rpx;
+    padding-left: 10rpx;
+    margin-bottom: 35rpx;
+}
+
+.shoppingCart-settle {
+    width: 750rpx;
+    height: 90rpx;
+    padding-left: 30rpx;
+    background: #ffffff;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+}
+
+.shoppingCart-settle-selectAll {
+    height: 90rpx;
+    display: inline-block;
+    text {
+        font-size: 32rpx;
+        line-height: 90rpx;
+        vertical-align: top;
+        display: inline-block;
+    }
+    .shoppingCart-icon-select {
+        margin: 20rpx 10rpx 20rpx 0;
+    }
+}
+
+.shoppingCart-settle-price {
+    padding-top: 15rpx;
+    padding-bottom: 20rpx;
+    margin-left: 35rpx;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.price-total {
+    font-size: 26rpx;
+    line-height: 30rpx;
+    max-width: 300rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.price-freight {
+    color: #999999;
+    font-size: 18rpx;
+    line-height: 30rpx;
+}
+
+.shoppingCart-settle-btn {
+    width: 260rpx;
+    height: 90rpx;
+    font-size: 32rpx;
+    line-height: 90rpx;
+    text-align: center;
+    color: #ffffff;
+    vertical-align: top;
+    float: right;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="放心优选" :isIphoneX.sync="isIphoneX"></navBar>
+        <view wx:if="{{shoppingCart.length > 0}}" class="shoppingCart-content">
+            <image src="/icons/address-bg.png" class="shoppingCart-header" />
+            <view wx:if="{{deliverChoose < 1}}" class="shoppingCart-block shoppingCart-shop">
+                <image src="/icons/position.png" class="icon-position" />
+                <text class="shop-name">{{shopChoose.name}}</text>
+            </view>
+            <navigator wx:else url="../address/address" class="shoppingCart-block shoppingCart-address">
+                <view wx:if="{{addressChoose.id == ''}}" class="shoppingCart-address-choose">
+                    <image src="/icons/position.png" class="icon-position" />
+                    <text>请点击选择收货地址</text>
+                    <image src="/icons/in.png" class="icon-in" />
+                </view>
+                <view wx:else class="shoppingCart-address-desc">
+                    <view class="shoppingCart-address-content">
+                        <view class="address-desc">{{addressChoose.desc}}</view>
+                        <view class="address-user">{{addressChoose.name}} {{addressChoose.phone}}</view>
+                    </view>
+                    <image src="/icons/in.png" class="icon-in" />
+                </view>
+            </navigator>
+            <view class="shoppingCart-block shoppingCart-product">
+                <view class="shoppingCart-item shoppingCart-product-manage">
+                    <view class="shoppingCart-product-selectAll">
+                        <image src="/icons/select-{{chooseAll == true?'yes':'no'}}.png" class="shoppingCart-icon-select" @tap="chooseAll" />
+                        <text>全选</text>
+                    </view>
+                    <view class="shoppingCart-product-tip" style="color:{{color.red}}">
+                        <text>满{{discount.count}}减{{discount.minus}}</text>
+                        <text wx:if="{{subtotal < discount.count}}">，还差{{difference}}，去凑单</text>
+                        <image src="/icons/in.png" class="icon-in" />
+                    </view>
+                </view>
+                <view class="shoppingCart-product-list">
+                    <repeat for="{{shoppingCart}}" key="id">
+                        <view class="shoppingCart-product-item" @tap="navToProduct({{item.id}})">
+                            <image src="/icons/select-{{isChoosen[index] == true?'yes':'no'}}.png" class="shoppingCart-icon-select" @tap.stop="chooseProduct({{index}})" />
+                            <image src="{{item.image}}" mode="aspectFill" class="product-item-image" />
+                            <view class="product-item-content">
+                                <view class="product-item-name">{{item.name}}</view>
+                                <view class="product-item-price" style="color:{{color.red}}">￥{{item.price}}
+                                    <text wx:if="{{item.oriPrice > 0}}">￥{{item.oriPrice}}</text>
+                                </view>
+                                <view class="product-item-count">
+                                    <image wx:if="{{item.count > 0}}" src="/icons/Reduce.png" class="count-reduce" @tap.stop="countReduce({{index}})" />
+                                    <text>{{item.count}}</text>
+                                    <image src="/icons/Add.png" class="count-add" @tap.stop="countAdd({{index}})" />
+                                </view>
+                            </view>
+                        </view>
+                    </repeat>
+                </view>
+                <view class="shoppingCart-product-subtotal">
+                    <text>小计：</text>￥{{subtotal}}
+                </view>
+            </view>
+            <navigator url="../redPacket/redPacket?type=1" class="shoppingCart-block shoppingCart-redPacket">
+                <view class="shoppingCart-item">
+                    <image src="/icons/redPacket.png" class="shoppingCart-redPacket-icon" /> 红包
+                    <image src="/icons/in.png" class="icon-in" />
+                    <text style="color:{{redPacket.count == 0 ? '#bfbfbf' : color.red}}">
+                        <block wx:if="{{redPacket.id == ''}}">请选择红包</block>
+                        <block wx:else>{{redPacket.count}}元</block>
+                    </text>
+                </view>
+            </navigator>
+            <view class="shoppingCart-block shoppingCart-result">
+                <view class="shoppingCart-item shoppingCart-result-total">商品实付
+                    <text>￥{{total}}</text>
+                </view>
+                <view wx:if="{{deliverChoose > 0}}" class="shoppingCart-item">配送费用
+                    <text>￥{{freightChoose}}</text>
+                </view>
+                <view class="shoppingCart-item shoppingCart-result-deliver">配送方式
+                    <picker mode="selector" range="{{deliverList}}" range-key="name" bindchange="bindDeliverChange" value="{{deliverChoose}}" class="shoppingCart-deliver-input">
+                        <view class="input-picker {{deliverChoose < 0 ? 'picker-null' : ''}}">
+                            <block wx:if="{{deliverChoose >= 0}}">{{deliverList[deliverChoose].name}}</block>
+                            <block wx:else>请选择配送方式</block>
+                            <image src="/icons/in.png" class="icon-in" />
+                        </view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+        <view wx:else class="shoppingCart-empty">
+            <image src="/icons/shoppingCart-empty.png" class="shoppingCart-empty-img" />
+            <view class="shoppingCart-empty-text">购物车空空如也~</view>
+        </view>
+        <view class="shoppingCart-block shoppingCart-recommend">
+            <view class="shoppingCart-recommend-title">推荐商品</view>
+            <repeat for="{{recommend}}" key="id">
+                <recommend :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :price.sync="item.price" :priceColor.sync="color.red">
+                    <image slot="cart" src="/icons/cart-recommend.png" class="recommend-icon-cart" @tap.stop="chooseSpec({{index}})" />
+                </recommend>
+            </repeat>
+        </view>
+        <view wx:if="{{shoppingCart.length > 0}}" class="shoppingCart-settle">
+            <view class="shoppingCart-settle-selectAll">
+                <image src="/icons/select-{{chooseAll == true?'yes':'no'}}.png" class="shoppingCart-icon-select" @tap="chooseAll" />
+                <text>全选</text>
+            </view>
+            <view class="shoppingCart-settle-price">
+                <view class="price-total">合计:
+                    <text style="color:{{color.red}}">￥{{priceFinal}}</text>
+                </view>
+                <view class="price-freight">运费￥{{freightChoose}}</view>
+            </view>
+            <view hover-class="navigator-hover" class="shoppingCart-settle-btn" style="background:{{color.red}}" @tap="buyNow()">去结算</view>
+        </view>
+        <view wx:if="{{isChoosing}}" class="product-select" @tap="selectClose()">
+            <view class="product-select-container" @tap.stop="selectContent()">
+                <view class="product-select-close" @tap="selectClose()">×</view>
+                <view class="product-select-content">
+                    <image mode="aspectFill" src="{{curProduct.imgUrl}}" class="product-select-img" />
+                    <view class="product-select-info">
+                        <view class="product-select-name">{{curProduct.name}}</view>
+                        <view class="product-select-price" style="color:{{color.red}}">￥{{curProduct.spec[specChoose].price}}</view>
+                        <view class="product-select-remain">库存：{{curProduct.remain}}</view>
+                    </view>
+                    <view class="product-select-spec">
+                        <view class="product-spec-title">规格：</view>
+                        <view class="product-spec-content">
+                            <repeat for="{{curProduct.spec}}" key="index">
+                                <view class="product-spec-item" style="{{index == specChoose? 'color:' + color.red + ';border: 2rpx solid ' + color.red + ';' : ''}}" @tap="specChoose({{index}})">{{item.name}}</view>
+                            </repeat>
+                        </view>
+                    </view>
+                    <view class="product-select-count">
+                        <text>数量：</text>
+                        <view class="product-count-choose">
+                            <view class="product-count-reduce" style="{{count > 1 ? 'color:' + color.red + ';' : ''}}" @tap="countMinus">-</view>
+                            <view class="product-count-current" style="color:{{color.red}};">{{count}}</view>
+                            <view class="product-count-add" style="{{count < curProduct.remain ? 'color:' + color.red + ';' : ''}}" @tap="countPlus">+</view>
+                        </view>
+                    </view>
+                    <view hover-class="navigator-hover" class="product-select-buy" style="background:{{color.red}}" @tap.stop="addToCart">加入购物车</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+import Recommend from '@/components/recommendBlock';
+import api from '@/api/api';
+
+export default class ShoppingCart extends wepy.page {
+    components = {
+        navBar: NavBar,
+        recommend: Recommend
+    };
+
+    data = {
+        shopChoose: {
+            id: '',
+            name: ''
+        },
+        discount: {
+            count: 120,
+            minus: 20
+        },
+        subtotal: 0,
+        total: 0,
+        deliverList: [
+            {
+                name: '到店自提',
+                freight: 0
+            },
+            {
+                name: '送货上门',
+                freight: 15
+            },
+            {
+                name: '快递到家',
+                freight: 15
+            }
+        ],
+        addressChoose: {
+            id: ''
+        },
+        deliverChoose: -1,
+        freightChoose: 0,
+        isChoosen: [],
+        chooseAll: true,
+        shoppingCart: [],
+        redPacket: {
+            id: '',
+            count: 0
+        },
+        recommend: [],
+        isChoosing: false,
+        curProduct: {},
+        specChoose: 0,
+        count: 1,
+        isIphoneX: false,
+        color: {}
+    };
+
+    computed = {
+        total() {
+            if (this.subtotal <= this.redPacket.count) return 0;
+            var self = this;
+            var subtotal = self.subtotal * 100;
+            var redPacket = 0;
+            if (self.redPacket.id != '') {
+                redPacket = self.redPacket.count * 100;
+            }
+            var discount = self.discount.minus * 100;
+            var total = subtotal - redPacket;
+            if (self.subtotal >= self.discount.count) {
+                total = total - discount;
+            }
+            total = parseInt(total);
+            return total > 0 ? total / 100 : 0;
+        },
+
+        priceFinal() {
+            var total = this.total * 100;
+            var freight = this.freightChoose * 100;
+            var priceFinal = total + freight;
+            priceFinal = parseInt(priceFinal);
+            return priceFinal > 0 ? priceFinal / 100 : 0;
+        },
+
+        difference() {
+            var dif = this.discount.count * 100 - this.subtotal * 100;
+            dif = parseInt(dif);
+            return dif / 100;
+        }
+    };
+
+    methods = {
+        navToProduct(product, event) {
+            wx.navigateTo({
+                url: '/pages/product/product?id=' + product
+            });
+        },
+
+        countReduce(index, event) {
+            var self = this;
+            var subtotal = self.subtotal * 1000;
+            self.shoppingCart[index].count--;
+            if (self.isChoosen[index]) {
+                subtotal -= self.shoppingCart[index].price * 1000;
+            }
+            subtotal = parseInt(subtotal);
+            self.subtotal = subtotal / 1000;
+            if (self.shoppingCart[index].count == 0) {
+                self.shoppingCart.splice(index, 1);
+            }
+            wx.setStorageSync('shoppingCart', self.shoppingCart);
+            self.$apply();
+        },
+
+        countAdd(index, event) {
+            var self = this;
+            var subtotal = self.subtotal * 1000;
+            self.shoppingCart[index].count++;
+            if (self.isChoosen[index]) {
+                subtotal += self.shoppingCart[index].price * 1000;
+            }
+            subtotal = parseInt(subtotal);
+            self.subtotal = subtotal / 1000;
+            wx.setStorageSync('shoppingCart', self.shoppingCart);
+            self.$apply();
+        },
+
+        chooseProduct(index, event) {
+            this.isChoosen[index] = !this.isChoosen[index];
+            if (this.shoppingCart[index].count > 0) {
+                this.updateTotal();
+            }
+            this.$apply();
+        },
+
+        chooseAll() {
+            var self = this;
+            self.chooseAll = !self.chooseAll;
+            self.isChoosen = [];
+            self.shoppingCart.forEach(element => {
+                self.isChoosen.push(self.chooseAll);
+                self.$apply();
+            });
+            self.updateTotal();
+            self.$apply();
+        },
+
+        bindDeliverChange(e) {
+            var self = this;
+            self.deliverChoose = e.detail.value;
+            self.freightChoose = self.deliverList[self.deliverChoose].freight;
+            wx.setStorage({
+                key: 'deliverChoose',
+                data: self.deliverChoose
+            });
+            self.$apply();
+        },
+
+        buyNow() {
+            var self = this;
+            var orderProduct = self.shoppingCart;
+            wx.setStorageSync('orderProduct', orderProduct);
+            wx.navigateTo({
+                url: '/pages/order/order?type=0'
+            });
+        },
+
+        chooseSpec(index) {
+            var self = this;
+            self.curProduct = self.recommend[index];
+            self.specChoose = 0;
+            self.count = 1;
+            self.isChoosing = true;
+            self.$apply();
+            console.log(self.curProduct);
+        },
+
+        specChoose(spec, e) {
+            this.specChoose = spec;
+            this.$apply();
+        },
+
+        selectClose() {
+            this.isChoosing = false;
+            this.$apply();
+        },
+
+        selectContent() {
+            return;
+        },
+
+        countMinus() {
+            if (this.count > 1) {
+                this.count--;
+                this.$apply();
+            }
+        },
+
+        countPlus() {
+            if (this.count < this.curProduct.remain) {
+                this.count++;
+                this.$apply();
+            }
+        },
+
+        addToCart() {
+            var self = this;
+            var shoppingCart = wx.getStorageSync('shoppingCart');
+            var hasCur = false;
+            if (shoppingCart.length > 0) {
+                shoppingCart.forEach(element => {
+                    if (element.id == self.curProduct.id) {
+                        hasCur = true;
+                        element.count += self.count;
+                        return;
+                    }
+                });
+            } else {
+                shoppingCart = [];
+            }
+
+            if (hasCur == false) {
+                shoppingCart.push({
+                    id: self.curProduct.id,
+                    name: self.curProduct.name,
+                    image: self.curProduct.imgUrl,
+                    spec: self.curProduct.spec[self.specChoose].name,
+                    price: self.curProduct.spec[self.specChoose].price,
+                    oriPrice: self.curProduct.oriPrice,
+                    count: self.count
+                });
+            }
+
+            wx.setStorageSync('shoppingCart', shoppingCart);
+            wx.showToast({
+                title: '添加成功',
+                icon: 'success',
+                duration: 1000
+            });
+
+            console.log(shoppingCart);
+            self.shoppingCart = shoppingCart;
+            this.isChoosing = false;
+            this.$apply();
+        }
+    };
+
+    updateTotal() {
+        var self = this;
+        self.subtotal = 0;
+        self.shoppingCart.forEach((item, index) => {
+            if (self.isChoosen[index]) {
+                self.subtotal += item.price * item.count * 1000;
+            }
+        });
+        self.subtotal = parseInt(self.subtotal);
+        self.subtotal /= 1000;
+        wx.setStorageSync('shoppingCart', self.shoppingCart);
+        self.$apply();
+    }
+
+    events = {};
+
+    onShareAppMessage() {
+        return {
+            title: '放心优选',
+            path: '/pages/index/index'
+        };
+    }
+
+    onShow() {
+        var self = this;
+        self.shoppingCart = wx.getStorageSync('shoppingCart');
+        if (self.shoppingCart.length == 0) {
+            return;
+        }
+        self.shoppingCart.forEach(element => {
+            self.isChoosen.push(true);
+        });
+        self.updateTotal();
+        self.$apply();
+        console.log(self.shoppingCart);
+        var shop = wx.getStorageSync('shopChoose');
+        if (shop != '') {
+            self.shopChoose = shop;
+            self.$apply();
+        }
+        wx.getStorage({
+            key: 'address',
+            success: function(res) {
+                self.addressChoose = res.data;
+                self.$apply();
+            }
+        });
+        wx.getStorage({
+            key: 'redPacket',
+            success: function(res) {
+                self.redPacket = res.data;
+                self.$apply();
+            }
+        });
+    }
+
+    async onLoad(option) {
+        var self = this;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        self.$apply();
+        wx.setStorage({
+            key: 'address',
+            data: self.addressChoose
+        });
+        wx.setStorage({
+            key: 'redPacket',
+            data: self.redPacket
+        });
+        wx.setStorage({
+            key: 'deliverChoose',
+            data: -1
+        });
+
+        // var jwt = wx.getStorageSync('jwt');
+        // try {
+        //     if (jwt.data.access_token != null) {
+        //         let res = await api.getShoppingCart({
+        //             query: {
+        //                 access_token: jwt.data.access_token,
+        //                 account_id: jwt.data.account_id
+        //             }
+        //         });
+        //         console.log(res);
+        //         self.$apply();
+        //     }
+        // } catch (error) {
+        //     console.log('jwt is null');
+        // }
+
+        let recommendPros = await api.getRecommendPros({
+            query: {
+                shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1'
+            }
+        });
+        console.log(recommendPros);
+        self.recommend = recommendPros.data;
+        self.$apply();
+    }
+}
+</script>

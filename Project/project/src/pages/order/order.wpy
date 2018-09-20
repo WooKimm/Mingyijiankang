@@ -1,0 +1,536 @@
+<style lang="less">
+page {
+    padding-bottom: 110rpx;
+}
+
+.order-header {
+    width: 750rpx;
+    height: 5rpx;
+    background: #ffffff;
+    position: absolute;
+    top: 62px;
+}
+
+.order-block {
+    width: 750rpx;
+    margin-top: 20rpx;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.order-info {
+    margin-top: 0;
+}
+
+.order-shop {
+    width: 750rpx;
+    font-size: 28rpx;
+    line-height: 45rpx;
+    padding: 35rpx 30rpx 30rpx 30rpx;
+    view {
+        display: inline-block;
+    }
+}
+
+.order-shop-address {
+    margin-right: 20rpx;
+}
+
+.order-phone {
+    height: 45rpx;
+    font-size: 28rpx;
+    line-height: 45rpx;
+    margin-top: 10rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #bfbfbf;
+    display: block;
+}
+
+.order-deliver {
+    font-size: 22rpx;
+    line-height: 30rpx;
+    color: #ffffff;
+    margin: 7rpx 0 7rpx 10rpx;
+    padding: 0 10rpx;
+    border-radius: 5rpx;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.order-address {
+    width: 750rpx;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.order-address-choose {
+    width: 690rpx;
+    height: 110rpx;
+    font-size: 28rpx;
+    line-height: 110rpx;
+    text-align: left;
+    .icon-position {
+        width: 20rpx;
+        height: 30rpx;
+        margin: 40rpx 15rpx 40rpx 0;
+        vertical-align: top;
+    }
+    .icon-in {
+        width: 15rpx;
+        height: 25rpx;
+        margin: 42.5rpx 0;
+        vertical-align: top;
+        float: right;
+    }
+}
+
+.order-address-desc {
+    width: 690rpx;
+    height: 150rpx;
+    .icon-in {
+        width: 15rpx;
+        height: 25rpx;
+        margin: 62.5rpx 0;
+        vertical-align: top;
+        float: right;
+    }
+}
+
+.order-address-content {
+    width: 675rpx;
+    height: 150rpx;
+    padding: 20rpx 0;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.address-desc {
+    font-size: 28rpx;
+    line-height: 70rpx;
+}
+
+.address-user {
+    color: #999999;
+    font-size: 22rpx;
+    line-height: 40rpx;
+}
+
+.order-item {
+    width: 720rpx;
+    height: 90rpx;
+    font-size: 28rpx;
+    line-height: 90rpx;
+    padding-right: 30rpx;
+    box-sizing: border-box;
+    text {
+        height: 90rpx;
+        font-size: 28rpx;
+        line-height: 90rpx;
+        box-sizing: border-box;
+        float: right;
+    }
+}
+
+.order-item:not(:last-child) {
+    border-bottom: 1rpx solid #f2f2f2;
+}
+
+.order-product,
+.order-total,
+.order-final {
+    padding-left: 30rpx;
+}
+
+.order-product-items {
+    width: 720rpx;
+    height: 140rpx;
+    padding: 20rpx 30rpx 20rpx 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.order-product-label {
+    height: 30rpx;
+    font-size: 22rpx;
+    line-height: 30rpx;
+    color: #ffffff;
+    background: #e87573;
+    padding: 0 10rpx;
+    border-radius: 0 5rpx 5rpx 0;
+    display: inline-block;
+    position: absolute;
+    left: -30rpx;
+    top: 10rpx;
+}
+
+.order-product-img {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 10rpx;
+}
+
+.order-product-img:not(:first-child) {
+    margin-left: 20rpx;
+}
+
+.order-product-count {
+    font-size: 26rpx;
+    line-height: 100rpx;
+    float: right;
+    .icon-in {
+        width: 15rpx;
+        height: 25rpx;
+        margin-top: 38rpx;
+        margin-left: 10rpx;
+        float: right;
+    }
+}
+
+.order-product-status {
+    color: #999999;
+    text {
+        color: #000000;
+    }
+}
+
+.order-total-redPacket .icon-in {
+    width: 15rpx;
+    height: 25rpx;
+    margin: 32.5rpx 0 32.5rpx 10rpx;
+    float: right;
+}
+
+.order-redPacket-icon {
+    width: 25rpx;
+    height: 30rpx;
+    margin-right: 10rpx;
+}
+
+.order-result-deliver .icon-in {
+    width: 15rpx;
+    height: 25rpx;
+    margin: 32.5rpx 0 32.5rpx 10rpx;
+    float: right;
+    vertical-align: top;
+}
+
+.order-deliver-input {
+    width: 550rpx;
+    height: 90rpx;
+    text-align: right;
+    float: right;
+}
+
+.picker-null {
+    color: #bfbfbf;
+}
+
+.order-pay {
+    width: 750rpx;
+    height: 90rpx;
+    font-size: 30rpx;
+    line-height: 90rpx;
+    padding-left: 30rpx;
+    background: #ffffff;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+}
+
+.order-pay-total {
+    display: inline-block;
+}
+
+.order-pay-btn {
+    width: 260rpx;
+    height: 90rpx;
+    text-align: center;
+    color: #ffffff;
+    vertical-align: top;
+    float: right;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="填写订单" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <image src="/icons/address-bg.png" class="order-header" />
+        <view class="order-block order-info">
+            <view wx:if="{{deliverChoose < 1}}" class="order-shop">
+                <view class="order-shop-address">{{shopChoose.address}}</view>
+                <view>{{shopChoose.name}}</view>
+                <view class="order-phone">{{shopChoose.shopKeeper.name}} {{shopChoose.shopKeeper.phone}}
+                    <view class="order-deliver" style="background:{{color.red}}">{{deliverList[deliverChoose].name}}</view>
+                </view>
+            </view>
+            <navigator wx:else url="../address/address" class="order-address">
+                <view wx:if="{{addressChoose.id == ''}}" class="order-address-choose">
+                    <image src="/icons/position.png" class="icon-position" />
+                    <text>请点击选择收货地址</text>
+                    <image src="/icons/in.png" class="icon-in" />
+                </view>
+                <view wx:else class="order-address-desc">
+                    <view class="order-address-content">
+                        <view class="address-desc">{{addressChoose.desc}}</view>
+                        <view class="address-user">{{addressChoose.name}} {{addressChoose.phone}}
+                            <view class="order-deliver" style="background:{{color.red}}">{{deliverList[deliverChoose].name}}</view>
+                        </view>
+                    </view>
+                    <image src="/icons/in.png" class="icon-in" />
+                </view>
+            </navigator>
+        </view>
+        <repeat for="{{product}}" key="type">
+            <view class="order-block order-product">
+                <view wx:if="{{deliverChoose > 0}}" class="order-product-deliver order-item">送达时间
+                    <text style="color:{{color.red}}">{{sendTime}}</text>
+                </view>
+                <view class="order-product-items" @tap="navToProductList()">
+                    <image wx:if="{{index < 5}}" src="{{item.image}}" mode="aspectFill" class="order-product-img" />
+                    <view wx:if="{{type == 2}}" class="order-product-label">拼团中</view>
+                    <view wx:if="{{type == 4}}" class="order-product-label">预售款</view>
+                    <view class="order-product-count">共{{product.length}}件
+                        <image src="/icons/in.png" class="icon-in" />
+                    </view>
+                </view>
+                <block wx:if="{{type == 2}}">
+                    <view class="order-product-status order-item">如拼团失败，即刻退款至支付宝账户
+                        <!-- <text>已拼：{{listItem.people}}/{{listItem.maxpeople}}</text> -->
+                    </view>
+                </block>
+            </view>
+        </repeat>
+        <view class="order-block order-total">
+            <view class="order-item">商品总价
+                <text>￥{{subtotal}}</text>
+            </view>
+            <navigator url="../redPacket/redPacket?type=1" class="order-item order-total-redPacket">
+                <image src="/icons/redPacket.png" class="order-redPacket-icon" /> 红包
+                <image src="/icons/in.png" class="icon-in" />
+                <text style="color:{{redPacket.count == 0 ? '#bfbfbf' : color.red}}">
+                    <block wx:if="{{redPacket.id == ''}}">请选择红包</block>
+                    <block wx:else>{{redPacket.count}}元</block>
+                </text>
+            </navigator>
+            <view class="order-item">商品实付
+                <text>￥{{total}}</text>
+            </view>
+            <view wx:if="{{deliverChoose > 0}}" class="order-item">配送费用
+                <text>￥{{freightChoose}}</text>
+            </view>
+            <view class="order-item order-result-deliver">配送方式
+                <picker mode="selector" range="{{deliverList}}" range-key="name" bindchange="bindDeliverChange" value="{{deliverChoose}}" class="order-deliver-input">
+                    <view class="input-picker {{deliverChoose < 0 ? 'picker-null' : ''}}">
+                        <block wx:if="{{deliverChoose >= 0}}">{{deliverList[deliverChoose].name}}</block>
+                        <block wx:else>请选择配送方式</block>
+                        <image src="/icons/in.png" class="icon-in" />
+                    </view>
+                </picker>
+            </view>
+        </view>
+        <view class="order-block order-final">
+            <view class="order-item">余额支付（余额￥{{remain}}）
+                <text>￥{{remain}}</text>
+            </view>
+            <view class="order-item">还需支付
+                <text>￥{{totalFinal}}</text>
+            </view>
+        </view>
+        <view class="order-pay">
+            <view class="order-pay-total">合计:
+                <text style="color:{{color.red}}">￥{{total}}</text>
+            </view>
+            <view class="order-pay-btn" style="background:{{color.red}}" @tap="submitOrder()">提交订单</view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+import api from '@/api/api'
+
+export default class Order extends wepy.page {
+    components = {
+        navBar: NavBar
+    };
+
+    data = {
+        shopChoose: {
+            id: 'f8e0b4083ce54cd4ac189f857c8fdfd1',
+            name: ''
+        },
+        addressChoose: {},
+        deliverChoose: -1,
+        freightChoose: 0,
+        deliverList: [
+            {
+                name: '到店自提',
+                freight: 0
+            },
+            {
+                name: '送货上门',
+                freight: 15
+            },
+            {
+                name: '快递到家',
+                freight: 15
+            }
+        ],
+        redPacket: {
+            id: '',
+            count: 0
+        },
+        remain: 0.00,
+        type: 0,
+        sendTime: '2018-08-20',
+        product: [],
+        subtotal: 0,
+        isIphoneX: false,
+        color: {}
+    };
+
+    computed = {
+        total() {
+            var subtotal = this.subtotal * 100;
+            var redPacket = this.redPacket.count * 100;
+            var total = subtotal - redPacket;
+            total = parseInt(total);
+            return total > 0 ? total / 100 : 0;
+        },
+
+        totalFinal() {
+            var total = this.total * 100;
+            var remain = this.remain * 100;
+            var freight = this.freightChoose * 100;
+            var totalFinal = total + freight - remain;
+            totalFinal = parseInt(totalFinal);
+            return totalFinal > 0 ? totalFinal / 100 : 0;
+        }
+    };
+
+    methods = {
+        bindDeliverChange(e) {
+            var self = this;
+            self.deliverChoose = e.detail.value;
+            self.freightChoose = self.deliverList[self.deliverChoose].freight;
+            wx.setStorage({
+                key: 'deliverChoose',
+                data: self.deliverChoose
+            });
+            self.$apply();
+        },
+
+        navToProductList(index, events) {
+            wx.navigateTo({
+                url: '../productList/productList'
+            });
+        }
+    };
+
+    updateTotal() {
+        var self = this;
+        var total = 0;
+        var cur = 0;
+        self.subtotal = 0;
+        self.product.forEach(element => {
+            cur = element.price * 100;
+            cur = cur * element.count;
+            total += cur;
+        });
+        self.subtotal = parseInt(self.subtotal);
+        self.subtotal = total / 100;
+        self.$apply();
+    }
+
+    events = {};
+
+    async onShow() {
+        var self = this;
+
+        wx.getStorage({
+            key: 'address',
+            success: function(res) {
+                self.addressChoose = res.data;
+                self.$apply();
+            }
+        });
+        wx.getStorage({
+            key: 'redPacket',
+            success: function(res) {
+                self.redPacket = res.data;
+                self.$apply();
+            }
+        });
+        
+        var jwt = wx.getStorageSync('jwt');
+        if (jwt.data.access_token != null) {
+            let myBalance = await api.getMyBalance({
+                query: {
+                    access_token: jwt.data.access_token,
+                    account_id: jwt.data.account_id
+                }
+            });
+            
+            self.remain = myBalance.data.balance;
+            self.$apply();
+        }
+    }
+
+    onLoad(options) {
+        var self = this;
+        self.type = options.type;
+        self.shopChoose = wx.getStorageSync('shopChoose');
+        self.product = wx.getStorageSync('orderProduct');
+        wx.getStorage({
+            key: 'deliverChoose',
+            success: function(res) {
+                if (res.data >= 0) {
+                    self.deliverChoose = res.data;
+                    self.freightChoose =
+                        self.deliverList[self.deliverChoose].freight;
+                }
+            }
+        });
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        self.$apply();
+        self.updateTotal();
+    }
+
+    async submitOrder(){
+        let self = this
+        var jwt = wx.getStorageSync('jwt');
+        console.log(self.redPacket)
+        console.log(self.product)
+        try {
+            if (jwt.data.access_token != null) {
+                let res = await api.submitOrder({
+                    query: JSON.stringify({
+                        access_token: jwt.data.access_token,
+                        account_id: jwt.data.account_id,
+                        shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1',
+                        deliver: self.deliverList[0],
+                        product: self.product,
+                        redPacket: self.redPacket.id,
+                        remain: self.remain,
+                        type: self.type,
+                        total: self.total
+                    }),
+                    method: 'POST',
+                    header: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+                console.log(res);
+                self.$apply();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+</script>

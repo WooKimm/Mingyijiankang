@@ -1,0 +1,137 @@
+<style lang="less">
+page {
+    color: #323232;
+    background: #f7f7f7;
+}
+
+.container {
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
+view {
+    box-sizing: border-box;
+}
+</style>
+
+<script>
+import wepy from 'wepy';
+import 'wepy-async-function';
+
+export default class extends wepy.app {
+    config = {
+        pages: [
+            'pages/index/index',
+            'pages/index/category/category',
+            'pages/coupon/coupon',
+            'pages/shoppingCart/shoppingCart',
+            'pages/me/me',
+            'pages/me/balance/balance',
+            'pages/me/orderList/orderList',
+            'pages/me/orderDetail/orderDetail',
+            'pages/address/address',
+            'pages/address/addressChange/addressChange',
+            'pages/shop/shop',
+            'pages/search/search',
+            'pages/product/product',
+            'pages/order/order',
+            'pages/productList/productList',
+            'pages/redPacket/redPacket',
+            'pages/myCoupon/myCoupon'
+        ],
+        window: {
+            navigationBarTextStyle: 'black',
+            navigationStyle: 'custom'
+        },
+        tabBar: {
+            color: '#999999',
+            selectedColor: '#f5333f',
+            backgroundColor: '#ffffff',
+            list: [
+                {
+                    pagePath: 'pages/index/index',
+                    text: '首页',
+                    iconPath: 'icons/tabbar/home.png',
+                    selectedIconPath: 'icons/tabbar/home-selected.png'
+                },
+                {
+                    pagePath: 'pages/coupon/coupon',
+                    text: '优惠',
+                    iconPath: 'icons/tabbar/coupon.png',
+                    selectedIconPath: 'icons/tabbar/coupon-selected.png'
+                },
+                {
+                    pagePath: 'pages/shoppingCart/shoppingCart',
+                    text: '购物车',
+                    iconPath: 'icons/tabbar/shoppingCart.png',
+                    selectedIconPath: 'icons/tabbar/shoppingCart-selected.png'
+                },
+                {
+                    pagePath: 'pages/me/me',
+                    text: '我的',
+                    iconPath: 'icons/tabbar/user.png',
+                    selectedIconPath: 'icons/tabbar/user-selected.png'
+                }
+            ]
+        }
+    };
+
+    globalData = {
+        userInfo: null,
+        isIphoneX: false,
+        color: {
+            red: '#f5333f',
+            yellow: '#ffba00'
+        }
+    };
+
+    constructor() {
+        super();
+        this.use('requestfix');
+        this.use('promisify');
+    }
+
+    onLaunch() {
+        this.testAsync();
+        var res = wx.getSystemInfoSync();
+        console.log(res.model);
+        if (res.model == 'iPhone X') {
+            this.globalData.isIphoneX = true;
+            console.log('Rich man here！');
+        }
+    }
+
+    sleep(s) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('promise resolved');
+            }, s * 1000);
+        });
+    }
+
+    async testAsync() {
+        const data = await this.sleep(3);
+        console.log(data);
+    }
+
+    getUserInfo(cb) {
+        const that = this;
+        if (this.globalData.userInfo) {
+            return this.globalData.userInfo;
+        }
+        wepy.getUserInfo({
+            success(res) {
+                that.globalData.userInfo = res.userInfo;
+                cb && cb(res.userInfo);
+            }
+        });
+    }
+}
+</script>
