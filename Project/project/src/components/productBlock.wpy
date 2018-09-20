@@ -1,7 +1,8 @@
 <style lang="less">
 .product-item {
-    width: 750rpx;
-    padding: 40rpx 30rpx;
+    width: 710rpx;
+    margin: 40rpx 20rpx;
+    border-radius: 10rpx;
     box-sizing: border-box;
 }
 
@@ -10,46 +11,48 @@
 }
 
 .product-item-img {
-    width: 220rpx;
-    height: 220rpx;
-    margin-right: 30rpx;
-    border: 1rpx solid #f5ebe4;
-    border-radius: 10rpx;
+    width: 280rpx;
+    height: 240rpx;
     vertical-align: top;
     box-sizing: border-box;
 }
 
 .product-item-content {
-    width: 440rpx;
-    height: 220rpx;
+    width: 430rpx;
+    height: 240rpx;
     vertical-align: top;
+    padding-left: 30rpx;
     display: inline-block;
     position: relative;
 }
 
 .product-item-name {
-    width: 440rpx;
-    font-size: 30rpx;
+    width: 400rpx;
+    color: #000000;
+    font-size: 32rpx;
     line-height: 45rpx;
+    font-weight: 600;
+    margin-bottom: 5rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .product-item-desc {
-    width: 440rpx;
+    width: 400rpx;
     color: #999999;
-    font-size: 24rpx;
-    line-height: 45rpx;
+    font-size: 26rpx;
+    line-height: 30rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .product-icon-cart {
     width: 60rpx;
     height: 60rpx;
-    border-radius: 50%;
     position: absolute;
     bottom: 20rpx;
     right: 0;
@@ -190,6 +193,7 @@
     border: 2rpx solid #cccccc;
     box-sizing: content-box;
     display: inline-block;
+    vertical-align: top;
 }
 
 .product-count-current,
@@ -237,7 +241,7 @@ export default class ProductBlock extends wepy.component {
     methods = {
         navToProduct(product, event) {
             wx.navigateTo({
-                url: '/pages/product/product?id=' + product
+                url: '/pages/product/product?back=index&id=' + product
             });
         }
     };

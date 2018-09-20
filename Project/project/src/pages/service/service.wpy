@@ -1,0 +1,635 @@
+<style lang="less">
+page {
+    background: #f5f5f5;
+}
+
+.container {
+    height: 100vh;
+}
+
+.service-container {
+    width: 750rpx;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.service-header {
+    width: 750rpx;
+    height: 94rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.service-shop {
+    height: 94rpx;
+    display: inline-block;
+}
+
+.service-icon-position {
+    width: 30rpx;
+    height: 38rpx;
+    margin: 28rpx 0;
+    vertical-align: top;
+}
+
+.shop-name {
+    font-size: 28rpx;
+    line-height: 94rpx;
+    margin-left: 20rpx;
+    margin-right: 15rpx;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.service-search {
+    float: right;
+    text {
+        color: #656766;
+        font-size: 28rpx;
+        line-height: 94rpx;
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+
+.service-icon-search {
+    width: 36rpx;
+    height: 36rpx;
+    margin-top: 29rpx;
+    margin-right: 20rpx;
+    vertical-align: top;
+}
+
+.service-banner {
+    margin-bottom: 20rpx;
+    padding-bottom: 20rpx;
+    background: #ffffff;
+}
+
+.service-banner-swiper,
+.service-banner-item,
+.service-banner-img {
+    width: 750rpx;
+    height: 300rpx;
+    background: #fdedeb;
+}
+
+.service-banner-picture {
+    width: 750rpx;
+    height: 165rpx;
+    margin-top: 40rpx;
+    padding: 0 20rpx;
+    display: flex;
+    justify-content: space-between;
+}
+
+.banner-picture-item {
+    width: 345rpx;
+    height: 165rpx;
+    border-radius: 20rpx;
+    background: #fdedeb;
+}
+
+.service-module {
+    padding: 25rpx 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.module-item {
+    width: 105rpx;
+    text-align: center;
+    display: inline-block;
+    .module-img {
+        width: 105rpx;
+        height: 105rpx;
+        margin-bottom: 10rpx;
+        box-sizing: border-box;
+    }
+    .module-title {
+        font-size: 27rpx;
+        line-height: 30rpx;
+        display: block;
+    }
+}
+
+.service-content {
+    background: #ffffff;
+}
+
+.service-module-block {
+    background: #ffffff;
+    padding-top: 35rpx;
+}
+
+.block-title {
+    text-align: center;
+}
+
+.block-title-img {
+    width: 255rpx;
+    height: 60rpx;
+}
+
+.service-special {
+    width: 750rpx;
+    box-sizing: border-box;
+}
+
+.special-item-remain {
+    width: 250rpx;
+    height: 15px;
+    margin-top: 10rpx;
+    padding: 0;
+    border: 1px solid #ed4638;
+    border-radius: 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: absolute;
+    bottom: 80rpx;
+    text {
+        width: 250rpx;
+        font-size: 26rpx;
+        line-height: 13px;
+        text-align: center;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        z-index: 20;
+    }
+}
+
+.special-item-price {
+    position: absolute;
+    bottom: 20rpx;
+}
+
+.special-product-price {
+    color: #ed5736;
+    font-size: 28rpx;
+    line-height: 30rpx;
+    display: inline-block;
+    text {
+        margin-right: 10rpx;
+        font-size: 40rpx;
+        line-height: 40rpx;
+        font-weight: 600;
+    }
+}
+
+.special-product-oriPrice {
+    color: #bbbbbb;
+    font-size: 28rpx;
+    line-height: 30rpx;
+    text-decoration: line-through;
+    display: inline-block;
+}
+
+.product-icon-cart {
+    width: 130rpx;
+    height: 45rpx;
+    position: absolute;
+    bottom: 15rpx;
+    right: 20rpx;
+}
+
+.block-content {
+    width: 750rpx;
+    margin-top: 20rpx;
+}
+
+.block-img {
+    width: 750rpx;
+    height: 240rpx;
+    background: #fdedeb;
+    margin-bottom: 10rpx;
+}
+
+.product-item {
+    margin: 20rpx;
+    border-radius: 20rpx;
+}
+
+.product-item:not(:last-child) {
+    border-bottom: none;
+}
+
+.product-item-content {
+    background: #fafafa;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="铭医商城" :isIphoneX.sync="isIphoneX"></navBar>
+        <scroll-view scroll-y scroll-into-view="{{scrollToModule}}" scroll-with-animation="true" class="service-container">
+            <view class="service-header">
+                <navigator url="../shop/shop" hover-class="none" class="service-shop">
+                    <image src="/icons/position.png" class="service-icon-position" />
+                    <!-- <text class="shop-name">{{shopChoose.name}}</text> -->
+                    <text class="shop-name">重庆铭医堂医院</text>
+                </navigator>
+                <view class="service-search">
+                    <image src="/icons/search.png" class="service-icon-search" @tap="navToSearch" />
+                    <text>搜索</text>
+                </view>
+            </view>
+            <view class="service-banner">
+                <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#ffffff" autoplay="true" interval="5000" duration="1000" circular="true" class="service-banner-swiper">
+                    <repeat for="{{banner}}" key="index">
+                        <swiper-item class="service-banner-item">
+                            <image src="{{item}}" mode="aspectFill" class="service-banner-img" @tap="navToProduct({{item.productID}})" />
+                        </swiper-item>
+                    </repeat>
+                </swiper>
+                <view class="service-module">
+                    <repeat for="{{serviceModule}}" key="service">
+                        <view wx:if="{{index == 0}}" class="module-item" @tap="toDiagnosis">
+                            <image src="{{item.imgUrl}}" class="module-img" />
+                            <text class="module-title">{{item.name}}</text>
+                        </view>
+                        <view wx:else class="module-item" @tap="chooseModule({{index}})">
+                            <image src="{{item.imgUrl}}" class="module-img" />
+                            <text class="module-title">{{item.name}}</text>
+                        </view>
+                    </repeat>
+                </view>
+            </view>
+            <view class="service-content">
+                <view class="service-special service-module-block" id="module1">
+                    <view class="block-title">
+                        <image src="/icons/特色服务.png" class="block-title-img" />
+                    </view>
+                    <view class="service-special-product">
+                        <repeat for="{{specialProduct}}" key="id">
+                            <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc">
+                                <view slot="extra" class="special-item-remain">
+                                    <progress class="special-item-progress" percent="{{item.remain/item.count*100}}" stroke-width="15" activeColor="#fddddf" backgroundColor="#fffbfb" />
+                                    <text style="color:{{color.red}}">{{item.count}}/剩{{item.remain}}份</text>
+                                </view>
+                                <view slot="price" class="special-item-price">
+                                    <view class="special-product-price">¥
+                                        <text>{{item.price}}</text>
+                                    </view>
+                                    <view wx:if="{{item.oriPrice > 0}}" class="special-product-oriPrice">¥{{item.oriPrice}}</view>
+                                </view>
+                                <image wx:if="{{item.remain > 0}}" slot="cart" src="/icons/cart-limit.png" class="product-icon-cart" @tap.stop="chooseSpec(0, {{index}})" />
+                                <image wx:else slot="cart" src="/icons/cart-empty.png" class="product-icon-cart" />
+                            </product>
+                        </repeat>
+                    </view>
+                </view>
+                <view class="service-question service-module-block" id="module2">
+                    <view class="block-title">
+                        <image src="/icons/健康问答.png" class="block-title-img" />
+                    </view>
+                    <view class="block-content">
+                        <repeat for="{{question}}" key="id">
+                            <image src="{{item.imgUrl}}" class="block-img" />
+                        </repeat>
+                    </view>
+                </view>
+                <view class="service-column service-module-block" id="module3">
+                    <view class="block-title">
+                        <image src="/icons/健康专栏.png" class="block-title-img" />
+                    </view>
+                    <view class="block-content">
+                        <repeat for="{{question}}" key="id">
+                            <image src="{{item.imgUrl}}" class="block-img" />
+                        </repeat>
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
+        <view wx:if="{{isChoosing}}" class="product-select" @tap="selectClose()">
+            <view class="product-select-container" @tap.stop="selectContent()">
+                <view class="product-select-close" @tap="selectClose()">×</view>
+                <view class="product-select-content">
+                    <image mode="aspectFill" src="{{curProduct.imgUrl}}" class="product-select-img" />
+                    <view class="product-select-info">
+                        <view class="product-select-name">{{curProduct.name}}</view>
+                        <view class="product-select-price" style="color:{{color.red}}">￥{{curProduct.spec[specChoose].price}}</view>
+                        <view class="product-select-remain">库存：{{curProduct.remain}}</view>
+                    </view>
+                    <view class="product-select-spec">
+                        <view class="product-spec-title">规格：</view>
+                        <view class="product-spec-content">
+                            <repeat for="{{curProduct.spec}}" key="index">
+                                <view class="product-spec-item" style="{{index == specChoose? 'color:' + color.red + ';border: 2rpx solid ' + color.red + ';' : ''}}" @tap="specChoose({{index}})">{{item.name}}</view>
+                            </repeat>
+                        </view>
+                    </view>
+                    <view class="product-select-count">
+                        <text>数量：</text>
+                        <view class="product-count-choose">
+                            <view class="product-count-reduce" style="{{count > 1 ? 'color:' + color.red + ';' : ''}}" @tap="countMinus">-</view>
+                            <input type="number" value="{{count}}" bindinput="countLimit" class="product-count-current" style="color:{{color.red}};" />
+                            <view class="product-count-add" style="{{count < curProduct.remain ? 'color:' + color.red + ';' : ''}}" @tap="countPlus">+</view>
+                        </view>
+                    </view>
+                    <view hover-class="navigator-hover" class="product-select-buy" style="background:{{color.red}}" @tap.stop="addToCart">加入购物车</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+import Product from '@/components/productBlock';
+import api from '@/api/api';
+
+export default class Service extends wepy.page {
+    components = {
+        navBar: NavBar,
+        product: Product
+    };
+
+    data = {
+        shopChoose: {
+            id: '',
+            name: ''
+        },
+        banner: [
+            '/icons/picture/banner (1).jpg',
+            '/icons/picture/banner (1).jpg',
+            '/icons/picture/banner (1).jpg'
+        ],
+        serviceModule: [
+            {
+                id: 'module0',
+                name: '一键自诊',
+                imgUrl: '/icons/service/module1.png'
+            },
+            {
+                id: 'module1',
+                name: '特色服务',
+                imgUrl: '/icons/service/module2.png'
+            },
+            {
+                id: 'module2',
+                name: '健康问答',
+                imgUrl: '/icons/service/module3.png'
+            },
+            {
+                id: 'module3',
+                name: '健康专栏',
+                imgUrl: '/icons/service/module4.png'
+            }
+        ],
+        curModule: 0,
+        scrollToModule: '',
+        column: [
+            {
+                id: '01',
+                imgUrl: '/icons/picture/service_column (1).jpg'
+            },
+            {
+                id: '02',
+                imgUrl: '/icons/picture/service_column (2).jpg'
+            }
+        ],
+        question: [
+            {
+                id: '01',
+                imgUrl: '/icons/picture/service_question(1).jpg'
+            },
+            {
+                id: '02',
+                imgUrl: '/icons/picture/service_question(2).jpg'
+            }
+        ],
+        specialProduct: [
+                {
+                    count: 100,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
+                    imgUrl: '/icons/picture/service (1).jpg',
+                    name: '足疗',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                    remain: 20
+                },
+                {
+                    count: 100,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
+                    imgUrl: '/icons/picture/service (2).jpg',
+                    name: '推拿',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                    remain: 40
+                },
+                {
+                    count: 100,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
+                    imgUrl: '/icons/picture/service (3).jpg',
+                    name: '针灸',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                    remain: 60
+                },
+                {
+                    count: 100,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f4',
+                    imgUrl: '/icons/picture/service (4).jpg',
+                    name: '刮痧',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                    remain: 80
+                },
+                {
+                    count: 100,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f5',
+                    imgUrl: '/icons/picture/service (5).jpg',
+                    name: '艾灸',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                    remain: 100
+                }
+                ],
+        moduleTop: [],
+        moveStartPos: 0,
+        isChoosing: false,
+        curProduct: {},
+        specChoose: 0,
+        count: 1,
+        isIphoneX: false,
+        color: {}
+    };
+
+    methods = {
+        toDiagnosis() {
+            wx.navigateTo({
+                url: 'diagnosis/diagnosis'
+            });
+        },
+
+        chooseModule(index, e) {
+            this.scrollToModule = this.serviceModule[index].id;
+            this.curModule = index;
+            console.log(this.scrollToModule);
+            this.$apply();
+            this.clearModule();
+        },
+
+        navToProduct(product, events) {
+            wx.navigateTo({
+                url: '/pages/product/product?id=' + product
+            });
+        },
+
+        chooseSpec(type, index) {
+            var self = this;
+            if (type == 0) {
+                self.curProduct = self.specialProduct[index];
+            } else if (type == 1) {
+                self.curProduct = self.groupProduct[index];
+            }
+            if (self.curProduct.remain < 1) {
+                wx.showToast({
+                    title: '库存不足',
+                    icon: 'none',
+                    duration: 1000
+                });
+                return;
+            }
+            self.specChoose = 0;
+            self.count = 1;
+            self.isChoosing = true;
+            self.$apply();
+            console.log(self.curProduct);
+        },
+
+        specChoose(spec, e) {
+            this.specChoose = spec;
+            this.$apply();
+        },
+
+        selectClose() {
+            this.isChoosing = false;
+            this.$apply();
+        },
+
+        selectContent() {
+            return;
+        },
+
+        countMinus() {
+            if (this.count > 1) {
+                this.count--;
+                this.$apply();
+            }
+        },
+
+        countPlus() {
+            if (this.count < this.curProduct.remain) {
+                this.count++;
+                this.$apply();
+            }
+        },
+
+        countLimit(e) {
+            var count = e.detail.value;
+            if (count == '' || count <= 1) {
+                count = 1;
+            } else if (count >= this.curProduct.remain) {
+                count = this.curProduct.remain;
+            }
+            this.count = count;
+            this.$apply();
+            return count;
+        },
+
+        addToCart() {
+            var self = this;
+            var shoppingCart = wx.getStorageSync('shoppingCart');
+            var hasCur = false;
+            if (shoppingCart.length > 0) {
+                shoppingCart.forEach(element => {
+                    if (element.id == self.curProduct.id) {
+                        hasCur = true;
+                        element.count += self.count;
+                        return;
+                    }
+                });
+            } else {
+                shoppingCart = [];
+            }
+
+            if (hasCur == false) {
+                shoppingCart.push({
+                    id: self.curProduct.id,
+                    name: self.curProduct.name,
+                    image: self.curProduct.imgUrl,
+                    spec: self.curProduct.spec[self.specChoose].name,
+                    price: self.curProduct.spec[self.specChoose].price,
+                    oriPrice: self.curProduct.oriPrice,
+                    remain: self.curProduct.remain,
+                    count: self.count
+                });
+            }
+
+            wx.setStorageSync('shoppingCart', shoppingCart);
+            wx.showToast({
+                title: '添加成功',
+                icon: 'success',
+                duration: 1000
+            });
+
+            console.log(shoppingCart);
+            this.isChoosing = false;
+            this.$apply();
+        }
+    };
+
+    events = {};
+
+    clearModule() {
+        this.scrollToModule = '';
+        this.curModule = 0;
+        this.$apply();
+    }
+
+    onShareAppMessage() {
+        return {
+            title: '放心优选',
+            path: '/pages/service/service'
+        };
+    }
+
+    async onLoad() {
+        var self = this;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        self.$apply();
+
+        // let products = await api.getCouponProducts({
+        //     query: {
+        //         shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1'
+        //     }
+        // });
+        // console.log(products);
+        // self.specialProduct = products.data.limitProducts;
+        // self.$apply();
+
+        var shop = wx.getStorageSync('shopChoose');
+        if (shop != '') {
+            self.shopChoose = shop;
+            self.$apply();
+        }
+
+        self.clearModule();
+    }
+}
+</script>

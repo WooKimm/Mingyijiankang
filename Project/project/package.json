@@ -1,7 +1,7 @@
 {
-  "name": "fxyx",
+  "name": "mysc",
   "version": "0.0.2",
-  "description": "A WePY project",
+  "description": "mysc",
   "main": "dist/app.js",
   "scripts": {
     "dev": "wepy build --watch",
@@ -14,11 +14,11 @@
     "module-a": false,
     "./src/components/list": "./src/components/wepy-list.wpy"
   },
-  "author": "xys",
+  "author": "xieyongshen <786102508@qq.com>",
   "license": "MIT",
   "dependencies": {
     "wepy": "^1.6.0",
-    "wepy-async-function": "^1.4.6",
+    "wepy-async-function": "^1.4.4",
     "wepy-com-toast": "^1.0.2"
   },
   "devDependencies": {

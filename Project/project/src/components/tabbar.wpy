@@ -46,28 +46,28 @@ export default class Tabbar extends wepy.component {
     data = {
         tabbar: [
             {
-                pagePath: '/pages/index/index',
-                text: '首页',
-                iconPath: '/icons/tabbar/home.png',
-                selectedIconPath: '/icons/tabbar/home-selected.png'
+                pagePath: 'pages/index/index',
+                text: '健康商城',
+                iconPath: 'icons/tabbar/mall.png',
+                selectedIconPath: 'icons/tabbar/mall_selected.png'
             },
             {
-                pagePath: '/pages/coupon/coupon',
-                text: '优惠券',
-                iconPath: '/icons/tabbar/coupon.png',
-                selectedIconPath: '/icons/tabbar/coupon-selected.png'
+                pagePath: 'pages/service/service',
+                text: '健康服务',
+                iconPath: 'icons/tabbar/service.png',
+                selectedIconPath: 'icons/tabbar/service_selected.png'
             },
             {
-                pagePath: '/pages/shoppingCart/shoppingCart',
+                pagePath: 'pages/shoppingCart/shoppingCart',
                 text: '购物车',
-                iconPath: '/icons/tabbar/shoppingCart.png',
-                selectedIconPath: '/icons/tabbar/shoppingCart-selected.png'
+                iconPath: 'icons/tabbar/shoppingCart.png',
+                selectedIconPath: 'icons/tabbar/shoppingCart-selected.png'
             },
             {
-                pagePath: '/pages/me/me',
-                text: '我的',
-                iconPath: '/icons/tabbar/user.png',
-                selectedIconPath: '/icons/tabbar/user-selected.png'
+                pagePath: 'pages/me/me',
+                text: '会员中心',
+                iconPath: 'icons/tabbar/user.png',
+                selectedIconPath: 'icons/tabbar/user-selected.png'
             }
         ]
     };
@@ -88,11 +88,11 @@ export default class Tabbar extends wepy.component {
     };
 
     methods = {
-        navToTab(path, e){
+        navToTab(path, e) {
             wx.switchTab({
                 url: path
-            })
+            });
         }
-    }
+    };
 }
 </script>

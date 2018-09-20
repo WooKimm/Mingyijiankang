@@ -1,6 +1,6 @@
 <style lang="less">
 page {
-    color: #323232;
+    color: #666666;
     background: #f7f7f7;
 }
 
@@ -30,7 +30,8 @@ export default class extends wepy.app {
         pages: [
             'pages/index/index',
             'pages/index/category/category',
-            'pages/coupon/coupon',
+            'pages/service/service',
+            'pages/service/diagnosis/diagnosis',
             'pages/shoppingCart/shoppingCart',
             'pages/me/me',
             'pages/me/balance/balance',
@@ -47,25 +48,25 @@ export default class extends wepy.app {
             'pages/myCoupon/myCoupon'
         ],
         window: {
-            navigationBarTextStyle: 'black',
+            navigationBarTextStyle: 'white',
             navigationStyle: 'custom'
         },
         tabBar: {
             color: '#999999',
-            selectedColor: '#f5333f',
+            selectedColor: '#9f7f61',
             backgroundColor: '#ffffff',
             list: [
                 {
                     pagePath: 'pages/index/index',
-                    text: '首页',
-                    iconPath: 'icons/tabbar/home.png',
-                    selectedIconPath: 'icons/tabbar/home-selected.png'
+                    text: '健康商城',
+                    iconPath: 'icons/tabbar/mall.png',
+                    selectedIconPath: 'icons/tabbar/mall_selected.png'
                 },
                 {
-                    pagePath: 'pages/coupon/coupon',
-                    text: '优惠',
-                    iconPath: 'icons/tabbar/coupon.png',
-                    selectedIconPath: 'icons/tabbar/coupon-selected.png'
+                    pagePath: 'pages/service/service',
+                    text: '健康服务',
+                    iconPath: 'icons/tabbar/service.png',
+                    selectedIconPath: 'icons/tabbar/service_selected.png'
                 },
                 {
                     pagePath: 'pages/shoppingCart/shoppingCart',
@@ -75,7 +76,7 @@ export default class extends wepy.app {
                 },
                 {
                     pagePath: 'pages/me/me',
-                    text: '我的',
+                    text: '会员中心',
                     iconPath: 'icons/tabbar/user.png',
                     selectedIconPath: 'icons/tabbar/user-selected.png'
                 }
@@ -101,10 +102,10 @@ export default class extends wepy.app {
     onLaunch() {
         this.testAsync();
         var res = wx.getSystemInfoSync();
-        console.log(res.model);
-        if (res.model == 'iPhone X') {
+        console.log(res.model.substring(0, 8));
+        if (res.model.substring(0, 8) == 'iPhone X') {
             this.globalData.isIphoneX = true;
-            console.log('Rich man here！');
+            console.log('iPhone X here！');
         }
     }
 

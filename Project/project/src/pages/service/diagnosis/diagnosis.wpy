@@ -1,0 +1,245 @@
+<style lang="less">
+page {
+    background: #f5f5f5;
+}
+
+.container {
+    height: 100vh;
+}
+
+.diagnosis-container {
+    width: 750rpx;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.diagnosis-header {
+    width: 750rpx;
+    height: 94rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.diagnosis-shop {
+    height: 94rpx;
+    display: inline-block;
+}
+
+.diagnosis-icon-position {
+    width: 30rpx;
+    height: 38rpx;
+    margin: 28rpx 0;
+    vertical-align: top;
+}
+
+.shop-name {
+    font-size: 28rpx;
+    line-height: 94rpx;
+    margin-left: 20rpx;
+    margin-right: 15rpx;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.diagnosis-search {
+    float: right;
+    text {
+        color: #656766;
+        font-size: 28rpx;
+        line-height: 94rpx;
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+
+.diagnosis-icon-search {
+    width: 36rpx;
+    height: 36rpx;
+    margin-top: 29rpx;
+    margin-right: 20rpx;
+    vertical-align: top;
+}
+
+.diagnosis-banner {
+    padding-bottom: 20rpx;
+    background: #ffffff;
+}
+
+.diagnosis-banner-swiper,
+.diagnosis-banner-item,
+.diagnosis-banner-img {
+    width: 750rpx;
+    height: 300rpx;
+    background: #fdedeb;
+}
+
+.diagnosis-banner-picture {
+    width: 750rpx;
+    height: 165rpx;
+    margin-top: 40rpx;
+    padding: 0 20rpx;
+    display: flex;
+    justify-content: space-between;
+}
+
+.banner-picture-item {
+    width: 345rpx;
+    height: 165rpx;
+    border-radius: 20rpx;
+    background: #fdedeb;
+}
+
+.diagnosis-content {
+    background: #ffffff;
+}
+
+.diagnosis-block {
+    background: #ffffff;
+    padding-top: 35rpx;
+}
+
+.block-title {
+    text-align: center;
+}
+
+.block-title-img {
+    width: 255rpx;
+    height: 60rpx;
+}
+
+.block-content{
+    width: 750rpx;
+    margin-top: 20rpx;
+}
+
+.block-img{
+    width: 750rpx;
+    height: 240rpx;
+    background: #fdedeb;
+    margin-bottom: 0;
+}
+</style>
+<template>
+    <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
+        <navBar navTitle="铭医商城" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <view class="diagnosis-container">
+            <view class="diagnosis-header">
+                <navigator url="../shop/shop" hover-class="none" class="diagnosis-shop">
+                    <image src="/icons/position.png" class="diagnosis-icon-position" />
+                    <!-- <text class="shop-name">{{shopChoose.name}}</text> -->
+                    <text class="shop-name">重庆铭医堂医院</text>
+                </navigator>
+                <view class="diagnosis-search">
+                    <image src="/icons/search.png" class="diagnosis-icon-search" @tap="navToSearch" />
+                    <text>搜索</text>
+                </view>
+            </view>
+            <view class="diagnosis-banner">
+                <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#ffffff" autoplay="true" interval="5000" duration="1000" circular="true" class="diagnosis-banner-swiper">
+                    <repeat for="{{banner}}" key="index">
+                        <swiper-item class="diagnosis-banner-item">
+                            <image src="{{item}}" mode="aspectFill" class="diagnosis-banner-img" @tap="navToProduct({{item.productID}})" />
+                        </swiper-item>
+                    </repeat>
+                </swiper>
+            </view>
+            <view class="diagnosis-content">
+                <view class="diagnosis-column diagnosis-block">
+                    <view class="block-title">
+                        <image src="/icons/健康专栏.png" class="block-title-img" />
+                    </view>
+                    <view class="block-content">
+                        <repeat for="{{column}}" key="id">
+                            <image src="{{item.imgUrl}}" class="block-img" />
+                        </repeat>
+                    </view>
+                </view>
+                <view class="diagnosis-question diagnosis-block">
+                    <view class="block-title">
+                        <image src="/icons/健康问答.png" class="block-title-img" />
+                    </view>
+                    <view class="block-content">
+                        <repeat for="{{question}}" key="id">
+                            <image src="{{item.imgUrl}}" class="block-img" />
+                        </repeat>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import NavBar from '@/components/navBar';
+import api from '@/api/api';
+
+export default class Diagnosis extends wepy.page {
+    components = {
+        navBar: NavBar
+    };
+
+    data = {
+        shopChoose: {
+            id: '',
+            name: ''
+        },
+        banner: [
+            '/icons/picture/banner (1).jpg',
+            '/icons/picture/banner (1).jpg',
+            '/icons/picture/banner (1).jpg'
+        ],
+        column: [
+            {
+                id: '01',
+                imgUrl: '/icons/picture/diagnosis_column (1).jpg'
+            },
+            {
+                id: '02',
+                imgUrl: '/icons/picture/diagnosis_column (2).jpg'
+            },
+            {
+                id: '03',
+                imgUrl: '/icons/picture/diagnosis_column (3).jpg'
+            }
+        ],
+        question: [
+            {
+                id: '01',
+                imgUrl: '/icons/picture/service_question(1).jpg'
+            },
+            {
+                id: '02',
+                imgUrl: '/icons/picture/service_question(2).jpg'
+            }
+        ],
+        isIphoneX: false,
+        color: {}
+    };
+
+    methods = {};
+
+    events = {};
+
+    onShareAppMessage() {
+        return {
+            title: '放心优选',
+            path: '/pages/diagnosis/diagnosis'
+        };
+    }
+
+    async onLoad() {
+        var self = this;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
+        self.$apply();
+
+        var shop = wx.getStorageSync('shopChoose');
+        if (shop != '') {
+            self.shopChoose = shop;
+            self.$apply();
+        }
+    }
+}
+</script>

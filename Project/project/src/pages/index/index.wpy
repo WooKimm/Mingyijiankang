@@ -1,69 +1,86 @@
 <style lang="less">
+page {
+    background: #e4e4e4;
+}
+
 .index-content {
-    padding: 0 30rpx;
     background: #ffffff;
 }
 
 .index-header {
-    height: 75rpx;
-    margin-bottom: 20rpx;
+    width: 750rpx;
+    height: 94rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    background: #ffffff;
 }
 
 .index-shop {
-    height: 75rpx;
+    height: 94rpx;
     display: inline-block;
 }
 
 .index-icon-position {
-    width: 26rpx;
-    height: 39rpx;
-    margin: 18rpx 0;
+    width: 30rpx;
+    height: 38rpx;
+    margin: 28rpx 0;
     vertical-align: top;
 }
 
 .shop-name {
     font-size: 28rpx;
-    line-height: 75rpx;
+    line-height: 94rpx;
     margin-left: 20rpx;
     margin-right: 15rpx;
     display: inline-block;
     vertical-align: top;
 }
 
-.index-icon-down {
-    width: 45rpx;
-    height: 45rpx;
-    margin-top: 18rpx;
-    vertical-align: top;
+.index-search {
+    float: right;
+    text {
+        color: #656766;
+        font-size: 28rpx;
+        line-height: 94rpx;
+        display: inline-block;
+        vertical-align: top;
+    }
 }
 
 .index-icon-search {
-    width: 35rpx;
-    height: 35rpx;
-    margin-top: 20rpx;
+    width: 36rpx;
+    height: 36rpx;
+    margin-top: 29rpx;
+    margin-right: 20rpx;
     vertical-align: top;
-    float: right;
 }
 
-.banner-top {
-    width: 690rpx;
-    height: 280rpx;
-    border-radius: 20rpx;
+.index-banner {
+    margin-bottom: 20rpx;
+    padding-bottom: 20rpx;
+    background: #ffffff;
+}
+
+.index-banner-swiper,
+.index-banner-item,
+.index-banner-img {
+    width: 750rpx;
+    height: 300rpx;
     background: #fdedeb;
 }
 
-.banner-left {
-    width: 335rpx;
-    height: 150rpx;
-    margin: 10rpx 10rpx 20rpx 0;
-    border-radius: 20rpx;
-    background: #fdedeb;
+.index-banner-picture {
+    width: 750rpx;
+    height: 165rpx;
+    margin-top: 40rpx;
+    padding: 0 20rpx;
+    display: flex;
+    justify-content: space-between;
 }
 
-.banner-right {
-    width: 335rpx;
-    height: 150rpx;
-    margin: 10rpx 0 20rpx 10rpx;
+.banner-picture-item {
+    width: 345rpx;
+    height: 165rpx;
     border-radius: 20rpx;
     background: #fdedeb;
 }
@@ -75,163 +92,180 @@
 }
 
 .category-item {
-    width: 100rpx;
+    width: 105rpx;
     text-align: center;
     display: inline-block;
     .category-img {
-        width: 72rpx;
-        height: 62rpx;
-        margin-bottom: 15rpx;
+        width: 105rpx;
+        height: 105rpx;
+        margin-bottom: 10rpx;
         box-sizing: border-box;
     }
     .category-title {
-        font-size: 23rpx;
+        font-size: 27rpx;
         line-height: 30rpx;
         display: block;
     }
 }
 
-.index-today,
-.index-hot,
-.index-selected {
-    margin-top: 45rpx;
+.index-block {
+    background: #ffffff;
+    padding-top: 35rpx;
 }
 
-.today-title,
-.hot-title,
-.selected-title {
-    font-size: 32rpx;
-    line-height: 50rpx;
+.block-title {
     text-align: center;
 }
 
-.today-time {
-    width: 690rpx;
-    height: 80rpx;
-    color: #ffffff;
-    font-size: 26rpx;
-    line-height: 80rpx;
-    letter-spacing: 5rpx;
+.block-title-img {
+    width: 255rpx;
+    height: 60rpx;
+}
+
+.limit-time {
+    width: 750rpx;
+    height: 40rpx;
+    color: #333333;
+    font-size: 30rpx;
+    line-height: 40rpx;
+    font-weight: 600;
     text-align: center;
-    margin-top: 20rpx;
-    margin-bottom: 10rpx;
-    border-radius: 10rpx;
+    margin-top: 10rpx;
+    margin-bottom: 35rpx;
     text {
-        line-height: 80rpx;
         display: inline-block;
         vertical-align: top;
     }
 }
 
-.today-time-num {
-    font-size: 36rpx;
-    font-weight: 600;
+.limit-time-num {
+    width: 40rpx;
+    color: #ffffff;
+    font-size: 26rpx;
+    text-align: center;
+    font-weight: 500;
+    margin: 0 10rpx;
+    background: #ababab;
+    border-radius: 6rpx;
 }
 
-.today-item-remain {
-    width: 250rpx;
-    height: 20px;
-    margin-top: 10rpx;
-    padding: 0;
-    border: 1px solid #fdd6d9;
-    border-radius: 15px;
-    box-sizing: border-box;
-    overflow: hidden;
-    position: relative;
-    text {
-        width: 250rpx;
-        font-size: 26rpx;
-        line-height: 18px;
-        text-align: center;
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        z-index: 20;
-    }
+.time-second {
+    background: #ed5736;
 }
 
-.today-item-price {
+.limit-item-price {
     position: absolute;
-    bottom: 0;
+    bottom: 20rpx;
 }
 
-.today-price-cur {
-    font-size: 24rpx;
+.index-product-price {
+    color: #ed5736;
+    font-size: 28rpx;
     line-height: 30rpx;
+    display: inline-block;
     text {
-        font-size: 30rpx;
+        margin-right: 10rpx;
+        font-size: 40rpx;
         line-height: 40rpx;
+        font-weight: 600;
     }
 }
 
-.today-price-ori {
-    color: #999999;
-    font-size: 22rpx;
+.index-product-oriPrice {
+    color: #bbbbbb;
+    font-size: 28rpx;
     line-height: 30rpx;
-    text {
-        font-size: 24rpx;
-        line-height: 35rpx;
-        text-decoration: line-through;
-    }
+    text-decoration: line-through;
+    display: inline-block;
+}
+
+.index-limit-cart {
+    width: 130rpx;
+    height: 45rpx;
+    position: absolute;
+    bottom: 20rpx;
+    right: 0;
 }
 
 .index-banner-middle {
-    width: 690rpx;
-    height: 160rpx;
-    border-radius: 20rpx;
+    width: 750rpx;
+    height: 240rpx;
     background: #fdedeb;
+    margin-bottom: 0;
 }
 
-.hot-item-label,
+.index-product-group {
+    width: 710rpx;
+    height: 410rpx;
+    margin: 20rpx;
+    border: 1rpx solid #f2f2f2;
+    border-radius: 10rpx;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.index-group-img {
+    width: 710rpx;
+    height: 260rpx;
+    border: 1rpx solid #f2f2f2;
+    border-radius: 10rpx;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.index-group-content {
+    width: 710rpx;
+    height: 150rpx;
+    padding: 20rpx;
+    box-sizing: border-box;
+    position: absolute;
+    top: 260rpx;
+}
+
+.index-group-name {
+    color: #333333;
+    font-size: 32rpx;
+    line-height: 60rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.index-group-cart {
+    width: 160rpx;
+    height: 45rpx;
+    position: absolute;
+    bottom: 20rpx;
+    right: 20rpx;
+}
+
 .selected-item-label {
-    width: 110rpx;
     height: 30rpx;
-    margin: 5rpx;
+    margin-top: 10rpx;
     font-size: 24rpx;
-    line-height: 30rpx;
+    line-height: 28rpx;
     text-align: center;
     vertical-align: top;
+    padding: 0 5rpx;
     border-radius: 5rpx;
     display: inline-block;
 }
 
 .label-common {
-    color: #cccccc;
-    border: 1rpx solid #cccccc;
+    color: #999999;
+    border: 1rpx solid #999999;
 }
 
 .label-member {
     color: #ffffff;
 }
 
-.hot-item-price,
 .selected-item-price {
     position: absolute;
     left: 0;
     bottom: 15rpx;
-}
-
-.hot-item-oriPrice,
-.selected-item-oriPrice {
-    font-size: 26rpx;
-    line-height: 30rpx;
-}
-
-.hot-item-curPrice,
-.selected-item-curPrice {
-    font-size: 32rpx;
-    line-height: 40rpx;
-    text {
-        color: #999999;
-        font-size: 22rpx;
-        line-height: 30rpx;
-        margin-left: 10rpx;
-        text-decoration: line-through;
-    }
-}
-
-.index-product {
-    margin: 0 -30rpx;
 }
 
 .index-empty {
@@ -243,20 +277,29 @@
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="放心优选" :isIphoneX.sync="isIphoneX"></navBar>
-        <view class="index-content">
-            <view class="index-header">
-                <navigator url="../shop/shop" hover-class="none" class="index-shop">
-                    <image src="/icons/position.png" class="index-icon-position" />
-                    <text class="shop-name">{{shopChoose.name}}</text>
-                    <image src="/icons/down.png" class="index-icon-down" />
-                </navigator>
+        <navBar navTitle="铭医商城" :isIphoneX.sync="isIphoneX"></navBar>
+        <view class="index-header">
+            <navigator url="../shop/shop" hover-class="none" class="index-shop">
+                <image src="/icons/position.png" class="index-icon-position" />
+                <!-- <text class="shop-name">{{shopChoose.name}}</text> -->
+                <text class="shop-name">重庆铭医堂医院</text>
+            </navigator>
+            <view class="index-search">
                 <image src="/icons/search.png" class="index-icon-search" @tap="navToSearch" />
+                <text>搜索</text>
             </view>
-            <view class="index-banner">
-                <image class="banner-top" />
-                <image class="banner-left" />
-                <image class="banner-right" />
+        </view>
+        <view class="index-banner">
+            <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#ffffff" autoplay="true" interval="5000" duration="1000" circular="true" class="index-banner-swiper">
+                <repeat for="{{banner}}" key="index">
+                    <swiper-item class="index-banner-item">
+                        <image src="{{item}}" mode="aspectFill" class="index-banner-img" @tap="navToProduct({{item.productID}})" />
+                    </swiper-item>
+                </repeat>
+            </swiper>
+            <view class="index-banner-picture">
+                <image src="/icons/picture/banner (2).jpg" class="banner-picture-item" />
+                <image src="/icons/picture/banner (3).jpg" class="banner-picture-item" />
             </view>
             <view class="index-category" style="justify-content: {{category.length > 4 ? 'space-between' : 'space-around'}};">
                 <repeat for="{{category}}" key="index">
@@ -266,69 +309,73 @@
                     </view>
                 </repeat>
             </view>
-            <view class="index-today">
-                <view class="today-title">今日热卖</view>
-                <view class="today-time" style="background:{{color.red}}">
-                    <text>距离活动{{isStarted ? '结束' : '开始'}}还剩：</text>
-                    <text class="today-time-num">{{countTime.day}}天{{countTime.hour}}时{{countTime.minute}}分{{countTime.second}}秒</text>
+        </view>
+        <view class="index-content">
+            <view class="index-block">
+                <view class="block-title">
+                    <image src="/icons/限时秒杀.png" class="block-title-img" />
                 </view>
-                <repeat for="{{product.today}}" key="id">
+                <view class="limit-time">
+                    <text>距离活动{{isStarted ? '结束' : '开始'}}还剩</text>
+                    <text class="limit-time-num">{{countTime.hour}}</text>
+                    <text>:</text>
+                    <text class="limit-time-num">{{countTime.minute}}</text>
+                    <text>:</text>
+                    <text class="limit-time-num time-second">{{countTime.second}}</text>
+                </view>
+                <repeat for="{{product.limit}}" key="id">
                     <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
-                        <view wx:if="{{item.remain > 0}}" slot="extra" class="today-item-remain">
-                            <progress class="today-item-progress" percent="{{item.remain/item.count*100}}" stroke-width="20" activeColor="#fddddf" backgroundColor="#fffbfb" />
-                            <text style="color:{{color.red}}">还剩{{item.remain}}份</text>
-                        </view>
-                        <view slot="price" class="today-item-price">
-                            <view class="today-price-cur" style="color:{{color.yellow}}">限时价
-                                <text>¥{{item.price}}</text>
+                        <view slot="price" class="limit-item-price">
+                            <view class="index-product-price">¥
+                                <text>{{item.price}}</text>
                             </view>
-                            <view wx:if="{{item.oriPrice > 0}}" class="today-price-ori">原价
-                                <text>¥{{item.oriPrice}}</text>
-                            </view>
+                            <view wx:if="{{item.oriPrice > 0}}" class="index-product-oriPrice">¥{{item.oriPrice}}</view>
                         </view>
-                        <image slot="cart" src="/icons/cart-recommend.png" class="product-icon-cart" @tap.stop="chooseSpec(0, {{index}})" />
+                        <image wx:if="{{item.remain > 0}}" slot="cart" src="/icons/cart-limit.png" class="index-limit-cart" @tap.stop="chooseSpec(0, {{index}})" />
+                        <image wx:else slot="cart" src="/icons/cart-empty.png" class="index-limit-cart" />
                     </product>
                 </repeat>
-                <view wx:if="{{!product.today}}" class="index-empty">暂无相关商品</view>
+                <view wx:if="{{!product.limit}}" class="index-empty">暂无相关商品</view>
             </view>
-            <image class="index-banner-middle" />
-            <view class="index-hot">
-                <view class="hot-title">热卖爆款</view>
-                <repeat for="{{product.hot}}" key="id">
-                    <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
-                        <view wx:if="{{item.label != ''}}" slot="extra" class="hot-item-label label-common">{{item.label}}</view>
-                        <view slot="price" class="hot-item-price">
-                            <view wx:if="{{item.memberPrice > 0}}" class="hot-item-oriPrice" style="color:{{color.yellow}}">¥{{item.oriPrice}}
-                                <view class="hot-item-label label-member" style="background:{{color.yellow}}">会员专享</view>
+            <image src="/icons/picture/banner_m.png" class="index-banner-middle" />
+            <view class="index-block">
+                <view class="block-title">
+                    <image src="/icons/优品拼单.png" class="block-title-img" />
+                </view>
+                <repeat for="{{product.group}}" key="id">
+                    <view class="index-product-group">
+                        <image src="{{item.imgUrl}}" class="index-group-img" />
+                        <view class="index-group-content">
+                            <view class="index-group-name">{{item.name}}</view>
+                            <view class="index-product-price">¥
+                                <text>{{item.price}}</text>
                             </view>
-                            <view class="hot-item-curPrice" style="color:{{color.red}}">¥{{item.price}}
-                                <text>¥{{item.oriPrice}}</text>
-                            </view>
+                            <view wx:if="{{item.oriPrice > 0}}" class="index-product-oriPrice">¥{{item.oriPrice}}</view>
+                            <image slot="cart" src="/icons/cart-group.png" class="index-group-cart" @tap.stop="chooseSpec(1, {{index}})" />
                         </view>
-                        <image slot="cart" src="/icons/cart-recommend.png" class="product-icon-cart" @tap.stop="chooseSpec(1, {{index}})" />
-                    </product>
+                    </view>
                 </repeat>
-                <view wx:if="{{!product.hot}}" class="index-empty">暂无相关商品</view>
+                <view wx:if="{{!product.group}}" class="index-empty">暂无相关商品</view>
             </view>
-            <image class="index-banner-middle" />
-            <view class="index-selected">
-                <view class="selected-title">放心精选</view>
-                <repeat for="{{product.selected}}" key="id">
-                    <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
-                        <view wx:if="{{item.label != ''}}" slot="extra" class="selected-item-label label-common">{{item.label}}</view>
-                        <view slot="price" class="selected-item-price">
-                            <view wx:if="{{item.memberPrice > 0}}" class="selected-item-oriPrice" style="color:{{color.yellow}}">¥{{item.oriPrice}}
-                                <view class="selected-item-label label-member" style="background:{{color.yellow}}">会员专享</view>
-                            </view>
-                            <view class="selected-item-curPrice" style="color:{{color.red}}">¥{{item.price}}
-                                <text>¥{{item.oriPrice}}</text>
-                            </view>
+            <image src="/icons/picture/banner_m.png" class="index-banner-middle" />
+        </view>
+        <view class="index-block">
+            <view class="block-title">
+                <image src="/icons/铭医优选.png" class="block-title-img" />
+            </view>
+            <repeat for="{{product.selected}}" key="id">
+                <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
+                    <view wx:if="{{item.label != ''}}" slot="extra" class="selected-item-label label-common">{{item.label}}</view>
+                    <view slot="price" class="selected-item-price">
+                        <view class="index-product-price">¥
+                            <text>{{item.price}}</text>
                         </view>
-                        <image slot="cart" src="/icons/cart-recommend.png" class="product-icon-cart" @tap.stop="chooseSpec(2, {{index}})" />
-                    </product>
-                </repeat>
-                <view wx:if="{{!product.selected}}" class="index-empty">暂无相关商品</view>
-            </view>
+                        <view wx:if="{{item.oriPrice > 0}}" class="index-product-oriPrice">¥{{item.oriPrice}}</view>
+                    </view>
+                    <image slot="cart" src="/icons/cart-recommend.png" class="product-icon-cart" @tap.stop="chooseSpec(2, {{index}})" />
+                </product>
+            </repeat>
+            <view wx:if="{{!product.selected}}" class="index-empty">暂无相关商品</view>
         </view>
         <view wx:if="{{isChoosing}}" class="product-select" @tap="selectClose()">
             <view class="product-select-container" @tap.stop="selectContent()">
@@ -352,7 +399,7 @@
                         <text>数量：</text>
                         <view class="product-count-choose">
                             <view class="product-count-reduce" style="{{count > 1 ? 'color:' + color.red + ';' : ''}}" @tap="countMinus">-</view>
-                            <view class="product-count-current" style="color:{{color.red}};">{{count}}</view>
+                            <input type="number" value="{{count}}" bindinput="countLimit" class="product-count-current" style="color:{{color.red}};" />
                             <view class="product-count-add" style="{{count < curProduct.remain ? 'color:' + color.red + ';' : ''}}" @tap="countPlus">+</view>
                         </view>
                     </view>
@@ -382,11 +429,167 @@ export default class Index extends wepy.page {
             id: '',
             name: ''
         },
-        category: [],
+        banner: [
+            '/icons/picture/banner (1).jpg',
+            '/icons/picture/banner (1).jpg',
+            '/icons/picture/banner (1).jpg'
+        ],
+        category: [
+            {
+                id: '01',
+                imgUrl: '/icons/type1.png',
+                title: '一键自诊'
+            },
+            {
+                id: '02',
+                imgUrl: '/icons/type2.png',
+                title: '特色服务'
+            },
+            {
+                id: '03',
+                imgUrl: '/icons/type3.png',
+                title: '健康问答'
+            },
+            {
+                id: '04',
+                imgUrl: '/icons/type4.png',
+                title: '健康专栏'
+            }
+        ],
         product: {
-            hot: [],
-            today: [],
-            selected: []
+            group: [
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
+                    imgUrl: '/icons/picture/product_group (1).jpg',
+                    name: '出口级极品黄山东平阴特产',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    remain: 50
+                },
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
+                    imgUrl: '/icons/picture/product_group (2).jpg',
+                    name: '出口级极品黄山东平阴特产',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    remain: 50
+                },
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
+                    imgUrl: '/icons/picture/product_group (3).jpg',
+                    name: '出口级极品黄山东平阴特产',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    remain: 50
+                },
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f4',
+                    imgUrl: '/icons/picture/product_group (4).jpg',
+                    name: '出口级极品黄山东平阴特产',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    remain: 50
+                }
+            ],
+            limit: [
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
+                    imgUrl: '/icons/picture/product_limit (1).png',
+                    limitEndTime: '2018-09-20 10:00:00',
+                    limitRemain: 50,
+                    limitStartTime: '2018-09-18 08:00:00',
+                    name: '出口级极品黄山东平阴特产',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    remain: 50
+                },
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
+                    imgUrl: '/icons/picture/product_limit (2).png',
+                    limitEndTime: '2018-09-20 10:00:00',
+                    limitRemain: 50,
+                    limitStartTime: '2018-09-18 08:00:00',
+                    name: '出口级极品黄山东平阴特产',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    remain: 50
+                },
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
+                    imgUrl: '/icons/picture/product_limit (3).png',
+                    limitEndTime: '2018-09-20 10:00:00',
+                    limitRemain: 50,
+                    limitStartTime: '2018-09-18 08:00:00',
+                    name: '出口级极品黄山东平阴特产',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    remain: 50
+                }
+            ],
+            selected: [
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
+                    imgUrl: '/icons/picture/product_selected (1).png',
+                    name: '出口级极品黄山东平阴特产',
+                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    label: '100%第三方权威检测',
+                    remain: 50
+                },
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
+                    imgUrl: '/icons/picture/product_selected (2).png',
+                    name: '出口级极品黄山东平阴特产',
+                    desc: '柔肝醒胃，疏气活血',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    label: '100%第三方权威检测',
+                    remain: 50
+                },
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
+                    imgUrl: '/icons/picture/product_selected (3).png',
+                    name: '出口级极品黄山东平阴特产',
+                    desc: '柔肝醒胃，疏气活血',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    label: '100%第三方权威检测',
+                    remain: 50
+                },
+                {
+                    count: 50,
+                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f4',
+                    imgUrl: '/icons/picture/product_selected (4).png',
+                    name: '出口级极品黄山东平阴特产',
+                    desc: '柔肝醒胃，疏气活血',
+                    oriPrice: '32.98',
+                    price: '14.9',
+                    spec: [{ name: '50g', price: 14.9 }],
+                    label: '100%第三方权威检测',
+                    remain: 50
+                }
+            ]
         },
         startTime: '',
         endTime: '',
@@ -432,18 +635,25 @@ export default class Index extends wepy.page {
 
         chooseSpec(type, index) {
             var self = this;
-            if(type == 0){
-                self.curProduct = self.product.today[index];
-            }else if(type == 1){
-                self.curProduct = self.product.hot[index];
-            }else if(type == 2){
+            if (type == 0) {
+                self.curProduct = self.product.limit[index];
+            } else if (type == 1) {
+                self.curProduct = self.product.group[index];
+            } else if (type == 2) {
                 self.curProduct = self.product.selected[index];
+            }
+            if (self.curProduct.remain < 1) {
+                wx.showToast({
+                    title: '库存不足',
+                    icon: 'none',
+                    duration: 1000
+                });
+                return;
             }
             self.specChoose = 0;
             self.count = 1;
             self.isChoosing = true;
             self.$apply();
-            console.log(self.curProduct);
         },
 
         specChoose(spec, e) {
@@ -474,6 +684,18 @@ export default class Index extends wepy.page {
             }
         },
 
+        countLimit(e) {
+            var count = e.detail.value;
+            if (count == '' || count <= 1) {
+                count = 1;
+            } else if (count >= this.curProduct.remain) {
+                count = this.curProduct.remain;
+            }
+            this.count = count;
+            this.$apply();
+            return count;
+        },
+
         addToCart() {
             var self = this;
             var shoppingCart = wx.getStorageSync('shoppingCart');
@@ -498,6 +720,7 @@ export default class Index extends wepy.page {
                     spec: self.curProduct.spec[self.specChoose].name,
                     price: self.curProduct.spec[self.specChoose].price,
                     oriPrice: self.curProduct.oriPrice,
+                    remain: self.curProduct.remain,
                     count: self.count
                 });
             }
@@ -509,7 +732,6 @@ export default class Index extends wepy.page {
                 duration: 1000
             });
 
-            console.log(shoppingCart);
             this.isChoosing = false;
             this.$apply();
         }
@@ -528,6 +750,10 @@ export default class Index extends wepy.page {
         let nowTime = new Date().getTime();
         let startTimeStr = self.startTime;
         let endTimeStr = self.endTime;
+        startTimeStr = startTimeStr.replace(/\-/g, '/');
+        endTimeStr = endTimeStr.replace(/\-/g, '/');
+        console.log(startTimeStr);
+        console.log(endTimeStr);
         let countDown = {};
 
         // 对结束时间进行处理渲染到页面
@@ -609,35 +835,91 @@ export default class Index extends wepy.page {
         self.$apply();
     }
 
-    async onShow() {
-        let self = this;
+    async getInitial() {
+        var self = this;
+        self.color = self.$parent.globalData.color;
+        self.isIphoneX = self.$parent.globalData.isIphoneX;
 
-        var shop = wx.getStorageSync('shopChoose');
-        if (shop != '') {
-            self.shopChoose = shop;
-            self.$apply();
-        }
+        var latitude = 0.0;
+        var longitude = 0.0;
+        wx.getLocation({
+            type: 'wgs84',
+            success: function(res) {
+                latitude = res.latitude;
+                longitude = res.longitude;
+                self.$apply();
+                console.log('position: ' + latitude + ' , ' + longitude);
+            }
+        });
+        let shops = await api.getShops({
+            query: {
+                currentX: latitude,
+                currentY: longitude
+            }
+        });
+        var shopClosest = shops.data[0];
+        self.shopChoose = shopClosest;
+        self.$apply();
+    }
 
+    async getBanners() {
+        var self = this;
+        let banners = await api.getBanners({
+            query: {
+                shopId: self.shopChoose.id
+            }
+        });
+        self.banner = [];
+        banners.data.forEach(element => {
+            self.banner.push(element.url);
+        });
+        console.log(self.banner);
+        self.$apply();
+    }
+
+    async getCategory() {
+        var self = this;
         let categories = await api.getShopCategory();
-        console.log(categories);
         self.category = categories.data;
         console.log(self.category);
         self.$apply();
+    }
 
+    async getProduct() {
+        var self = this;
         let res = await api.getShopProduct({
             query: {
                 shopId: self.shopChoose.id
             }
         });
-        console.log(res);
         self.product = res.data;
-        if (self.product.today) {
-            self.startTime = self.product.today[0].limitStartTime;
-            self.endTime = self.product.today[0].limitEndTime;
+        console.log(self.product);
+        self.$apply();
+
+        if (self.product.limit) {
+            self.startTime = self.product.limit[0].limitStartTime;
+            self.endTime = self.product.limit[0].limitEndTime;
         } else {
             self.startTime = new Date().getTime();
             self.endTime = self.startTime;
         }
+        self.countDown();
+        self.$apply();
+    }
+
+    onShow() {
+        let self = this;
+
+        var shop = wx.getStorageSync('shopChoose');
+        if (shop != '') {
+            self.shopChoose = shop;
+        }
+
+        // self.getBanners();
+        // self.getCategory();
+        // self.getProduct();
+        self.startTime = self.product.limit[0].limitStartTime;
+        self.endTime = self.product.limit[0].limitEndTime;
         self.countDown();
         self.$apply();
     }
@@ -653,14 +935,12 @@ export default class Index extends wepy.page {
         var self = this;
         self.color = self.$parent.globalData.color;
         self.isIphoneX = self.$parent.globalData.isIphoneX;
-        self.$apply();
 
         var latitude = 0.0;
         var longitude = 0.0;
         wx.getLocation({
             type: 'wgs84',
             success: function(res) {
-                console.log(res);
                 latitude = res.latitude;
                 longitude = res.longitude;
                 self.$apply();
@@ -673,35 +953,11 @@ export default class Index extends wepy.page {
                 currentY: longitude
             }
         });
-        var shopClosest = shops.data[3];
+        var shopClosest = shops.data[0];
         self.shopChoose = shopClosest;
-        console.log(self.shopChoose);
+        wx.setStorageSync('shopChoose', self.shopChoose);
+        // self.getBanners();
         self.$apply();
-        
-        let categories = await api.getShopCategory();
-        console.log(categories);
-        self.category = categories.data;
-        console.log(self.category);
-        self.$apply();
-
-        let res = await api.getShopProduct({
-            query: {
-                shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1'
-            }
-        });
-        console.log(res);
-        self.product = res.data;
-        self.startTime = self.product.today[0].limitStartTime;
-        self.endTime = self.product.today[0].limitEndTime;
-        self.$apply();
-        self.countDown();
-
-        let banners = await api.getBanners({
-            query: {
-                shopId: '95c5106b900e47caab71ad7b049d9697'
-            }
-        })
-        console.log(banners)
     }
 }
 </script>
