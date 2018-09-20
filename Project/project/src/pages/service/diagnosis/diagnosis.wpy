@@ -139,29 +139,29 @@ page {
                 <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#ffffff" autoplay="true" interval="5000" duration="1000" circular="true" class="diagnosis-banner-swiper">
                     <repeat for="{{banner}}" key="index">
                         <swiper-item class="diagnosis-banner-item">
-                            <image src="{{item}}" mode="aspectFill" class="diagnosis-banner-img" @tap="navToProduct({{item.productID}})" />
+                            <image src="{{item.url}}" mode="aspectFill" class="diagnosis-banner-img" @tap="navToProduct({{item.productID}})" />
                         </swiper-item>
                     </repeat>
                 </swiper>
             </view>
             <view class="diagnosis-content">
-                <view class="diagnosis-column diagnosis-block">
-                    <view class="block-title">
-                        <image src="/icons/健康专栏.png" class="block-title-img" />
-                    </view>
-                    <view class="block-content">
-                        <repeat for="{{column}}" key="id">
-                            <image src="{{item.imgUrl}}" class="block-img" />
-                        </repeat>
-                    </view>
-                </view>
                 <view class="diagnosis-question diagnosis-block">
                     <view class="block-title">
                         <image src="/icons/健康问答.png" class="block-title-img" />
                     </view>
                     <view class="block-content">
                         <repeat for="{{question}}" key="id">
-                            <image src="{{item.imgUrl}}" class="block-img" />
+                            <image src="{{item.url}}" class="block-img" />
+                        </repeat>
+                    </view>
+                </view>
+                <view class="diagnosis-column diagnosis-block">
+                    <view class="block-title">
+                        <image src="/icons/健康专栏.png" class="block-title-img" />
+                    </view>
+                    <view class="block-content">
+                        <repeat for="{{column}}" key="id">
+                            <image src="{{item.url}}" class="block-img" />
                         </repeat>
                     </view>
                 </view>
@@ -185,35 +185,9 @@ export default class Diagnosis extends wepy.page {
             id: '',
             name: ''
         },
-        banner: [
-            '/icons/picture/banner (1).jpg',
-            '/icons/picture/banner (1).jpg',
-            '/icons/picture/banner (1).jpg'
-        ],
-        column: [
-            {
-                id: '01',
-                imgUrl: '/icons/picture/diagnosis_column (1).jpg'
-            },
-            {
-                id: '02',
-                imgUrl: '/icons/picture/diagnosis_column (2).jpg'
-            },
-            {
-                id: '03',
-                imgUrl: '/icons/picture/diagnosis_column (3).jpg'
-            }
-        ],
-        question: [
-            {
-                id: '01',
-                imgUrl: '/icons/picture/service_question(1).jpg'
-            },
-            {
-                id: '02',
-                imgUrl: '/icons/picture/service_question(2).jpg'
-            }
-        ],
+        banner: [],
+        column: [],
+        question: [],
         isIphoneX: false,
         color: {}
     };
@@ -233,13 +207,30 @@ export default class Diagnosis extends wepy.page {
         var self = this;
         self.color = self.$parent.globalData.color;
         self.isIphoneX = self.$parent.globalData.isIphoneX;
-        self.$apply();
 
         var shop = wx.getStorageSync('shopChoose');
         if (shop != '') {
             self.shopChoose = shop;
             self.$apply();
         }
+
+        let serviceBanners = await api.getServiceBanners({
+            query: {
+                shopId: self.shopChoose.id
+            }
+        });
+        console.log(serviceBanners);
+        self.question = serviceBanners.data.question;
+        self.column = serviceBanners.data.column;
+        
+        let banners = await api.getBanners({
+            query: {
+                shopId: self.shopChoose.id
+            }
+        });
+        console.log(banners);
+        self.banner = banners.data.topBanner;
+        self.$apply();
     }
 }
 </script>

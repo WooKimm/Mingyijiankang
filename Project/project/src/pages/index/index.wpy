@@ -281,8 +281,7 @@ page {
         <view class="index-header">
             <navigator url="../shop/shop" hover-class="none" class="index-shop">
                 <image src="/icons/position.png" class="index-icon-position" />
-                <!-- <text class="shop-name">{{shopChoose.name}}</text> -->
-                <text class="shop-name">重庆铭医堂医院</text>
+                <text class="shop-name">{{shopChoose.name}}</text>
             </navigator>
             <view class="index-search">
                 <image src="/icons/search.png" class="index-icon-search" @tap="navToSearch" />
@@ -291,15 +290,15 @@ page {
         </view>
         <view class="index-banner">
             <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#ffffff" autoplay="true" interval="5000" duration="1000" circular="true" class="index-banner-swiper">
-                <repeat for="{{banner}}" key="index">
+                <repeat for="{{banner.topBanner}}" key="index">
                     <swiper-item class="index-banner-item">
-                        <image src="{{item}}" mode="aspectFill" class="index-banner-img" @tap="navToProduct({{item.productID}})" />
+                        <image src="{{item.url}}" mode="aspectFill" class="index-banner-img" @tap="navToProduct({{item.productID}})" />
                     </swiper-item>
                 </repeat>
             </swiper>
             <view class="index-banner-picture">
-                <image src="/icons/picture/banner (2).jpg" class="banner-picture-item" />
-                <image src="/icons/picture/banner (3).jpg" class="banner-picture-item" />
+                <image src="{{banner.indexBanner[0].url}}" class="banner-picture-item" />
+                <image src="{{banner.indexBanner[1].url}}" class="banner-picture-item" />
             </view>
             <view class="index-category" style="justify-content: {{category.length > 4 ? 'space-between' : 'space-around'}};">
                 <repeat for="{{category}}" key="index">
@@ -337,7 +336,7 @@ page {
                 </repeat>
                 <view wx:if="{{!product.limit}}" class="index-empty">暂无相关商品</view>
             </view>
-            <image src="/icons/picture/banner_m.png" class="index-banner-middle" />
+            <image src="{{banner.indexBanner[2].url}}" class="index-banner-middle" />
             <view class="index-block">
                 <view class="block-title">
                     <image src="/icons/优品拼单.png" class="block-title-img" />
@@ -357,7 +356,7 @@ page {
                 </repeat>
                 <view wx:if="{{!product.group}}" class="index-empty">暂无相关商品</view>
             </view>
-            <image src="/icons/picture/banner_m.png" class="index-banner-middle" />
+            <image src="{{banner.indexBanner[3].url}}" class="index-banner-middle" />
         </view>
         <view class="index-block">
             <view class="block-title">
@@ -429,164 +428,9 @@ export default class Index extends wepy.page {
             id: '',
             name: ''
         },
-        banner: [
-            '/icons/picture/banner (1).jpg',
-            '/icons/picture/banner (1).jpg',
-            '/icons/picture/banner (1).jpg'
-        ],
-        category: [
-            {
-                id: '01',
-                imgUrl: '/icons/type1.png',
-                title: '一键自诊'
-            },
-            {
-                id: '02',
-                imgUrl: '/icons/type2.png',
-                title: '特色服务'
-            },
-            {
-                id: '03',
-                imgUrl: '/icons/type3.png',
-                title: '健康问答'
-            },
-            {
-                id: '04',
-                imgUrl: '/icons/type4.png',
-                title: '健康专栏'
-            }
-        ],
-        product: {
-            group: [
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
-                    imgUrl: '/icons/picture/product_group (1).jpg',
-                    name: '出口级极品黄山东平阴特产',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                },
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
-                    imgUrl: '/icons/picture/product_group (2).jpg',
-                    name: '出口级极品黄山东平阴特产',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                },
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
-                    imgUrl: '/icons/picture/product_group (3).jpg',
-                    name: '出口级极品黄山东平阴特产',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                },
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f4',
-                    imgUrl: '/icons/picture/product_group (4).jpg',
-                    name: '出口级极品黄山东平阴特产',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                }
-            ],
-            limit: [
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
-                    imgUrl: '/icons/picture/product_limit (1).png',
-                    limitEndTime: '2018-09-20 10:00:00',
-                    limitRemain: 50,
-                    limitStartTime: '2018-09-18 08:00:00',
-                    name: '出口级极品黄山东平阴特产',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                },
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
-                    imgUrl: '/icons/picture/product_limit (2).png',
-                    limitEndTime: '2018-09-20 10:00:00',
-                    limitRemain: 50,
-                    limitStartTime: '2018-09-18 08:00:00',
-                    name: '出口级极品黄山东平阴特产',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                },
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
-                    imgUrl: '/icons/picture/product_limit (3).png',
-                    limitEndTime: '2018-09-20 10:00:00',
-                    limitRemain: 50,
-                    limitStartTime: '2018-09-18 08:00:00',
-                    name: '出口级极品黄山东平阴特产',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                }
-            ],
-            selected: [
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
-                    imgUrl: '/icons/picture/product_selected (1).png',
-                    name: '出口级极品黄山东平阴特产',
-                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                },
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
-                    imgUrl: '/icons/picture/product_selected (2).png',
-                    name: '出口级极品黄山东平阴特产',
-                    desc: '柔肝醒胃，疏气活血',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                },
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
-                    imgUrl: '/icons/picture/product_selected (3).png',
-                    name: '出口级极品黄山东平阴特产',
-                    desc: '柔肝醒胃，疏气活血',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                },
-                {
-                    count: 50,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f4',
-                    imgUrl: '/icons/picture/product_selected (4).png',
-                    name: '出口级极品黄山东平阴特产',
-                    desc: '柔肝醒胃，疏气活血',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    remain: 50
-                }
-            ]
-        },
+        banner: [],
+        category: [],
+        product: {},
         startTime: '',
         endTime: '',
         countTime: {
@@ -865,19 +709,16 @@ export default class Index extends wepy.page {
                 shopId: self.shopChoose.id
             }
         });
-        self.banner = [];
-        banners.data.forEach(element => {
-            self.banner.push(element.url);
-        });
-        console.log(self.banner);
+        console.log(banners);
+        self.banner = banners.data;
         self.$apply();
     }
 
     async getCategory() {
         var self = this;
         let categories = await api.getShopCategory();
+        console.log(categories);
         self.category = categories.data;
-        console.log(self.category);
         self.$apply();
     }
 
@@ -888,6 +729,7 @@ export default class Index extends wepy.page {
                 shopId: self.shopChoose.id
             }
         });
+        console.log(res);
         self.product = res.data;
         console.log(self.product);
         self.$apply();
@@ -911,12 +753,9 @@ export default class Index extends wepy.page {
             self.shopChoose = shop;
         }
 
-        // self.getBanners();
-        // self.getCategory();
-        // self.getProduct();
-        self.startTime = self.product.limit[0].limitStartTime;
-        self.endTime = self.product.limit[0].limitEndTime;
-        self.countDown();
+        self.getBanners();
+        self.getCategory();
+        self.getProduct();
         self.$apply();
     }
 

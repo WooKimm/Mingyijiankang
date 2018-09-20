@@ -1,7 +1,7 @@
 <style lang="less">
 .product-item {
-    width: 710rpx;
-    margin: 40rpx 20rpx;
+    width: 750rpx;
+    padding: 40rpx 20rpx;
     border-radius: 10rpx;
     box-sizing: border-box;
 }
@@ -213,13 +213,15 @@
 </style>
 <template>
     <view class="product-item" @tap="navToProduct({{id}})">
-        <image src="{{imgUrl}}" class="product-item-img" />
-        <view class="product-item-content">
-            <view class="product-item-name">{{name}}</view>
-            <view class="product-item-desc">{{desc}}</view>
-            <slot name="extra"></slot>
-            <slot name="price">￥0</slot>
-            <slot name="cart"></slot>
+        <view class="product-container">
+            <image src="{{imgUrl}}" class="product-item-img" />
+            <view class="product-item-content">
+                <view class="product-item-name">{{name}}</view>
+                <view class="product-item-desc">{{desc}}</view>
+                <slot name="extra"></slot>
+                <slot name="price">￥0</slot>
+                <slot name="cart"></slot>
+            </view>
         </view>
     </view>
 </template>

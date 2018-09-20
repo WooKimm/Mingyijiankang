@@ -208,8 +208,12 @@ page {
 }
 
 .product-item {
-    margin: 20rpx;
-    border-radius: 20rpx;
+    padding: 10rpx 20rpx;
+}
+
+.product-container{
+    border-radius: 10rpx;
+    overflow: hidden;
 }
 
 .product-item:not(:last-child) {
@@ -227,8 +231,7 @@ page {
             <view class="service-header">
                 <navigator url="../shop/shop" hover-class="none" class="service-shop">
                     <image src="/icons/position.png" class="service-icon-position" />
-                    <!-- <text class="shop-name">{{shopChoose.name}}</text> -->
-                    <text class="shop-name">重庆铭医堂医院</text>
+                    <text class="shop-name">{{shopChoose.name}}</text>
                 </navigator>
                 <view class="service-search">
                     <image src="/icons/search.png" class="service-icon-search" @tap="navToSearch" />
@@ -239,7 +242,7 @@ page {
                 <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#ffffff" autoplay="true" interval="5000" duration="1000" circular="true" class="service-banner-swiper">
                     <repeat for="{{banner}}" key="index">
                         <swiper-item class="service-banner-item">
-                            <image src="{{item}}" mode="aspectFill" class="service-banner-img" @tap="navToProduct({{item.productID}})" />
+                            <image src="{{item.url}}" mode="aspectFill" class="service-banner-img" @tap="navToProduct({{item.productID}})" />
                         </swiper-item>
                     </repeat>
                 </swiper>
@@ -263,10 +266,10 @@ page {
                     </view>
                     <view class="service-special-product">
                         <repeat for="{{specialProduct}}" key="id">
-                            <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc">
+                            <product :id.sync="item.id" :imgUrl.sync="item.image" :name.sync="item.name" :desc.sync="item.desc">
                                 <view slot="extra" class="special-item-remain">
-                                    <progress class="special-item-progress" percent="{{item.remain/item.count*100}}" stroke-width="15" activeColor="#fddddf" backgroundColor="#fffbfb" />
-                                    <text style="color:{{color.red}}">{{item.count}}/剩{{item.remain}}份</text>
+                                    <progress class="special-item-progress" percent="{{(index+1)/5*100}}" stroke-width="15" activeColor="#fddddf" backgroundColor="#fffbfb" />
+                                    <text style="color:{{color.red}}">500/剩{{(index+1)*100}}份</text>
                                 </view>
                                 <view slot="price" class="special-item-price">
                                     <view class="special-product-price">¥
@@ -274,8 +277,9 @@ page {
                                     </view>
                                     <view wx:if="{{item.oriPrice > 0}}" class="special-product-oriPrice">¥{{item.oriPrice}}</view>
                                 </view>
-                                <image wx:if="{{item.remain > 0}}" slot="cart" src="/icons/cart-limit.png" class="product-icon-cart" @tap.stop="chooseSpec(0, {{index}})" />
-                                <image wx:else slot="cart" src="/icons/cart-empty.png" class="product-icon-cart" />
+                                <image slot="cart" src="/icons/cart-limit.png" class="product-icon-cart" @tap.stop="chooseSpec(0, {{index}})" />
+                                <!-- <image wx:if="{{item.remain > 0}}" slot="cart" src="/icons/cart-limit.png" class="product-icon-cart" @tap.stop="chooseSpec(0, {{index}})" />
+                                <image wx:else slot="cart" src="/icons/cart-empty.png" class="product-icon-cart" /> -->
                             </product>
                         </repeat>
                     </view>
@@ -286,7 +290,7 @@ page {
                     </view>
                     <view class="block-content">
                         <repeat for="{{question}}" key="id">
-                            <image src="{{item.imgUrl}}" class="block-img" />
+                            <image src="{{item.url}}" class="block-img" />
                         </repeat>
                     </view>
                 </view>
@@ -295,8 +299,8 @@ page {
                         <image src="/icons/健康专栏.png" class="block-title-img" />
                     </view>
                     <view class="block-content">
-                        <repeat for="{{question}}" key="id">
-                            <image src="{{item.imgUrl}}" class="block-img" />
+                        <repeat for="{{column}}" key="id">
+                            <image src="{{item.url}}" class="block-img" />
                         </repeat>
                     </view>
                 </view>
@@ -352,11 +356,7 @@ export default class Service extends wepy.page {
             id: '',
             name: ''
         },
-        banner: [
-            '/icons/picture/banner (1).jpg',
-            '/icons/picture/banner (1).jpg',
-            '/icons/picture/banner (1).jpg'
-        ],
+        banner: [],
         serviceModule: [
             {
                 id: 'module0',
@@ -381,83 +381,9 @@ export default class Service extends wepy.page {
         ],
         curModule: 0,
         scrollToModule: '',
-        column: [
-            {
-                id: '01',
-                imgUrl: '/icons/picture/service_column (1).jpg'
-            },
-            {
-                id: '02',
-                imgUrl: '/icons/picture/service_column (2).jpg'
-            }
-        ],
-        question: [
-            {
-                id: '01',
-                imgUrl: '/icons/picture/service_question(1).jpg'
-            },
-            {
-                id: '02',
-                imgUrl: '/icons/picture/service_question(2).jpg'
-            }
-        ],
-        specialProduct: [
-            {
-                count: 100,
-                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
-                imgUrl: '/icons/picture/service (1).jpg',
-                name: '足疗',
-                oriPrice: '32.98',
-                price: '14.9',
-                spec: [{ name: '50g', price: 14.9 }],
-                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                remain: 20
-            },
-            {
-                count: 100,
-                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
-                imgUrl: '/icons/picture/service (2).jpg',
-                name: '推拿',
-                oriPrice: '32.98',
-                price: '14.9',
-                spec: [{ name: '50g', price: 14.9 }],
-                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                remain: 40
-            },
-            {
-                count: 100,
-                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
-                imgUrl: '/icons/picture/service (3).jpg',
-                name: '针灸',
-                oriPrice: '32.98',
-                price: '14.9',
-                spec: [{ name: '50g', price: 14.9 }],
-                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                remain: 60
-            },
-            {
-                count: 100,
-                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f4',
-                imgUrl: '/icons/picture/service (4).jpg',
-                name: '刮痧',
-                oriPrice: '32.98',
-                price: '14.9',
-                spec: [{ name: '50g', price: 14.9 }],
-                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                remain: 80
-            },
-            {
-                count: 100,
-                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f5',
-                imgUrl: '/icons/picture/service (5).jpg',
-                name: '艾灸',
-                oriPrice: '32.98',
-                price: '14.9',
-                spec: [{ name: '50g', price: 14.9 }],
-                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                remain: 100
-            }
-        ],
+        column: [],
+        question: [],
+        specialProduct: [],
         moduleTop: [],
         moveStartPos: 0,
         isChoosing: false,
@@ -612,33 +538,39 @@ export default class Service extends wepy.page {
         var self = this;
         self.color = self.$parent.globalData.color;
         self.isIphoneX = self.$parent.globalData.isIphoneX;
-        self.$apply();
-
-        // let products = await api.getCouponProducts({
-        //     query: {
-        //         shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1'
-        //     }
-        // });
-        // console.log(products);
-        // self.specialProduct = products.data.limitProducts;
-        // self.$apply();
-
-        let service = await api.getService({
-            query: {
-                shopId: 'd122f496-c18d-4882-a34b-b871f2159dbc'
-            }
-        });
-        let service = await api.getServiceBanners({
-            query: {
-                shopId: 'd122f496-c18d-4882-a34b-b871f2159dbc'
-            }
-        });
 
         var shop = wx.getStorageSync('shopChoose');
         if (shop != '') {
             self.shopChoose = shop;
             self.$apply();
         }
+
+        let service = await api.getService({
+            query: {
+                shopId: self.shopChoose.id
+            }
+        });
+        console.log(service);
+        self.specialProduct = service.data;
+        self.$apply();
+
+        let serviceBanners = await api.getServiceBanners({
+            query: {
+                shopId: self.shopChoose.id
+            }
+        });
+        console.log(serviceBanners);
+        self.question = serviceBanners.data.question;
+        self.column = serviceBanners.data.column;
+        self.$apply();
+        
+        let banners = await api.getBanners({
+            query: {
+                shopId: self.shopChoose.id
+            }
+        });
+        console.log(banners);
+        self.banner = banners.data.topBanner;
 
         self.clearModule();
     }
