@@ -365,7 +365,7 @@ page {
             </view>
             <repeat for="{{product.selected}}" key="id">
                 <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
-                    <view wx:if="{{item.label != ''}}" slot="extra" class="selected-item-label label-common">{{item.label}}</view>
+                    <view wx:if="{{item.label != ''}}" slot="extra" class="selected-item-label label-common">100%第三方权威检测</view>
                     <view slot="price" class="selected-item-price">
                         <view class="index-product-price">¥
                             <text>{{item.price}}</text>
@@ -550,7 +550,6 @@ export default class Index extends wepy.page {
                     oriPrice: '32.98',
                     price: '14.9',
                     spec: [{ name: '50g', price: 14.9 }],
-                    label: '100%第三方权威检测',
                     remain: 50
                 },
                 {
@@ -562,7 +561,6 @@ export default class Index extends wepy.page {
                     oriPrice: '32.98',
                     price: '14.9',
                     spec: [{ name: '50g', price: 14.9 }],
-                    label: '100%第三方权威检测',
                     remain: 50
                 },
                 {
@@ -574,7 +572,6 @@ export default class Index extends wepy.page {
                     oriPrice: '32.98',
                     price: '14.9',
                     spec: [{ name: '50g', price: 14.9 }],
-                    label: '100%第三方权威检测',
                     remain: 50
                 },
                 {
@@ -586,7 +583,6 @@ export default class Index extends wepy.page {
                     oriPrice: '32.98',
                     price: '14.9',
                     spec: [{ name: '50g', price: 14.9 }],
-                    label: '100%第三方权威检测',
                     remain: 50
                 }
             ]

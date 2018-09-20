@@ -402,62 +402,62 @@ export default class Service extends wepy.page {
             }
         ],
         specialProduct: [
-                {
-                    count: 100,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
-                    imgUrl: '/icons/picture/service (1).jpg',
-                    name: '足疗',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                    remain: 20
-                },
-                {
-                    count: 100,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
-                    imgUrl: '/icons/picture/service (2).jpg',
-                    name: '推拿',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                    remain: 40
-                },
-                {
-                    count: 100,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
-                    imgUrl: '/icons/picture/service (3).jpg',
-                    name: '针灸',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                    remain: 60
-                },
-                {
-                    count: 100,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f4',
-                    imgUrl: '/icons/picture/service (4).jpg',
-                    name: '刮痧',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                    remain: 80
-                },
-                {
-                    count: 100,
-                    id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f5',
-                    imgUrl: '/icons/picture/service (5).jpg',
-                    name: '艾灸',
-                    oriPrice: '32.98',
-                    price: '14.9',
-                    spec: [{ name: '50g', price: 14.9 }],
-                    desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
-                    remain: 100
-                }
-                ],
+            {
+                count: 100,
+                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f1',
+                imgUrl: '/icons/picture/service (1).jpg',
+                name: '足疗',
+                oriPrice: '32.98',
+                price: '14.9',
+                spec: [{ name: '50g', price: 14.9 }],
+                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                remain: 20
+            },
+            {
+                count: 100,
+                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f2',
+                imgUrl: '/icons/picture/service (2).jpg',
+                name: '推拿',
+                oriPrice: '32.98',
+                price: '14.9',
+                spec: [{ name: '50g', price: 14.9 }],
+                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                remain: 40
+            },
+            {
+                count: 100,
+                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f3',
+                imgUrl: '/icons/picture/service (3).jpg',
+                name: '针灸',
+                oriPrice: '32.98',
+                price: '14.9',
+                spec: [{ name: '50g', price: 14.9 }],
+                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                remain: 60
+            },
+            {
+                count: 100,
+                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f4',
+                imgUrl: '/icons/picture/service (4).jpg',
+                name: '刮痧',
+                oriPrice: '32.98',
+                price: '14.9',
+                spec: [{ name: '50g', price: 14.9 }],
+                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                remain: 80
+            },
+            {
+                count: 100,
+                id: '3f9fd676-c8a5-4aea-ae50-e263ff02166f5',
+                imgUrl: '/icons/picture/service (5).jpg',
+                name: '艾灸',
+                oriPrice: '32.98',
+                price: '14.9',
+                spec: [{ name: '50g', price: 14.9 }],
+                desc: '增强机体免疫功能，保肝利尿，强身健体，缓解疲劳',
+                remain: 100
+            }
+        ],
         moduleTop: [],
         moveStartPos: 0,
         isChoosing: false,
