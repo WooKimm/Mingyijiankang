@@ -2,7 +2,7 @@ import {
     wxRequest
 } from '@/api/wxRequest';
 
-const apiFanxin = 'http://119.23.225.244';
+const apiFanxin = 'http://43.242.49.195';
 // const apiFanxin = 'http://127.0.0.1:8000';
 //根据位置获取商店
 const getShops = (params) => wxRequest(params, apiFanxin + "/api/getShops");
@@ -40,8 +40,10 @@ const submitOrder = (params) => wxRequest(params, apiFanxin + "/api/submitOrder"
 const getUserRedPacket = (params) => wxRequest(params, apiFanxin + "/api/getUserRedPacket");
 //获取推荐商品
 const getRecommendPros = (params) => wxRequest(params, apiFanxin + "/api/getRecommendPros");
-//获取优惠券页面商品
-const getCouponProducts = (params) => wxRequest(params, apiFanxin + "/api/getCouponProducts");
+//获取服务
+const getService = (params) => wxRequest(params, apiFanxin + "/api/getService");
+//获取服务海报
+const getServiceBanners = (params) => wxRequest(params, apiFanxin + "/api/getServiceBanners");
 //获取热门搜索
 const getHotSearch = (params) => wxRequest(params, apiFanxin + "/api/getHotSearch");
 //获取搜索结果
@@ -67,7 +69,8 @@ export default {
     getMyBalance,
     getUserRedPacket,
     getRecommendPros,
-    getCouponProducts,
+    getService,
+    getServiceBanners,
     submitOrder,
     getSearchResult,
     getHotSearch,

@@ -17,6 +17,8 @@ from .models import Deliver
 from .models import Order
 from .models import OrderItem
 from .models import GroupUser
+from .models import Service
+from .models import ServiceBanner
 
 # Register your models here.
 
@@ -37,4 +39,6 @@ admin.site.register(Order)
 admin.site.register(Deliver)
 admin.site.register(OrderItem)
 admin.site.register(GroupUser)
+admin.site.register(Service)
+admin.site.register(ServiceBanner)
 

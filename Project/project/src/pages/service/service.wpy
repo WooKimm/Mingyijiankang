@@ -623,6 +623,17 @@ export default class Service extends wepy.page {
         // self.specialProduct = products.data.limitProducts;
         // self.$apply();
 
+        let service = await api.getService({
+            query: {
+                shopId: 'd122f496-c18d-4882-a34b-b871f2159dbc'
+            }
+        });
+        let service = await api.getServiceBanners({
+            query: {
+                shopId: 'd122f496-c18d-4882-a34b-b871f2159dbc'
+            }
+        });
+
         var shop = wx.getStorageSync('shopChoose');
         if (shop != '') {
             self.shopChoose = shop;
