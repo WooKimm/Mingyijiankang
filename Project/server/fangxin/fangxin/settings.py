@@ -25,7 +25,7 @@ SECRET_KEY = '49a=#q$#)su@!^^u5)jil#o-1-dkrabh5czrshl4+2r+=bbzw4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['119.23.225.244','127.0.0.1']
+ALLOWED_HOSTS = ['43.242.49.195','127.0.0.1']
 
 
 
@@ -82,8 +82,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fangxindb',
         'USER':'root',
-        'PASSWORD':'19990410xin',
-        'HOST':'119.23.225.244',
+        'PASSWORD':'xywy@123',
+        'HOST':'127.0.0.1',
         'PORT':'3306',
     }
 }

@@ -39,8 +39,10 @@ const submitOrder = (params) => wxRequest(params, apiFanxin + "/api/submitOrder"
 const getUserRedPacket = (params) => wxRequest(params, apiFanxin + "/api/getUserRedPacket");
 //获取推荐商品
 const getRecommendPros = (params) => wxRequest(params, apiFanxin + "/api/getRecommendPros");
-//获取优惠券页面商品
-const getCouponProducts = (params) => wxRequest(params, apiFanxin + "/api/getCouponProducts");
+//获取服务
+const getService = (params) => wxRequest(params, apiFanxin + "/api/getService");
+//获取服务海报
+const getServiceBanners = (params) => wxRequest(params, apiFanxin + "/api/getServiceBanners");
 //获取热门搜索
 const getHotSearch = (params) => wxRequest(params, apiFanxin + "/api/getHotSearch");
 //获取搜索结果
@@ -66,7 +68,8 @@ export default {
     getMyBalance,
     getUserRedPacket,
     getRecommendPros,
-    getCouponProducts,
+    getService,
+    getServiceBanners,
     submitOrder,
     getSearchResult,
     getHotSearch,

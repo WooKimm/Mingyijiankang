@@ -854,7 +854,7 @@ export default class Coupon extends wepy.page {
         self.isIphoneX = self.$parent.globalData.isIphoneX;
         self.$apply();
 
-        let products = await api.getCouponProducts({
+        let products = await api.getService({
             query: {
                 shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1'
             }

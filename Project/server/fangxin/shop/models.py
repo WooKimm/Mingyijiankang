@@ -65,9 +65,30 @@ class ShopBannar(models.Model):
 	shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 	position = models.IntegerField(u'布局位置',blank=True,null=True)
 	banner_type = models.ForeignKey(ProductType,blank=True,null=True,on_delete=models.CASCADE)
+	product = models.ForeignKey(ShopProduct,blank=True,null=True,on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.bannar_url)
+
+
+class Service(models.Model):
+	service_id = models.UUIDField(primary_key=True, auto_created=True,default=uuid.uuid4,editable=False)
+	service_name = models.TextField(u'服务名称')
+	shop = models.ManyToManyField(Shop)
+	service_price = models.DecimalField(u'服务价格',max_digits=10, decimal_places=2)
+	service_origin_price = models.DecimalField(u'服务原价',blank=True, null=True,max_digits=10, decimal_places=2)
+	service_desc = models.TextField(u'服务描述',blank=True, null=True,)
+	service_detail = models.TextField(u'服务详情描述',blank=True, null=True,)
+	on_shelf = models.BooleanField(u'是否上架')
+	service_image = models.ImageField(u'服务封面图',upload_to='img/%Y/%m/%d',null=True,blank=True)
+	buyTimes = models.IntegerField(u'服务购买次数',default=0)
+	searchTimes = models.IntegerField(u'搜索次数',default=0)
+
+class ServiceBanner(models.Model):
+	bannar_id = models.UUIDField(primary_key=True, auto_created=True,default=uuid.uuid4,editable=False)
+	bannar_url = models.ImageField(u'商店海报',upload_to='img/%Y/%m/%d',null=True,blank=True)
+	shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+	banner_type = models.IntegerField(u'类型',)
 
 class ShopProduct(models.Model):
 	pro_id = models.UUIDField(primary_key=True, auto_created=True,default=uuid.uuid4,editable=False)

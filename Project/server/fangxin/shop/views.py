@@ -30,13 +30,16 @@ from shop.models import Deliver
 from shop.models import Order
 from shop.models import OrderItem
 from shop.models import GroupUser
+from shop.models import Service
+from shop.models import ServiceBanner
+
 
 import hashlib
 from django.views.decorators.csrf import csrf_exempt
 
 # APP_ID = '1'
 # APP_SECRET = '2'
-APP_IMG_URL = 'http://119.23.225.244/uploads/'
+APP_IMG_URL = 'http://43.242.49.195/uploads/'
 # api = WXAPPAPI(appid=APP_ID,
 #                   app_secret=APP_SECRET)
 # session_info = api.exchange_code_for_session_key(code=code)
@@ -202,21 +205,32 @@ def getShopProduct(request):
             todayEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.limitPrice),count=products.limitCount,limitRemain=products.limitRemain,label=products.comment,limitStartTime=products.limitStartTime.strftime("%Y-%m-%d %H:%M:%S"),limitEndTime=products.limitEndTime.strftime("%Y-%m-%d %H:%M:%S"))
             todayProducts.append(todayEle)
     
-    sortedPros = list(ShopProduct.objects.order_by("buyTimes"))
-    hotPros= sortedPros[-5:]
-    returnHotPros = random.sample(hotPros, 3)
-    for products in returnHotPros:
+    # sortedPros = list(ShopProduct.objects.order_by("buyTimes"))
+    # hotPros= sortedPros[-5:]
+    # returnHotPros = random.sample(hotPros, 3)
+    # for products in returnHotPros:
+    #     specList = list(ProductSpec.objects.filter(product__pro_id=products.pro_id))
+    #     productSpec = list()
+    #     for specs in specList:
+    #         productSpec.append(dict(name=specs.spec_name,price=str(specs.spec_price)))
+    #     if(products.activityType==1):
+    #         hotEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.limitPrice),label=products.comment)
+    #     elif(products.activityType==2):
+    #         hotEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.groupPrice),label=products.comment)
+    #     else:
+    #         hotEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.pro_price),label=products.comment)
+    #     hotProducts.append(hotEle)
+
+    groupProducts = list(ShopProduct.objects.filter(activityType=2))
+    returnGroupProducts = list()
+    for products in groupProducts:
         specList = list(ProductSpec.objects.filter(product__pro_id=products.pro_id))
         productSpec = list()
         for specs in specList:
             productSpec.append(dict(name=specs.spec_name,price=str(specs.spec_price)))
-        if(products.activityType==1):
-            hotEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.limitPrice),label=products.comment)
-        elif(products.activityType==2):
-            hotEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.groupPrice),label=products.comment)
-        else:
-            hotEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.pro_price),label=products.comment)
-        hotProducts.append(hotEle)
+       
+        groupEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.pro_price),label=products.comment)
+        returnGroupProducts.append(groupEle)
 
     for products in shop_products:
         specList = list(ProductSpec.objects.filter(product__pro_id=products.pro_id))
@@ -231,7 +245,7 @@ def getShopProduct(request):
             selectedEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.pro_price),label=products.comment)
         selectedProducts.append(selectedEle)
 
-    res_dict = dict(today=todayProducts,hot=hotProducts,selected=selectedProducts)
+    res_dict = dict(limit=todayProducts,group=returnGroupProducts,selected=selectedProducts)
     res_json = json.dumps(res_dict)
     return HttpResponse(res_json)
 
@@ -525,31 +539,29 @@ def getRecommendPros(request):
     res_json = json.dumps(res_dict)
     return HttpResponse(res_json)
 
-def getCouponProducts(request):
+def getService(request):
+    res_dict = list()
+    shopIdstr = request.GET['orderId']
+    shopId = uuid.UUID(shopIdstr)
+    shop_services = list(Service.objects.filter(shop__shop_id=shopId))
+    for services in shop_services:
+        res_dict.append(id=str(services.service_id),name=services.service_name,price=services.service_price,origin_price=services.service_origin_price,desc=services.service_desc,detail=services.service_detail,on_self=services.on_shelf,image=APP_IMG_URL+str(services.service_image))
+    res_json = json.dumps(res_dict)
+    return HttpResponse(res_json)
+
+def getServiceBanners(request):
     res_dict = dict()
-    shop_products = list(ShopProduct.objects.all())
-    todayProducts = list()
-    for products in shop_products:
-        if(products.activityType==1):
-            specList = list(ProductSpec.objects.filter(product__pro_id=products.pro_id))
-            productSpec = list()
-            for specs in specList:
-                productSpec.append(dict(name=specs.spec_name,price=str(specs.spec_price)))
-            todayEle = dict(remain=products.pro_remain,spec=productSpec,id=str(products.pro_id),name=products.pro_name,desc=products.pro_desc,imgUrl=APP_IMG_URL+str(products.pro_image),oriPrice=str(products.pro_origin_price),price=str(products.limitPrice),count=products.limitCount,limitRemain=products.limitRemain,label=products.comment,limitStartTime=products.limitStartTime.strftime("%Y-%m-%d %H:%M:%S"),limitEndTime=products.limitEndTime.strftime("%Y-%m-%d %H:%M:%S"))
-            todayProducts.append(todayEle)
-    groupProducts = list()
-    groupProductList = list(ShopProduct.objects.filter(activityType=2))
-    for products in groupProductList:
-        specList = list(ProductSpec.objects.filter(product__pro_id=products.pro_id))
-        productSpec = list()
-        for specs in specList:
-            productSpec.append(dict(name=specs.spec_name,price=str(specs.spec_price)))
-        productgroups = ProductGroup.objects.filter(group_product__pro_id=products.pro_id)
-        groupList = list()
-        for productgroup in productgroups:
-            groupList.append(dict(id=str(productgroup.group_monitor.user_openid),avatar=productgroup.group_monitor.user_image))
-        groupProducts.append(dict(remain=products.pro_remain    ,spec=productSpec,id=str(products.pro_id),name=products.pro_name,imgUrl=APP_IMG_URL+str(products.pro_image),price=str(products.groupPrice),oriPrice=str(products.pro_origin_price),soldCount=products.buyTimes,buyer=groupList))
-    res_dict = dict(limitProducts=todayProducts,groupProducts=groupProducts)
+    shopIdstr = request.GET['orderId']
+    shopId = uuid.UUID(shopIdstr)
+    shop_serviceBanners = list(ServiceBanner.objects.filter(shop__shop_id=shopId))
+    column = list()
+    question = list()
+    for serviceBanners in shop_serviceBanners:
+        if(serviceBanners.banner_type==0):
+            column.append(id=str(serviceBanners.bannar_id),url=APP_IMG_URL+str(serviceBanners.bannar_url))
+        else:
+            question.append(id=str(serviceBanners.bannar_id),url=APP_IMG_URL+str(serviceBanners.bannar_url))
+    res_dict = dict(column=column,question=question)
     res_json = json.dumps(res_dict)
     return HttpResponse(res_json)
 
@@ -622,12 +634,19 @@ def deleteMyAddress(request):
     return HttpResponse('ok')
 
 def getBanners(request):
-    res_dict = list()
+    res_dict = dict()
     shopIdstr = request.GET['shopId']
     shopId = uuid.UUID(shopIdstr)
-    bannerList = ShopBannar.objects.filter(shop__shop_id=shopId)
+    bannerList = ShopBannar.objects.filter(shop__shop_id=shopId,bannar_type=null)
+    topBanners = list()
+    indexBanners = list()
     for banners in bannerList:
-        res_dict.append(dict(url=APP_IMG_URL+str(banners.bannar_url),position=banners.position))
+        if(banners.position==0):
+            topBanners.append(dict(url=APP_IMG_URL+str(banners.bannar_url)))
+        else:
+            indexBanners.append(dict(url=APP_IMG_URL+str(banners.bannar_url),position=banners.position))
+    sortedIndexBanners = sorted(indexBanners, key=operator.itemgetter('position'))
+    res_dict = dict(topBanner=topBanners,indexBanner=sortedIndexBanners)
     res_json = json.dumps(res_dict)
     return HttpResponse(res_json)
 

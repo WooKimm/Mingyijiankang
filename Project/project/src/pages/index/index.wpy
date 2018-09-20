@@ -365,7 +365,7 @@ page {
             </view>
             <repeat for="{{product.selected}}" key="id">
                 <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
-                    <view wx:if="{{item.label != ''}}" slot="extra" class="selected-item-label label-common">100%第三方权威检测</view>
+                    <view slot="extra" class="selected-item-label label-common">100%第三方权威检测</view>
                     <view slot="price" class="selected-item-price">
                         <view class="index-product-price">¥
                             <text>{{item.price}}</text>
