@@ -127,8 +127,7 @@ page {
             <view class="diagnosis-header">
                 <navigator url="../shop/shop" hover-class="none" class="diagnosis-shop">
                     <image src="/icons/position.png" class="diagnosis-icon-position" />
-                    <!-- <text class="shop-name">{{shopChoose.name}}</text> -->
-                    <text class="shop-name">重庆铭医堂医院</text>
+                    <text class="shop-name">{{shopChoose.name}}</text>
                 </navigator>
                 <view class="diagnosis-search">
                     <image src="/icons/search.png" class="diagnosis-icon-search" @tap="navToSearch" />
