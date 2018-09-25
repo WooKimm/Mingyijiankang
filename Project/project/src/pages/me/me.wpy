@@ -146,7 +146,7 @@
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
         <image src="/icons/me-bg.png" class="me-header-bg" />
-        <navBar navTitle="放心优选" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="铭医优选" :isIphoneX.sync="isIphoneX"></navBar>
         <view class="me-header">
             <button open-type="share" hover-class="none" class="me-invite">邀请好友</button>
             <view class="me-userinfo">
@@ -248,7 +248,7 @@ export default class Me extends wepy.page {
 
     onShareAppMessage() {
         return {
-            title: '放心优选',
+            title: '铭医优选',
             path: '/pages/index/index'
         };
     }

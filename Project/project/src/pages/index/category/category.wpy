@@ -135,7 +135,7 @@
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="放心优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="铭医优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
         <scroll-view scroll-y scroll-into-view="{{curType}}" scroll-with-animation="true" class="category-content">
             <view class="category-header">
                 <view class="category-shop">
@@ -382,7 +382,7 @@ export default class Category extends wepy.page {
 
     onShareAppMessage() {
         return {
-            title: '放心优选',
+            title: '铭医优选',
             path: '/pages/index/index'
         };
     }

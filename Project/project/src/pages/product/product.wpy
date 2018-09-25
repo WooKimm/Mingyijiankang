@@ -984,7 +984,7 @@ export default class Product extends wepy.page {
     onShareAppMessage() {
         var self = this;
         return {
-            title: '放心优选',
+            title: '铭医优选',
             path: '/pages/product/product?back=index&id=' + self.productID
         };
     }

@@ -153,7 +153,7 @@ page {
     background: #ed5736;
 }
 
-.limit-item-price {
+.product-item-price {
     position: absolute;
     bottom: 20rpx;
 }
@@ -179,7 +179,7 @@ page {
     display: inline-block;
 }
 
-.index-limit-cart {
+.index-product-cart {
     width: 130rpx;
     height: 45rpx;
     position: absolute;
@@ -277,14 +277,14 @@ page {
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="铭医商城" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="铭医优选" :isIphoneX.sync="isIphoneX"></navBar>
         <view class="index-header">
             <navigator url="../shop/shop" hover-class="none" class="index-shop">
                 <image src="/icons/position.png" class="index-icon-position" />
                 <text class="shop-name">{{shopChoose.name}}</text>
             </navigator>
-            <view class="index-search">
-                <image src="/icons/search.png" class="index-icon-search" @tap="navToSearch" />
+            <view class="index-search" @tap="navToSearch">
+                <image src="/icons/search.png" class="index-icon-search" />
                 <text>搜索</text>
             </view>
         </view>
@@ -324,14 +324,14 @@ page {
                 </view>
                 <repeat for="{{product.limit}}" key="id">
                     <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
-                        <view slot="price" class="limit-item-price">
+                        <view slot="price" class="product-item-price">
                             <view class="index-product-price">¥
                                 <text>{{item.price}}</text>
                             </view>
                             <view wx:if="{{item.oriPrice > 0}}" class="index-product-oriPrice">¥{{item.oriPrice}}</view>
                         </view>
-                        <image wx:if="{{item.remain > 0}}" slot="cart" src="/icons/cart-limit.png" class="index-limit-cart" @tap.stop="chooseSpec(0, {{index}})" />
-                        <image wx:else slot="cart" src="/icons/cart-empty.png" class="index-limit-cart" />
+                        <image wx:if="{{item.remain > 0}}" slot="cart" src="/icons/cart-limit.png" class="index-product-cart" @tap.stop="chooseSpec(0, {{index}})" />
+                        <image wx:else slot="cart" src="/icons/cart-empty.png" class="index-product-cart" />
                     </product>
                 </repeat>
                 <view wx:if="{{!product.limit}}" class="index-empty">暂无相关商品</view>
@@ -342,17 +342,16 @@ page {
                     <image src="/icons/优品拼单.png" class="block-title-img" />
                 </view>
                 <repeat for="{{product.group}}" key="id">
-                    <view class="index-product-group">
-                        <image src="{{item.imgUrl}}" class="index-group-img" />
-                        <view class="index-group-content">
-                            <view class="index-group-name">{{item.name}}</view>
+                    <product :id.sync="item.id" :imgUrl.sync="item.imgUrl" :name.sync="item.name" :desc.sync="item.desc" class="index-product">
+                        <view slot="price" class="product-item-price">
                             <view class="index-product-price">¥
                                 <text>{{item.price}}</text>
                             </view>
                             <view wx:if="{{item.oriPrice > 0}}" class="index-product-oriPrice">¥{{item.oriPrice}}</view>
-                            <image slot="cart" src="/icons/cart-group.png" class="index-group-cart" @tap.stop="chooseSpec(1, {{index}})" />
                         </view>
-                    </view>
+                        <image wx:if="{{item.remain > 0}}" slot="cart" src="/icons/cart-limit.png" class="index-product-cart" @tap.stop="chooseSpec(0, {{index}})" />
+                        <image wx:else slot="cart" src="/icons/cart-empty.png" class="index-product-cart" />
+                    </product>
                 </repeat>
                 <view wx:if="{{!product.group}}" class="index-empty">暂无相关商品</view>
             </view>
@@ -761,7 +760,7 @@ export default class Index extends wepy.page {
 
     onShareAppMessage() {
         return {
-            title: '放心优选',
+            title: '铭医优选',
             path: '/pages/index/index'
         };
     }

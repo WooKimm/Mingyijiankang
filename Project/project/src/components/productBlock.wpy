@@ -28,8 +28,8 @@
 
 .product-item-name {
     width: 400rpx;
-    color: #000000;
-    font-size: 32rpx;
+    color: #333333;
+    font-size: 30rpx;
     line-height: 45rpx;
     font-weight: 600;
     margin-bottom: 5rpx;
@@ -214,7 +214,7 @@
 <template>
     <view class="product-item" @tap="navToProduct({{id}})">
         <view class="product-container">
-            <image src="{{imgUrl}}" class="product-item-img" />
+            <image src="{{imgUrl}}" mode="aspectFill" class="product-item-img" />
             <view class="product-item-content">
                 <view class="product-item-name">{{name}}</view>
                 <view class="product-item-desc">{{desc}}</view>

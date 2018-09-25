@@ -386,7 +386,7 @@ page {
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="放心优选" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="铭医优选" :isIphoneX.sync="isIphoneX"></navBar>
         <view wx:if="{{shoppingCart.length > 0}}" class="shoppingCart-content">
             <image src="/icons/address-bg.png" class="shoppingCart-header" />
             <view wx:if="{{deliverChoose < 1}}" class="shoppingCart-block shoppingCart-shop">
@@ -844,7 +844,7 @@ export default class ShoppingCart extends wepy.page {
 
     onShareAppMessage() {
         return {
-            title: '放心优选',
+            title: '铭医优选',
             path: '/pages/index/index'
         };
     }

@@ -4,14 +4,14 @@ page {
 }
 
 .search-bar {
-    width: 690rpx;
+    width: 750rpx;
     height: 70rpx;
-    margin: 0 30rpx;
-    padding: 5rpx 0;
+    margin-top: 20rpx;
+    padding: 5rpx 60rpx;
 }
 
 .search-bar-content {
-    width: 620rpx;
+    width: 560rpx;
     height: 60rpx;
     padding-left: 55rpx;
     padding-right: 30rpx;
@@ -242,7 +242,7 @@ page {
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="放心优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="铭医优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
         <view class="search-bar">
             <view class="search-bar-content">
                 <image src="/icons/search.png" class="search-bar-icon" />
@@ -545,9 +545,11 @@ export default class Search extends wepy.page {
         self.recommend = recommendProducts.data;
 
         let hotSearch = await api.getHotSearch();
-        self.hotSearch.forEach(element => {
-            self.hot.push(element.name);
-        });
+        if (hotSearch.length > 0) {
+            self.hotSearch.forEach(element => {
+                self.hot.push(element.name);
+            });
+        }
 
         var history = wx.getStorageSync('history');
         if (history) {

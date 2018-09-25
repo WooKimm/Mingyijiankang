@@ -226,7 +226,7 @@ page {
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="铭医商城" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="铭医优选" :isIphoneX.sync="isIphoneX"></navBar>
         <scroll-view scroll-y scroll-into-view="{{scrollToModule}}" scroll-with-animation="true" class="service-container">
             <view class="service-header">
                 <navigator url="../shop/shop" hover-class="none" class="service-shop">
@@ -529,7 +529,7 @@ export default class Service extends wepy.page {
 
     onShareAppMessage() {
         return {
-            title: '放心优选',
+            title: '铭医优选',
             path: '/pages/service/service'
         };
     }

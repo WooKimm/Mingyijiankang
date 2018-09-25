@@ -122,7 +122,7 @@ page {
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="铭医商城" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="铭医优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
         <view class="diagnosis-container">
             <view class="diagnosis-header">
                 <navigator url="../shop/shop" hover-class="none" class="diagnosis-shop">
@@ -197,7 +197,7 @@ export default class Diagnosis extends wepy.page {
 
     onShareAppMessage() {
         return {
-            title: '放心优选',
+            title: '铭医优选',
             path: '/pages/diagnosis/diagnosis'
         };
     }
