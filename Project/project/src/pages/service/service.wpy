@@ -390,6 +390,8 @@ export default class Service extends wepy.page {
         curProduct: {},
         specChoose: 0,
         count: 1,
+        isLogining: false,
+        hasUserInfo: false,
         isIphoneX: false,
         color: {}
     };
@@ -477,8 +479,14 @@ export default class Service extends wepy.page {
             return count;
         },
 
-        addToCart() {
+        async addToCart() {
             var self = this;
+            if (!self.isLogining && self.hasUserInfo == false) {
+                self.isLogining = true;
+                await self.$parent.getGlobalUserInfo();
+                self.hasUserInfo = self.$parent.globalData.hasUserInfo;
+                self.isLogining = false;
+            }
             var shoppingCart = wx.getStorageSync('shoppingCart');
             var hasCur = false;
             if (shoppingCart.length > 0) {
@@ -538,6 +546,7 @@ export default class Service extends wepy.page {
         var self = this;
         self.color = self.$parent.globalData.color;
         self.isIphoneX = self.$parent.globalData.isIphoneX;
+        self.hasUserInfo = self.$parent.globalData.hasUserInfo;
 
         var shop = wx.getStorageSync('shopChoose');
         if (shop != '') {
@@ -545,6 +554,9 @@ export default class Service extends wepy.page {
             self.$apply();
         }
 
+        wx.showLoading({
+            title: '服务加载中'
+        })
         let service = await api.getService({
             query: {
                 shopId: self.shopChoose.id
@@ -553,6 +565,7 @@ export default class Service extends wepy.page {
         console.log(service);
         self.specialProduct = service.data;
         self.$apply();
+        wx.hideLoading();
 
         let serviceBanners = await api.getServiceBanners({
             query: {

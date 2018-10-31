@@ -259,6 +259,8 @@ export default class Category extends wepy.page {
         curProduct: {},
         specChoose: 0,
         count: 1,
+        isLogining: false,
+        hasUserInfo: false,
         isIphoneX: false,
         color: {}
     };
@@ -339,8 +341,14 @@ export default class Category extends wepy.page {
             return count;
         },
 
-        addToCart() {
+        async addToCart() {
             var self = this;
+            if (!self.isLogining && self.hasUserInfo == false) {
+                self.isLogining = true;
+                await self.$parent.getGlobalUserInfo();
+                self.hasUserInfo = self.$parent.globalData.hasUserInfo;
+                self.isLogining = false;
+            }
             var shoppingCart = wx.getStorageSync('shoppingCart');
             var hasCur = false;
             if (shoppingCart.length > 0) {
@@ -387,17 +395,26 @@ export default class Category extends wepy.page {
         };
     }
 
+    onShow(){
+        this.hasUserInfo = this.$parent.globalData.hasUserInfo;
+        this.$apply();
+    }
+
     async onLoad(options) {
         var self = this;
         self.category = options.name;
         self.categoryID = options.id;
         self.color = self.$parent.globalData.color;
         self.isIphoneX = self.$parent.globalData.isIphoneX;
+        self.hasUserInfo = self.$parent.globalData.hasUserInfo;
         var shop = wx.getStorageSync('shopChoose');
         if (shop != '') {
             self.shopChoose = shop;
             self.$apply();
         }
+        wx.showLoading({
+            title: '商品加载中'
+        });
         let res = await api.getCategoryProduct({
             query: {
                 shopId: self.shopChoose.id,
@@ -418,6 +435,7 @@ export default class Category extends wepy.page {
         });
         self.product = res.data.product;
         self.$apply();
+        wx.hideLoading();
     }
 }
 </script>

@@ -256,7 +256,7 @@ page {
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="填写订单" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="填写订单" isChildPage="y" />
         <image src="/icons/address-bg.png" class="order-header" />
         <view class="order-block order-info">
             <view wx:if="{{deliverChoose < 1}}" class="order-shop">
@@ -310,7 +310,7 @@ page {
             <navigator url="../redPacket/redPacket?type=1" class="order-item order-total-redPacket">
                 <image src="/icons/redPacket.png" class="order-redPacket-icon" /> 红包
                 <image src="/icons/in.png" class="icon-in" />
-                <text style="color:{{redPacket.count == 0 ? '#bfbfbf' : color.red}}">
+                <text style="color:{{redPacket.id == '' ? '#bfbfbf' : color.red}}">
                     <block wx:if="{{redPacket.id == ''}}">请选择红包</block>
                     <block wx:else>{{redPacket.count}}元</block>
                 </text>
@@ -360,10 +360,12 @@ export default class Order extends wepy.page {
 
     data = {
         shopChoose: {
-            id: 'f8e0b4083ce54cd4ac189f857c8fdfd1',
+            id: '',
             name: ''
         },
-        addressChoose: {},
+        addressChoose: {
+            id: ''
+        },
         deliverChoose: -1,
         freightChoose: 0,
         deliverList: [
@@ -381,8 +383,7 @@ export default class Order extends wepy.page {
             }
         ],
         redPacket: {
-            id: '',
-            count: 0
+            id: ''
         },
         remain: 0,
         type: 0,
@@ -396,7 +397,7 @@ export default class Order extends wepy.page {
     computed = {
         total() {
             var subtotal = this.subtotal * 100;
-            var redPacket = this.redPacket.count * 100;
+            var redPacket = this.redPacket.count ? this.redPacket.count * 100 : 0;
             var total = subtotal - redPacket;
             total = parseInt(total);
             return total > 0 ? total / 100 : 0;
@@ -436,14 +437,21 @@ export default class Order extends wepy.page {
         var total = 0;
         var cur = 0;
         self.subtotal = 0;
-        self.product.forEach(element => {
-            cur = element.price * 100;
-            cur = cur * element.count;
-            total += cur;
-        });
+        if (self.product != null) {
+            self.product.forEach(element => {
+                cur = element.price * 100;
+                cur = cur * element.count;
+                total += cur;
+            });
+        }
         self.subtotal = parseInt(self.subtotal);
         self.subtotal = total / 100;
         self.$apply();
+        console.log(self.subtotal);
+        console.log(self.total);
+        console.log(self.totalFinal);
+        console.log(self.redPacket);
+        console.log(self.addressChoose);
     }
 
     events = {};
@@ -490,50 +498,114 @@ export default class Order extends wepy.page {
         var self = this;
         var nowTime = new Date().getTime();
         var nextTime = new Date((nowTime / 1000 + 24 * 60 * 60) * 1000);
-        self.sendTime = nextTime.getFullYear() + '-' + self.timeFormat(nextTime.getMonth() + 1) + '-' + self.timeFormat(nextTime.getDate());
+        self.sendTime =
+            nextTime.getFullYear() +
+            '-' +
+            self.timeFormat(nextTime.getMonth() + 1) +
+            '-' +
+            self.timeFormat(nextTime.getDate());
         self.$apply();
     }
 
     onLoad(options) {
         var self = this;
         self.type = options.type;
-        self.shopChoose = wx.getStorageSync('shopChoose');
-        self.product = wx.getStorageSync('orderProduct');
         wx.getStorage({
-            key: 'deliverChoose',
+            key: 'shopChoose',
             success: function(res) {
-                if (res.data >= 0) {
-                    self.deliverChoose = res.data;
-                    self.freightChoose =
-                        self.deliverList[self.deliverChoose].freight;
-                }
+                self.shopChoose = res.data;
+                self.$apply();
             }
         });
+        self.product = wx.getStorageSync('orderProduct');
+        if (options.entry == 0) {
+            wx.setStorage({
+                key: 'address',
+                data: self.addressChoose
+            });
+            wx.setStorage({
+                key: 'redPacket',
+                data: self.redPacket
+            });
+            wx.setStorage({
+                key: 'deliverChoose',
+                data: -1
+            });
+        } else {
+            wx.getStorage({
+                key: 'deliverChoose',
+                success: function(res) {
+                    if (res.data >= 0) {
+                        self.deliverChoose = res.data;
+                        self.freightChoose =
+                            self.deliverList[self.deliverChoose].freight;
+                    }
+                }
+            });
+            wx.getStorage({
+                key: 'address',
+                success: function(res) {
+                    self.addressChoose = res.data;
+                    self.$apply();
+                }
+            });
+            wx.getStorage({
+                key: 'redPacket',
+                success: function(res) {
+                    self.redPacket = res.data;
+                    self.$apply();
+                }
+            });
+        }
+        console.log(self.shopChoose);
         self.color = self.$parent.globalData.color;
         self.isIphoneX = self.$parent.globalData.isIphoneX;
-        self.updateTime();
         self.$apply();
+        self.updateTime();
         self.updateTotal();
     }
 
     async submitOrder() {
         let self = this;
+        if (self.deliverChoose < 0) {
+            wx.showToast({
+                title: '请先选择配送方式',
+                icon: 'none',
+                duration: 1000
+            });
+            return;
+        } else if (self.deliverChoose > 0 && self.addressChoose == null) {
+            wx.showToast({
+                title: '请先选择配送地址',
+                icon: 'none',
+                duration: 1000
+            });
+            return;
+        } else if (self.deliverChoose == 0) {
+            self.addressChoose = {
+                id: ''
+            };
+            self.$apply();
+        }
         var jwt = wx.getStorageSync('jwt');
         console.log(self.redPacket);
         console.log(self.product);
+        var totalPrice = parseInt(self.subtotal * 100);
+        console.log(totalPrice);
         try {
             if (jwt.data.access_token != null) {
-                let res = await api.submitOrder({
+                let res = await api.payOrder({
                     query: JSON.stringify({
                         access_token: jwt.data.access_token,
                         account_id: jwt.data.account_id,
-                        shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1',
-                        deliver: self.deliverList[0],
+                        shopId: self.shopChoose.id,
+                        deliver: self.deliverList[self.deliverChoose],
                         product: self.product,
                         redPacket: self.redPacket.id,
                         remain: self.remain,
                         type: self.type,
-                        total: self.total
+                        price: '1',
+                        address: self.addressChoose.id
                     }),
                     method: 'POST',
                     header: {
@@ -541,6 +613,55 @@ export default class Order extends wepy.page {
                     }
                 });
                 console.log(res);
+
+                wx.requestPayment({
+                    timeStamp: res.data.timeStamp,
+                    nonceStr: res.data.nonceStr,
+                    package: res.data.prepay_id,
+                    signType: 'MD5',
+                    paySign: res.data.paySign,
+                    success: async function(res1) {
+                        console.log('支付成功');
+                        console.log(res1);
+                        let res_data = await api.finishPay({
+                            query: JSON.stringify({
+                                orderId: res.data.newOrderId
+                            }),
+                            method: 'POST',
+                            header: {
+                                'Content-Type':
+                                    'application/x-www-form-urlencoded'
+                            }
+                        });
+                        await wx.showToast({
+                            title: '支付成功！',
+                            image: '/icons/select-yes.png',
+                            duration: 500
+                        });
+                        wx.redirectTo({
+                            url: '/pages/me/orderList/orderList?index=0'
+                        });
+                    },
+                    fail: async function(res1) {
+                        console.log(res1);
+                        console.log('支付失败');
+                        var errMsg = '';
+                        if(res1.errMsg == 'requestPayment:fail cancel'){
+                            errMsg = '支付取消！';
+                        }else{
+                            errMsg = '支付失败！';
+                        }
+                        await wx.showToast({
+                            title: errMsg,
+                            image: '/icons/cancel.png',
+                            duration: 500
+                        });
+                        wx.redirectTo({
+                            url: '/pages/me/orderList/orderList?index=0'
+                        });
+                    },
+                    complete: function(res1) {}
+                });
                 self.$apply();
             }
         } catch (error) {

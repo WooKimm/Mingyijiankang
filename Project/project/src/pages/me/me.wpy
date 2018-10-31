@@ -27,11 +27,33 @@
     line-height: 40rpx;
     position: absolute;
     top: 10rpx;
-    left: 30rpx;
+    left: 45rpx;
 }
 
-.me-invite::after {
+.me-register {
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    font-size: 28rpx;
+    line-height: 40rpx;
+    position: absolute;
+    top: 10rpx;
+    right: 45rpx;
+}
+
+.me-invite::after,
+.me-register::after {
     border: none;
+}
+
+.me-point {
+    color: #ffffff;
+    font-size: 28rpx;
+    line-height: 40rpx;
+    position: absolute;
+    bottom: 190rpx;
+    right: 45rpx;
 }
 
 .me-userinfo {
@@ -64,7 +86,7 @@
     display: block;
 }
 
-.me-userinfo-login{
+.me-userinfo-login {
     width: 160rpx;
     height: 160rpx;
     color: #ffffff;
@@ -146,32 +168,34 @@
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
         <image src="/icons/me-bg.png" class="me-header-bg" />
-        <navBar navTitle="铭医优选" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="铭医优选" />
         <view class="me-header">
             <button open-type="share" hover-class="none" class="me-invite">邀请好友</button>
+            <button hover-class="none" class="me-register" @tap="registerNow">{{hasRegister === false ? '今日签到' : '今日已签到'}}</button>
+            <view class="me-point">积分：{{userInfo.point}}</view>
             <view class="me-userinfo">
                 <block wx:if="{{hasUserInfo === false}}">
                     <button class="me-userinfo-login" open-type="getUserInfo" bindtap="getUserInfoFun">登录</button>
                 </block>
                 <block wx:else>
-                    <image src="{{globalData.globalUserInfo.avatar}}" class="me-userinfo-avatar" />
-                    <view class="me-userinfo-name">{{globalData.globalUserInfo.nickName}}</view>
+                    <image src="{{userInfo.avatar}}" class="me-userinfo-avatar" />
+                    <view class="me-userinfo-name">{{userInfo.nickName}}</view>
                 </block>
             </view>
             <view class="me-order">
-                <view class="me-order-item" @tap="toOrderList(0)">
+                <view class="me-order-item" @tap="toOrderList(1)">
                     <image src="/icons/toPay.png" class="me-order-icon" />
                     <text>待付款</text>
                 </view>
-                <view class="me-order-item" @tap="toOrderList(1)">
+                <view class="me-order-item" @tap="toOrderList(2)">
                     <image src="/icons/toReceive.png" class="me-order-icon" />
                     <text>待收货</text>
                 </view>
-                <view class="me-order-item" @tap="toOrderList(2)">
+                <view class="me-order-item" @tap="toOrderList(3)">
                     <image src="/icons/toGroup.png" class="me-order-icon" />
                     <text>待成团</text>
                 </view>
-                <view class="me-order-item" @tap="toOrderList(3)">
+                <view class="me-order-item" @tap="toOrderList(0)">
                     <image src="/icons/orderAll.png" class="me-order-icon" />
                     <text>全部订单</text>
                 </view>
@@ -210,29 +234,14 @@ export default class Me extends wepy.page {
     };
 
     data = {
+        hasRegister: false,
+        isRegistering: false,
         hasUserInfo: false,
         userInfo: {
-            name: '小鱼',
-            avatar: ''
+            point: 0
         },
         globalData: {},
         isIphoneX: false
-    };
-
-    async getUserInfoFun(e) {
-        let self = this;
-        let jwt = await log_in.log_in();
-        if (jwt.data.access_token != null) {
-            let res = await api.login({
-                query: {
-                    access_token: jwt.data.access_token,
-                    account_id: jwt.data.account_id
-                }
-            });
-            self.globalData.globalUserInfo = res.data;
-            self.hasUserInfo = true;
-            self.$apply();
-        }
     };
 
     methods = {
@@ -242,34 +251,125 @@ export default class Me extends wepy.page {
             });
         },
 
+        async getUserInfoFun() {
+            await this.$parent.getGlobalUserInfo();
+            this.userInfo = this.$parent.globalData.userInfo;
+            this.hasUserInfo = this.$parent.globalData.hasUserInfo;
+            this.getUserPoint();
+            this.$apply();
+        },
+
+        async registerNow() {
+            if (!this.isRegistering && !this.hasRegister) {
+                this.isRegistering = true;
+                var jwt = wx.getStorageSync('jwt');
+                let self = this;
+                if (jwt.data.access_token != null) {
+                    wx.showLoading({
+                        title: '签到中'
+                    });
+                    let res = await api.signToday({
+                        query: {
+                            access_token: jwt.data.access_token,
+                            account_id: jwt.data.account_id
+                        }
+                    });
+                    wx.hideLoading();
+                    console.log(res);
+                    if (res != null) {
+                        self.userInfo.point = res.data.point;
+                        self.$parent.globalData.userInfo.point = res.data.point;
+                        self.hasRegister = true;
+                        wx.showToast({
+                            title: '签到成功！',
+                            icon: 'success',
+                            duration: 1000
+                        });
+                    } else {
+                        wx.showToast({
+                            title: '签到失败！',
+                            icon: 'none',
+                            duration: 1000
+                        });
+                    }
+                }
+                this.isRegistering = false;
+                self.$apply();
+            }
+        }
     };
 
     events = {};
 
     onShareAppMessage() {
         return {
-            title: '铭医优选',
+            title: '放心优选',
             path: '/pages/index/index'
         };
     }
 
-    async onLoad() {
+    async getUserPoint() {
+        wx.showLoading({
+            title: '获取用户积分'
+        });
+        var self = this;
         var jwt = wx.getStorageSync('jwt');
+        if (jwt.data.access_token != null) {
+            let hasRegistered = await api.getSignInfo({
+                query: {
+                    access_token: jwt.data.access_token,
+                    account_id: jwt.data.account_id
+                }
+            });
+            console.log(hasRegistered);
+            self.hasRegister = hasRegistered.data.signed;
+            self.userInfo.point = hasRegistered.data.point;
+            self.$apply();
+            console.log(self.hasRegister);
+        }
+        wx.hideLoading();
+    }
+
+    onShow() {
+        this.userInfo = this.$parent.globalData.userInfo;
+        this.hasUserInfo = this.$parent.globalData.hasUserInfo;
+        this.$apply();
+        if (this.hasUserInfo) {
+            this.getUserPoint();
+        }
+    }
+
+    async onLoad() {
         let self = this;
         self.isIphoneX = self.$parent.globalData.isIphoneX;
+        self.hasUserInfo = self.$parent.globalData.hasUserInfo;
         self.$apply();
 
-        if (jwt.data.access_token != null) {
+        var jwt = wx.getStorageSync('jwt');
+        if (self.hasUserInfo) {
+            self.userInfo = self.$parent.globalData.userInfo;
+        } else if (jwt.data.access_token != null) {
+            wx.showLoading({
+                title: '登录中'
+            });
             let res = await api.login({
                 query: {
                     access_token: jwt.data.access_token,
                     account_id: jwt.data.account_id
                 }
             });
-            self.globalData.globalUserInfo = res.data;
-            self.hasUserInfo = true;
-            console.log(self.globalData.globalUserInfo)
+            wx.hideLoading();
+            console.log(res.data);
+            if (res.data.nickName != '') {
+                self.userInfo = res.data;
+                self.hasUserInfo = true;
+                self.$parent.globalData.userInfo = res.data;
+                self.$parent.globalData.hasUserInfo = true;
+            }
             self.$apply();
+        }
+        if (self.hasUserInfo) {
+            self.getUserPoint();
         }
     }
 }

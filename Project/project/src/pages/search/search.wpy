@@ -4,14 +4,14 @@ page {
 }
 
 .search-bar {
-    width: 750rpx;
+    width: 690rpx;
     height: 70rpx;
-    margin-top: 20rpx;
-    padding: 5rpx 60rpx;
+    margin: 0 30rpx;
+    padding: 5rpx 0;
 }
 
 .search-bar-content {
-    width: 560rpx;
+    width: 620rpx;
     height: 60rpx;
     padding-left: 55rpx;
     padding-right: 30rpx;
@@ -242,7 +242,7 @@ page {
 </style>
 <template>
     <view class="container" style="padding-top:{{isIphoneX ? '87px' : '62px'}}">
-        <navBar navTitle="铭医优选" isChildPage="y" :isIphoneX.sync="isIphoneX"></navBar>
+        <navBar navTitle="放心优选" isChildPage="y" />
         <view class="search-bar">
             <view class="search-bar-content">
                 <image src="/icons/search.png" class="search-bar-icon" />
@@ -339,6 +339,7 @@ export default class Search extends wepy.page {
     };
 
     data = {
+        shopChoose: {},
         searchValue: '',
         showResult: false,
         hot: [],
@@ -350,6 +351,8 @@ export default class Search extends wepy.page {
         curProduct: {},
         specChoose: 0,
         count: 1,
+        isLogining: false,
+        hasUserInfo: false,
         isIphoneX: false,
         color: {}
     };
@@ -395,14 +398,6 @@ export default class Search extends wepy.page {
                 self.curProduct = self.recommend[index];
             } else if (type == 1) {
                 self.curProduct = self.result[index];
-            }
-            if (self.curProduct.remain < 1) {
-                wx.showToast({
-                    title: '库存不足',
-                    icon: 'none',
-                    duration: 1000
-                });
-                return;
             }
             self.specChoose = 0;
             self.count = 1;
@@ -451,11 +446,17 @@ export default class Search extends wepy.page {
             return count;
         },
 
-        addToCart() {
+        async addToCart() {
             var self = this;
+            if (!self.isLogining && self.hasUserInfo == false) {
+                self.isLogining = true;
+                await self.$parent.getGlobalUserInfo();
+                self.hasUserInfo = self.$parent.globalData.hasUserInfo;
+                self.isLogining = false;
+            }
             var shoppingCart = wx.getStorageSync('shoppingCart');
             var hasCur = false;
-            if (shoppingCart.length > 0) {
+            if (shoppingCart != null) {
                 shoppingCart.forEach(element => {
                     if (element.id == self.curProduct.id) {
                         hasCur = true;
@@ -502,7 +503,7 @@ export default class Search extends wepy.page {
             }
         });
         var data = res.data;
-        if (data.length > 0) {
+        if (data != null) {
             self.match = [];
             data.forEach(element => {
                 self.match.push(element.name);
@@ -536,16 +537,24 @@ export default class Search extends wepy.page {
         var self = this;
         self.color = self.$parent.globalData.color;
         self.isIphoneX = self.$parent.globalData.isIphoneX;
+        self.hasUserInfo = self.$parent.globalData.hasUserInfo;
+
+        var shop = wx.getStorageSync('shopChoose');
+        if (shop != '') {
+            self.shopChoose = shop;
+            self.$apply();
+        }
+        console.log(self.shopChoose);
         let recommendProducts = await api.getRecommendPros({
             query: {
-                shopId: 'f8e0b4083ce54cd4ac189f857c8fdfd1'
+                shopId: self.shopChoose.id
             }
         });
         console.log(recommendProducts);
         self.recommend = recommendProducts.data;
 
         let hotSearch = await api.getHotSearch();
-        if (hotSearch.length > 0) {
+        if (self.hotSearch != null) {
             self.hotSearch.forEach(element => {
                 self.hot.push(element.name);
             });
